@@ -1,0 +1,75 @@
+/* Form.css */
+.logo {
+  width: 300px; /* Ajusta este valor al tamaño que prefieras */
+  /* Si también quieres ajustar el alto, puedes usar la propiedad height */
+  /* height: 100px; */
+  padding-bottom: 30px;
+}
+.form {
+  margin-top: 175px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('../../img/fotofondob3.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.form, .input, .submit, .div {
+  position: relative;
+  z-index: 1;  
+}
+
+.form-padding {
+  padding-top: 35px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #0e0d0de7;
+  border-radius: 4px;
+}
+
+.submit {
+  width: 100%;
+  padding: 5px 5px 5px 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: #080808;
+  color: white;
+  cursor: pointer;
+}
+
+.div {
+  padding-top: 15px;
+  color: white;
+}
+
+.submit:hover {
+  background-color: #252525;
+}
+
+.submit:active {
+  background-color: #080808;
+}
+.label {
+  padding-bottom: 10px;
+  color: white;
+}
+.error-message {
+  color: red;
+  font-weight: bold;
+}

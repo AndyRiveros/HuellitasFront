@@ -1,0 +1,93 @@
+/* .instrumento-detail {
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  margin: 50px;
+  min-width: 320px;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.instrumento-detail .left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.instrumento-detail .left img {
+  width: 70%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.instrumento-detail .left p {
+  font-weight: bold;
+}
+
+.instrumento-detail .right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.instrumento-detail .right .info-container {
+  padding: 20px;
+  border: 1px solid #ccc; /* Bordes grises */
+  /* border-radius: 10px; */
+  /* color: white; */
+/* } */
+ 
+/* .instrumento-detail .envio-gratis { */
+  /* color: green; */
+/* }  */
+
+
+
+
+.instrumento-detail-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+  color: white;
+  padding-top: 100px;
+}
+
+.instrumento-detail-content .instrumento-image {
+  flex: 1;
+}
+
+.instrumento-detail-content .instrumento-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.instrumento-detail-content .instrumento-info {
+  flex: 2;
+  margin-left: 20px;
+}
+
+.instrumento-detail-content .instrumento-info h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 2em;
+}
+
+.instrumento-detail-content .instrumento-info p {
+  margin: 10px 0;
+}
+
+.instrumento-detail-content .instrumento-info h2 {
+  color: yellow;
+}
+
+.instrumento-detail-content .envio-gratis {
+  color: green;
+}
+
+.instrumento-detail-content .envio-gratis img {
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+}

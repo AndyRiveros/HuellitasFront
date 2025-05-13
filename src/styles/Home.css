@@ -1,0 +1,53 @@
+
+.anton-regular {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 50px;
+}
+
+.home-container.home {
+  display:flexbox;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 0 auto; /* Añade esta línea */
+ } 
+
+.carousel .carousel-image {
+    width: 50%;
+    height: 500px; /* Ajusta este valor según tus necesidades */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.carousel .d-block {
+  width: 50%;
+  /* height: 800px; Ajusta este valor según tus necesidades */
+  object-fit: cover;
+  box-sizing: border-box;
+}
+.title-container, .carousel {
+    color: #ffffff;
+    font-weight: bold; 
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 500px;
+}
+.description{
+    color: black;
+    font-weight: bold;
+}
+.divsep{
+    padding-top: 15px;
+    background: linear-gradient(to right, #8B4513, #A0522D);
+}
+.parrafo{
+  color: white;
+}
