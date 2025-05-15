@@ -1,20 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Menu from './Menu';
-import { Carousel } from 'react-bootstrap'; // Asegúrate de instalar este paquete
+import { Carousel } from 'react-bootstrap';
 import '../styles/Home.css';
-import Instrumento from '../types/Instrumentos'; // Asegúrate de tener este tipo definido
+import Instrumento from '../types/Instrumentos';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../utils/AuthContext';
+import { CarritoContext } from '../components/CarritoContext';
+import Modal from 'react-modal';
+import Carrito from './Carrito';
+import FloatingCarritoButton from './FloatingCarritoButton';
 
 const Home = () => {
   const [productos, setProductos] = useState<Instrumento[]>([]);
+  const authContext = useContext(AuthContext);
+  const carritoContext = useContext(CarritoContext);
+  const usuario = authContext ? authContext.usuario : undefined;
+  const navigate = useNavigate();
+
+  const [showCarrito, setShowCarrito] = useState(false);
 
   useEffect(() => {
-    // Llamada al backend para obtener todos los productos
     const fetchProductos = async () => {
       try {
         const response = await fetch('http://localhost:8080/api/instrumentos');
         const data = await response.json();
 
-        // Asegúrate de que los datos sean un array
         if (Array.isArray(data)) {
           setProductos(data);
         } else {
@@ -27,6 +37,24 @@ const Home = () => {
 
     fetchProductos();
   }, []);
+
+  const agregarAlCarrito = (instrumento: Instrumento) => {
+    if (!usuario) {
+      alert('Debes iniciar sesión para agregar productos al carrito.');
+      navigate('/login'); // Redirige al login si no está autenticado
+      return;
+    }
+
+    carritoContext?.agregarAlCarrito(instrumento);
+  };
+
+  const abrirCarrito = () => {
+    setShowCarrito(true);
+  };
+
+  const cerrarCarrito = () => {
+    setShowCarrito(false);
+  };
 
   return (
     <div>
@@ -42,17 +70,26 @@ const Home = () => {
             </p>
           </div>
         </div>
-       <Carousel className="custom-carousel">
-  <Carousel.Item>
-    <img className="d-block w-100" src="img/banner.jpg" alt="Imagen 1" />
-  </Carousel.Item>
-  <Carousel.Item>
-    <img className="d-block w-100" src="img/banner2.jpg" alt="Imagen 2" />
-  </Carousel.Item>
-  <Carousel.Item>
-    <img className="d-block w-100" src="img/musica3.jpg" alt="Imagen 3" />
-  </Carousel.Item>
-</Carousel>
+        {(carritoContext?.carrito?.length ?? 0) > 0 && (
+  <FloatingCarritoButton onClick={abrirCarrito} />
+
+)}
+
+        <Modal isOpen={showCarrito} onRequestClose={cerrarCarrito}>
+          <Carrito carrito={carritoContext?.carrito || []} onEliminarDelCarrito={carritoContext?.eliminarDelCarrito || (() => {})} />
+          <button onClick={cerrarCarrito}>Cerrar Carrito</button>
+        </Modal>
+        <Carousel className="custom-carousel">
+          <Carousel.Item>
+            <img className="d-block w-100" src="img/banner.jpg" alt="Imagen 1" />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img className="d-block w-100" src="img/banner2.jpg" alt="Imagen 2" />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img className="d-block w-100" src="https://thumbs.dreamstime.com/b/muchos-gatos-de-diferentes-razas-y-tama%C3%B1os-sobre-fondo-blanco-banner-web-para-publicidad-cl%C3%ADnicas-veterinarias-sal%C3%B3n-belleza-278094388.jpg" alt="Imagen 3" />
+          </Carousel.Item>
+        </Carousel>
 
         {/* Carrusel de productos existentes */}
         <div className="productos-existentes">
@@ -78,6 +115,12 @@ const Home = () => {
                         />
                         <h4>{producto.instrumento}</h4>
                         <p>Precio: ${producto.precio}</p>
+                        <button onClick={() => agregarAlCarrito(producto)}>
+                          Agregar al carrito
+                        </button>
+                        <Link to={`/instrumento/${producto.id}`}>
+                          <button>Ver detalles</button>
+                        </Link>
                       </div>
                     ))}
                   </div>
@@ -88,7 +131,7 @@ const Home = () => {
             )}
           </Carousel>
         </div>
-        {/* Carrusel de productos existentes */}
+        {/* Carrusel de productos para adultos */}
         <div className="productos-existentes">
           <h3 className="section-title">Para Adultos</h3>
           <Carousel className="productos-carousel" indicators={false}>
@@ -112,6 +155,12 @@ const Home = () => {
                         />
                         <h4>{producto.instrumento}</h4>
                         <p>Precio: ${producto.precio}</p>
+                        <button onClick={() => agregarAlCarrito(producto)}>
+                          Agregar al carrito
+                        </button>
+                        <Link to={`/instrumento/${producto.id}`}>
+                          <button>Ver detalles</button>
+                        </Link>
                       </div>
                     ))}
                   </div>
@@ -122,7 +171,7 @@ const Home = () => {
             )}
           </Carousel>
         </div>
-        {/* Carrusel de productos existentes */}
+        {/* Carrusel de productos para cachorros */}
         <div className="productos-existentes">
           <h3 className="section-title">Para Cachorros</h3>
           <Carousel className="productos-carousel" indicators={false}>
@@ -146,6 +195,12 @@ const Home = () => {
                         />
                         <h4>{producto.instrumento}</h4>
                         <p>Precio: ${producto.precio}</p>
+                        <button onClick={() => agregarAlCarrito(producto)}>
+                          Agregar al carrito
+                        </button>
+                        <Link to={`/instrumento/${producto.id}`}>
+                          <button>Ver detalles</button>
+                        </Link>
                       </div>
                     ))}
                   </div>

@@ -16,7 +16,9 @@
   text-align: center;
   box-sizing: border-box;
   margin: 0 auto; /* Añade esta línea */
- } 
+  padding-bottom: 500px; /* Espacio adicional para separar el contenido del footer */
+}
+ 
 
 .carousel .carousel-image {
     width: 50%;
@@ -66,6 +68,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  padding-bottom: 100px;
 }
 
 .producto-card {
@@ -114,4 +117,59 @@
   height: 300px; /* Ajusta este valor según tus necesidades */
   object-fit: cover; /* Asegura que las imágenes mantengan sus proporciones */
   width: 100%; /* Mantén el ancho completo */
+}
+.producto-card button {
+  font-size: 12px; /* Tamaño de fuente más pequeño */
+  padding: 5px 10px; /* Espaciado interno reducido */
+  margin: 5px; /* Espaciado entre botones */
+  border: none;
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #6a0dad; /* Color de fondo */
+  color: white; /* Color del texto */
+  cursor: pointer;
+}
+
+.producto-card button:hover {
+  background-color: #8a2be2; /* Color de fondo al pasar el mouse */
+}
+
+.producto-card a button {
+  font-size: 12px; /* Asegura que los botones dentro de enlaces también sean pequeños */
+}
+.carrito-flotante {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #f97316; /* naranja pet-friendly */
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.carrito-flotante:hover {
+  transform: scale(1.1);
+}
+
+.carrito-icono {
+  width: 32px;
+  height: 32px;
+  filter: invert(1);
+}
+
+.carrito-cantidad {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 50%;
+  font-weight: bold;
 }
