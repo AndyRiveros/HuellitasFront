@@ -9,4 +9,10 @@ export default interface Usuario {
     nombreUsuario: string;
     clave: string;
     rol: Rol;
+    nombre: string;
+    apellido: string;
+    direccion: string;
+    dni: number;
+    mail: string;
+    telefono: string;
 }

@@ -14,6 +14,8 @@ import { RutaPrivada } from './utils/RutaPrivada';
 import ChartsGoogle from './components/ChartsGoogle';
 import Signup from './components/SignUp';
 import InventarioList from './components/InventarioList';
+import Perfil from './components/Perfil';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const App: React.FC = () => {
@@ -27,6 +29,7 @@ const App: React.FC = () => {
             <Route path="/home" element={<RutaPrivada><Home /></RutaPrivada>} />
             <Route path='/mapa' element={<RutaPrivada><Mapa /></RutaPrivada>} />
             <Route path="/instrumentos" element={<RutaPrivada><InstrumentoList /></RutaPrivada>} />
+            <Route path="/perfil" element={<RutaPrivada><Perfil /></RutaPrivada>} />
             <Route path="/inventario" element={<RutaPrivada><InventarioList /></RutaPrivada>} />
             <Route path="/instrumento/:id" element={<RutaPrivada><InstrumentoDetail /></RutaPrivada>} />
             <Route path="/crear-instrumento" element={<RutaPrivada><CrearInstrumentoForm /></RutaPrivada>} />

@@ -61,7 +61,7 @@ const CrearInstrumentoForm: React.FC = () => {
   onSubmit={handleSubmit}
 >
   {({ isSubmitting }) => (
-    <Form className="form-container" style={{color: 'white'}}>
+    <Form className="form-container" style={{color: 'Black'}}>
       <div className="form-group">
         <label htmlFor="instrumento">Instrumento:</label>
         <Field type="text" name="instrumento" />
