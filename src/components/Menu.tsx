@@ -26,9 +26,10 @@ const Menu = () => {
         <li className="menu-item"><Link to="/home">HOME</Link></li>
         <li className="menu-item"><Link to="/mapa">DONDE ESTAMOS</Link></li>
         <li className="menu-item"><Link to="/instrumentos">PRODUCTOS</Link></li>
+        <li className="menu-item"><Link to="/perfil">MI PERFIL</Link></li>
         {usuario && usuario.rol === 'ADMIN' && <li className="menu-item"><Link to="/inventario">INVENTARIO</Link></li>}
         {usuario && usuario.rol === 'ADMIN' && <li className="menu-item"><Link to="/google-charts">GRAFICOS</Link></li>}
-        {usuario && <li style={{color: 'black'}}>Usuario: {usuario.nombre}<br />Rol: {usuario.rol}</li>}
+        {/* {usuario && <li style={{color: 'black'}}>Usuario: {usuario.nombre}<br />Rol: {usuario.rol}</li>} */}
         <li><button onClick={handleCerrarSesion}>Cerrar Sesión</button></li>
       </ul>
     </nav>
