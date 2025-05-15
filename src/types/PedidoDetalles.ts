@@ -6,7 +6,7 @@ interface PedidoDetalle {
     id?: number;
     cantidad: number;
     pedido?: Pedido;
-    instrumento?: any; // Reemplaza 'any' con la interfaz correcta para 'Instrumento'
+    producto?: any; // Reemplaza 'any' con la interfaz correcta para 'Producto'
 }
 
 export default PedidoDetalle;

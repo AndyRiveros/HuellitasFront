@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup'; // Importing the 'yup' package
 import { useNavigate, useParams } from 'react-router-dom';
-import Instrumento from '../types/Instrumentos';
+import Producto from '../types/Productos';
 import Categoria from '../types/Categoria';
-// Importando la interfaz Instrumento
+// Importando la interfaz Producto
 
 
 const validationSchema = yup.object({
-  instrumento: yup.string(),
+  producto: yup.string(),
   marca: yup.string(),
   modelo: yup.string(),
   imagen: yup.string().url(),
@@ -21,13 +21,13 @@ const validationSchema = yup.object({
   }),
 });
 
-const ModificarInstrumento: React.FC = () => {
+const ModificarProducto: React.FC = () => {
   const navigate = useNavigate(); // Use the useHistory hook
 
     const { id } = useParams(); // Obtener el id desde los parámetros de la URL
-  const [instrumento, setInstrumento] = useState<Instrumento>({
+  const [producto, setProducto] = useState<Producto>({
     id: 0,
-    instrumento: '',
+    producto: '',
     marca: '',
     modelo: '',
     imagen: '',
@@ -41,17 +41,17 @@ const ModificarInstrumento: React.FC = () => {
     const [categorias, setCategorias] = useState<Categoria[]>([]); // Estado para las categorías
 
     useEffect(() => {
-        // Carga de datos del instrumento y las categorías
-        const fetchInstrumentoYCategorias = () => {
-          fetch(`http://localhost:8080/api/instrumentos/${id}`)
-            .then(responseInstrumento => responseInstrumento.json())
-            .then(dataInstrumento => {
-              setInstrumento({
-                ...dataInstrumento,
-                precio: String(dataInstrumento.precio),
-                costoEnvio: String(dataInstrumento.costoEnvio),
-                cantidadVendida: Number(dataInstrumento.cantidadVendida) ,
-                idCategoria: dataInstrumento.idCategoria,
+        // Carga de datos del producto y las categorías
+        const fetchProductoYCategorias = () => {
+          fetch(`http://localhost:8080/api/productos/${id}`)
+            .then(responseProducto => responseProducto.json())
+            .then(dataProducto => {
+              setProducto({
+                ...dataProducto,
+                precio: String(dataProducto.precio),
+                costoEnvio: String(dataProducto.costoEnvio),
+                cantidadVendida: Number(dataProducto.cantidadVendida) ,
+                idCategoria: dataProducto.idCategoria,
               });
       
               fetch('http://localhost:8080/api/categorias') // Ruta para obtener las categorías
@@ -62,13 +62,13 @@ const ModificarInstrumento: React.FC = () => {
             });
         };
       
-        fetchInstrumentoYCategorias();
+        fetchProductoYCategorias();
       }, [id]);
 
-  const handleSubmit = async (values: Instrumento) => {
+  const handleSubmit = async (values: Producto) => {
     try {
         console.log(values.id); // Agrega esta línea
-      const response = await fetch(`http://localhost:8080/api/instrumentos/${id}`, {
+      const response = await fetch(`http://localhost:8080/api/productos/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -78,11 +78,11 @@ const ModificarInstrumento: React.FC = () => {
 
       if (response.status === 200) {
         // Actualizar la interfaz con el mensaje de éxito
-        console.log('Instrumento modificado correctamente');
-        navigate('/instrumentos');
+        console.log('Producto modificado correctamente');
+        navigate('/productos');
       } else {
         // Manejar el error de actualización
-        console.error('Error al modificar el instrumento');
+        console.error('Error al modificar el producto');
       }
     } catch (error) {
       console.error('Error inesperado:', error);
@@ -90,19 +90,20 @@ const ModificarInstrumento: React.FC = () => {
   };
 
   return (
+  <div style={{ marginBottom: '150px' }}> {/* Contenedor con margen inferior */}
     <Formik
-        enableReinitialize
-      initialValues={instrumento}
+      enableReinitialize
+      initialValues={producto}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
       {({ errors, touched, isValid, isSubmitting }) => (
         <Form className="form-container">
           <div className="form-group">
-            <label htmlFor="instrumento">Instrumento:</label>
-            <Field type="text" id="instrumento" name="instrumento" />
-            {touched.instrumento && errors.instrumento && (
-              <ErrorMessage name="instrumento" component="div" className="error-message" />
+            <label htmlFor="producto">Producto:</label>
+            <Field type="text" id="producto" name="producto" />
+            {touched.producto && errors.producto && (
+              <ErrorMessage name="producto" component="div" className="error-message" />
             )}
           </div>
           <div className="form-group">
@@ -118,8 +119,8 @@ const ModificarInstrumento: React.FC = () => {
             {touched.modelo && errors.modelo && (
               <ErrorMessage name="modelo" component="div" className="error-message" />
             )}
-            </div>
-            <div className="form-group">
+          </div>
+          <div className="form-group">
             <label htmlFor="imagen">Imagen:</label>
             <Field type="text" id="imagen" name="imagen" />
             {touched.imagen && errors.imagen && (
@@ -140,13 +141,13 @@ const ModificarInstrumento: React.FC = () => {
               <ErrorMessage name="costoEnvio" component="div" className="error-message" />
             )}
           </div>
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="cantidadVendida">Cantidad Vendida:</label>
             <Field type="text" id="cantidadVendida" name="cantidadVendida" />
             {touched.cantidadVendida && errors.cantidadVendida && (
               <ErrorMessage name="cantidadVendida" component="div" className="error-message" />
             )}
-          </div>
+          </div> */}
           <div className="form-group">
             <label htmlFor="descripcion">Descripción:</label>
             <Field type="textarea" id="descripcion" name="descripcion" />
@@ -172,14 +173,15 @@ const ModificarInstrumento: React.FC = () => {
               disabled={!isValid || isSubmitting}  // Ahora utilizas las propiedades correctamente
               className="submit-button"
             >
-                Modificar Instrumento
+                Modificar Producto
             </button>
             <button type="button" onClick={() => navigate(-1)} className="cancel-button">Cancelar</button>
         </Form>
       )}
     </Formik>
-  );
+  </div>
+);
 };
 
-export default ModificarInstrumento;
+export default ModificarProducto;
 

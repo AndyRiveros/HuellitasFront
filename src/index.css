@@ -69,13 +69,13 @@ button:focus-visible {
   }
 }
 
-.instrumento {
+.producto {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
   color: black;
 }
 
-.instrumento img {
+.producto img {
   margin-right: 20px;
 }

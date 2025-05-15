@@ -113,12 +113,12 @@ export default abstract class BaseService<T> extends AbstractBaseService<T> {
         const response = await fetch(url, options);
 
         if (!response.ok) {
-            throw new Error(`Error al guardar la imagen del instrumento: ${response.statusText}`);
+            throw new Error(`Error al guardar la imagen del producto: ${response.statusText}`);
         }
 
         return response.text(); // Devuelve la respuesta del servidor
     } catch (error) {
-        throw new Error(`Error al guardar la imagen del instrumento`);
+        throw new Error(`Error al guardar la imagen del producto`);
     }
   } 
 

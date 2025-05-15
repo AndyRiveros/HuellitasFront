@@ -9,7 +9,7 @@ interface CarritoProps {
 
 const Carrito: React.FC<CarritoProps> = ({ carrito, onEliminarDelCarrito }) => {
   const total = carrito.reduce(
-    (sum, item) => sum + Number(item.instrumento.precio) * item.cantidad,
+    (sum, item) => sum + Number(item.producto.precio) * item.cantidad,
     0
   );
 
@@ -78,7 +78,7 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, onEliminarDelCarrito }) => {
                 }}
               >
                 <div>
-                  {item.instrumento.instrumento} - ${item.instrumento.precio} x{' '}
+                  {item.producto.producto} - ${item.producto.precio} x{' '}
                   {item.cantidad}
                 </div>
                 <button
@@ -99,7 +99,7 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, onEliminarDelCarrito }) => {
                   onMouseLeave={e =>
                     (e.currentTarget.style.backgroundColor = '#d89fff')
                   }
-                  aria-label={`Eliminar ${item.instrumento.instrumento} del carrito`}
+                  aria-label={`Eliminar ${item.producto.producto} del carrito`}
                 >
                   Eliminar
                 </button>
