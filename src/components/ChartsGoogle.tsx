@@ -17,7 +17,7 @@ export const optionsBar = {
 };
 
 export const optionsPie = {
-    title: "Cantidad de Pedidos por Instrumento",
+    title: "Cantidad de Pedidos Producto",
 };
 
 function ChartsGoogle() {

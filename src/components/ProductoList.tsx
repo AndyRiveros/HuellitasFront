@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Instrumento from '../types/Instrumentos';
+import Producto from '../types/Productos';
 import { Link, useNavigate } from 'react-router-dom';
 import Menu from './Menu';
 import Categoria from '../types/Categoria';
@@ -13,8 +13,8 @@ import Modal from 'react-modal';
 import '../styles/FloatingCarrito.css';
 import FloatingCarritoButton from './FloatingCarritoButton';
 
-const InstrumentoList: React.FC = () => {
-  const [instrumentos, setInstrumentos] = useState<Instrumento[] | undefined>(undefined);
+const ProductoList: React.FC = () => {
+  const [productos, setProductos] = useState<Producto[] | undefined>(undefined);
   const authContext = useContext(AuthContext);
   const carritoContext = useContext(CarritoContext);
   const usuario = authContext ? authContext.usuario : undefined;
@@ -36,34 +36,34 @@ const InstrumentoList: React.FC = () => {
     setShowModal(false);
   };
 
-  const generarExcel = () => {
-    if (fechaDesde && fechaHasta) {
-      const fechaDesdeConHora = `${fechaDesde}T00:00:00`;
-      const fechaHastaConHora = `${fechaHasta}T23:59:59`;
+  // const generarExcel = () => {
+  //   if (fechaDesde && fechaHasta) {
+  //     const fechaDesdeConHora = `${fechaDesde}T00:00:00`;
+  //     const fechaHastaConHora = `${fechaHasta}T23:59:59`;
 
-      const url = `http://localhost:8080/api/pedidos/downloadExcel?fechaDesde=${fechaDesdeConHora}&fechaHasta=${fechaHastaConHora}`;
+  //     const url = `http://localhost:8080/api/pedidos/downloadExcel?fechaDesde=${fechaDesdeConHora}&fechaHasta=${fechaHastaConHora}`;
 
-      window.open(url, '_blank');
-      cerrarModal();
-    } else {
-      alert('Por favor ingresa ambas fechas.');
-    }
-  };
+  //     window.open(url, '_blank');
+  //     cerrarModal();
+  //   } else {
+  //     alert('Por favor ingresa ambas fechas.');
+  //   }
+  // };
 
-  const agregarAlCarrito = (instrumento: Instrumento) => {
+  const agregarAlCarrito = (producto: Producto) => {
     if (!usuario) {
       alert('Debes iniciar sesión para agregar productos al carrito.');
       navigate('/login'); // Redirige al login si no está autenticado
       return;
     }
 
-    carritoContext?.agregarAlCarrito(instrumento);
+    carritoContext?.agregarAlCarrito(producto);
   };
 
   const guardarCarrito = async () => {
     try {
       const total = carritoContext?.carrito.reduce(
-        (sum, item) => sum + Number(item.instrumento.precio) * item.cantidad,
+        (sum, item) => sum + Number(item.producto.precio) * item.cantidad,
         0
       );
 
@@ -79,7 +79,7 @@ const InstrumentoList: React.FC = () => {
 
         const pedidoDetalles: PedidoDetalle[] = carritoContext?.carrito.map(item => ({
           cantidad: item.cantidad,
-          instrumento: { id: item.instrumento.id },
+          producto: { id: item.producto.id },
           pedido: {
             id: pedidoId,
             fechaPedido: new Date(),
@@ -90,9 +90,9 @@ const InstrumentoList: React.FC = () => {
         await axios.post('http://localhost:8080/api/pedidoDetalles', pedidoDetalles);
 
         for (const item of carritoContext?.carrito || []) {
-          const instrumento = item.instrumento;
+          const producto = item.producto;
           await axios.put(
-            `http://localhost:8080/api/instrumentos/${instrumento.id}/venta`,
+            `http://localhost:8080/api/productos/${producto.id}/venta`,
             { cantidad: item.cantidad },
             {
               headers: {
@@ -113,12 +113,12 @@ const InstrumentoList: React.FC = () => {
   };
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/instrumentos')
+    fetch('http://localhost:8080/api/productos')
       .then(response => response.json())
       .then(data => {
-        // Filtrar solo los instrumentos que no están eliminados
-        const instrumentosActivos = data.filter((instrumento: Instrumento) => !instrumento.isDeleted);
-        setInstrumentos(instrumentosActivos);
+        // Filtrar solo los productos que no están eliminados
+        const productosActivos = data.filter((producto: Producto) => !producto.isDeleted);
+        setProductos(productosActivos);
       });
   }, []);
 
@@ -131,9 +131,9 @@ const InstrumentoList: React.FC = () => {
       .then(data => setCategorias(data));
   }, []);
 
-  const instrumentosFiltrados = instrumentos && categoriaSeleccionada
-    ? instrumentos.filter(instrumento => instrumento.idCategoria === Number(categoriaSeleccionada))
-    : instrumentos;
+  const productosFiltrados = productos && categoriaSeleccionada
+    ? productos.filter(producto => producto.idCategoria === Number(categoriaSeleccionada))
+    : productos
 
   return (
     <div>
@@ -142,13 +142,13 @@ const InstrumentoList: React.FC = () => {
         <div style={{ paddingTop: '60px', display: 'flex', justifyContent: 'space-between', color: 'white' }}>
           <h2>Lista de Productos</h2>
           <div>
-            {usuario && usuario.rol === 'ADMIN' && (
+            {/* {usuario && usuario.rol === 'ADMIN' && (
               <button onClick={() => setShowModal(true)}>Generar Excel</button>
+            )} */}
+            {/* Mostrar el carrito flotante solo si el usuario no es ADMIN */}
+            {usuario?.rol !== 'ADMIN' && (
+              <FloatingCarritoButton onClick={abrirCarrito} />
             )}
-            {usuario && (
-  <FloatingCarritoButton onClick={abrirCarrito} />
-
-)}
 
           </div>
         </div>
@@ -159,7 +159,7 @@ const InstrumentoList: React.FC = () => {
           </button>
           <button onClick={cerrarCarrito}>Cerrar Carrito</button>
         </Modal>
-        <Modal isOpen={showModal} onRequestClose={cerrarModal}>
+        {/* <Modal isOpen={showModal} onRequestClose={cerrarModal}>
           <h2>Generar Excel</h2>
           <label>Fecha desde: </label>
           <input type="date" value={fechaDesde} onChange={e => setFechaDesde(e.target.value)} />
@@ -167,7 +167,7 @@ const InstrumentoList: React.FC = () => {
           <input type="date" value={fechaHasta} onChange={e => setFechaHasta(e.target.value)} />
           <button onClick={generarExcel}>Generar</button>
           <button onClick={cerrarModal}>Cerrar</button>
-        </Modal>
+        </Modal> */}
         <div>
           <label style={{ color: 'white' }}>Filtrar por categoría: </label>
           <select value={categoriaSeleccionada} onChange={e => setCategoriaSeleccionada(e.target.value)}>
@@ -179,23 +179,23 @@ const InstrumentoList: React.FC = () => {
             ))}
           </select>
         </div>
-        {instrumentosFiltrados === undefined ? (
+        {productosFiltrados === undefined ? (
           <p>Cargando productos...</p>
-        ) : instrumentosFiltrados.length > 0 ? (
-          instrumentosFiltrados.map((instrumento: Instrumento) => (
-            <div className="instrumento" key={instrumento.id}>
+        ) : productosFiltrados.length > 0 ? (
+          productosFiltrados.map((producto: Producto) => (
+            <div className="producto" key={producto.id}>
               <img
                 style={{ width: '400px', height: '300px' }}
-                src={instrumento.imagen}
-                alt={instrumento.instrumento}
+                src={producto.imagen}
+                alt={producto.producto}
               />
               <div>
-                <h3>{instrumento.instrumento}</h3>
-                <p>Precio: ${instrumento.precio}</p>
-                {instrumento.costoEnvio !== 'G' && (
-                  <p style={{ color: 'orange' }}>Costo de Envío: {instrumento.costoEnvio}</p>
+                <h3>{producto.producto}</h3>
+                <p>Precio: ${producto.precio}</p>
+                {producto.costoEnvio !== 'G' && (
+                  <p style={{ color: 'orange' }}>Costo de Envío: {producto.costoEnvio}</p>
                 )}
-                {instrumento.costoEnvio === 'G' && (
+                {producto.costoEnvio === 'G' && (
                   <p style={{ color: 'green' }}>
                     <img
                       src="img/camion.png"
@@ -205,8 +205,10 @@ const InstrumentoList: React.FC = () => {
                     Envios Gratis
                   </p>
                 )}
-                <button onClick={() => agregarAlCarrito(instrumento)}>Agregar al carrito</button>
-                <Link to={`/instrumento/${instrumento.id}`}>
+                {usuario?.rol !== 'ADMIN' && (
+  <button onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
+)}
+                <Link to={`/producto/${producto.id}`}>
                   <button>Ver detalles</button>
                 </Link>
               </div>
@@ -220,4 +222,4 @@ const InstrumentoList: React.FC = () => {
   );
 };
 
-export default InstrumentoList;
+export default ProductoList;

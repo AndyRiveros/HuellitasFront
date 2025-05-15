@@ -1,11 +1,11 @@
 import '../App.css'
 import { Routes, Route } from 'react-router-dom';
-import InstrumentoList from '../components/InstrumentoList';
+import ProductoList from '../components/ProductoList';
 
 const Router: React.FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<InstrumentoList />} />
+      <Route path="/" element={<ProductoList />} />
     </Routes>
   );
 }

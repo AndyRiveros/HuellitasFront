@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import Menu from './Menu';
 import { Carousel } from 'react-bootstrap';
 import '../styles/Home.css';
-import Instrumento from '../types/Instrumentos';
+import Producto from '../types/Productos';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../utils/AuthContext';
 import { CarritoContext } from '../components/CarritoContext';
@@ -11,7 +11,7 @@ import Carrito from './Carrito';
 import FloatingCarritoButton from './FloatingCarritoButton';
 
 const Home = () => {
-  const [productos, setProductos] = useState<Instrumento[]>([]);
+  const [productos, setProductos] = useState<Producto[]>([]);
   const authContext = useContext(AuthContext);
   const carritoContext = useContext(CarritoContext);
   const usuario = authContext ? authContext.usuario : undefined;
@@ -22,7 +22,7 @@ const Home = () => {
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/instrumentos');
+        const response = await fetch('http://localhost:8080/api/productos');
         const data = await response.json();
 
         if (Array.isArray(data)) {
@@ -38,14 +38,14 @@ const Home = () => {
     fetchProductos();
   }, []);
 
-  const agregarAlCarrito = (instrumento: Instrumento) => {
+  const agregarAlCarrito = (producto: Producto) => {
     if (!usuario) {
       alert('Debes iniciar sesión para agregar productos al carrito.');
       navigate('/login'); // Redirige al login si no está autenticado
       return;
     }
 
-    carritoContext?.agregarAlCarrito(instrumento);
+    carritoContext?.agregarAlCarrito(producto);
   };
 
   const abrirCarrito = () => {
@@ -70,11 +70,11 @@ const Home = () => {
             </p>
           </div>
         </div>
-        {(carritoContext?.carrito?.length ?? 0) > 0 && (
-  <FloatingCarritoButton onClick={abrirCarrito} />
 
-)}
-
+  {/* Mostrar el carrito flotante solo si el usuario no es ADMIN */}
+        {usuario?.rol !== 'ADMIN' && (carritoContext?.carrito?.length ?? 0) > 0 && (
+          <FloatingCarritoButton onClick={abrirCarrito} />
+        )}
         <Modal isOpen={showCarrito} onRequestClose={cerrarCarrito}>
           <Carrito carrito={carritoContext?.carrito || []} onEliminarDelCarrito={carritoContext?.eliminarDelCarrito || (() => {})} />
           <button onClick={cerrarCarrito}>Cerrar Carrito</button>
@@ -103,22 +103,25 @@ const Home = () => {
                 }
                 result[groupIndex].push(producto);
                 return result;
-              }, [] as Instrumento[][]).map((grupo, index) => (
+              }, [] as Producto[][]).map((grupo, index) => (
                 <Carousel.Item key={index}>
                   <div className="productos-row">
                     {grupo.map((producto) => (
                       <div className="producto-card" key={producto.id}>
                         <img
                           src={producto.imagen}
-                          alt={producto.instrumento}
+                          alt={producto.producto}
                           className="producto-imagen"
                         />
-                        <h4>{producto.instrumento}</h4>
+                        <h4>{producto.producto}</h4>
                         <p>Precio: ${producto.precio}</p>
-                        <button onClick={() => agregarAlCarrito(producto)}>
-                          Agregar al carrito
-                        </button>
-                        <Link to={`/instrumento/${producto.id}`}>
+                        {/* Mostrar el botón "Agregar al carrito" solo si el usuario no es ADMIN */}
+                        {usuario?.rol !== 'ADMIN' && (
+                          <button onClick={() => agregarAlCarrito(producto)}>
+                            Agregar al carrito
+                          </button>
+                        )}
+                        <Link to={`/producto/${producto.id}`}>
                           <button>Ver detalles</button>
                         </Link>
                       </div>
@@ -133,7 +136,7 @@ const Home = () => {
         </div>
         {/* Carrusel de productos para adultos */}
         <div className="productos-existentes">
-          <h3 className="section-title">Para Adultos</h3>
+          <h3 className="section-title">Lo más vendido</h3>
           <Carousel className="productos-carousel" indicators={false}>
             {productos.length > 0 ? (
               productos.reduce((result, producto, index) => {
@@ -143,22 +146,25 @@ const Home = () => {
                 }
                 result[groupIndex].push(producto);
                 return result;
-              }, [] as Instrumento[][]).map((grupo, index) => (
+              }, [] as Producto[][]).map((grupo, index) => (
                 <Carousel.Item key={index}>
                   <div className="productos-row">
                     {grupo.map((producto) => (
                       <div className="producto-card" key={producto.id}>
                         <img
                           src={producto.imagen}
-                          alt={producto.instrumento}
+                          alt={producto.producto}
                           className="producto-imagen"
                         />
-                        <h4>{producto.instrumento}</h4>
+                        <h4>{producto.producto}</h4>
                         <p>Precio: ${producto.precio}</p>
-                        <button onClick={() => agregarAlCarrito(producto)}>
-                          Agregar al carrito
-                        </button>
-                        <Link to={`/instrumento/${producto.id}`}>
+                       {/* Mostrar el botón "Agregar al carrito" solo si el usuario no es ADMIN */}
+                        {usuario?.rol !== 'ADMIN' && (
+                          <button onClick={() => agregarAlCarrito(producto)}>
+                            Agregar al carrito
+                          </button>
+                        )}
+                        <Link to={`/producto/${producto.id}`}>
                           <button>Ver detalles</button>
                         </Link>
                       </div>
@@ -173,7 +179,7 @@ const Home = () => {
         </div>
         {/* Carrusel de productos para cachorros */}
         <div className="productos-existentes">
-          <h3 className="section-title">Para Cachorros</h3>
+          <h3 className="section-title">Nuevos Ingresos</h3>
           <Carousel className="productos-carousel" indicators={false}>
             {productos.length > 0 ? (
               productos.reduce((result, producto, index) => {
@@ -183,22 +189,25 @@ const Home = () => {
                 }
                 result[groupIndex].push(producto);
                 return result;
-              }, [] as Instrumento[][]).map((grupo, index) => (
+              }, [] as Producto[][]).map((grupo, index) => (
                 <Carousel.Item key={index}>
                   <div className="productos-row">
                     {grupo.map((producto) => (
                       <div className="producto-card" key={producto.id}>
                         <img
                           src={producto.imagen}
-                          alt={producto.instrumento}
+                          alt={producto.producto}
                           className="producto-imagen"
                         />
-                        <h4>{producto.instrumento}</h4>
+                        <h4>{producto.producto}</h4>
                         <p>Precio: ${producto.precio}</p>
-                        <button onClick={() => agregarAlCarrito(producto)}>
-                          Agregar al carrito
-                        </button>
-                        <Link to={`/instrumento/${producto.id}`}>
+                       {/* Mostrar el botón "Agregar al carrito" solo si el usuario no es ADMIN */}
+                        {usuario?.rol !== 'ADMIN' && (
+                          <button onClick={() => agregarAlCarrito(producto)}>
+                            Agregar al carrito
+                          </button>
+                        )}
+                        <Link to={`/producto/${producto.id}`}>
                           <button>Ver detalles</button>
                         </Link>
                       </div>

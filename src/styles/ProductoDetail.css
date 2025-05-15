@@ -1,4 +1,4 @@
-.instrumento-detail {
+.producto-detail {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,7 +9,7 @@
   padding-bottom: 100px;
 }
 
-.instrumento-card {
+.producto-card {
   background-color: #d8b4f8; /* Violeta suave */
   color: #333; /* Texto oscuro */
   padding: 30px;
@@ -20,32 +20,32 @@
   text-align: center;
 }
 
-.instrumento-image img {
+.producto-image img {
   width: 250px; /* Imagen más pequeña */
   height: auto;
   border-radius: 10px;
   margin-bottom: 20px;
 }
 
-.instrumento-info h1 {
+.producto-info h1 {
   font-size: 1.8em;
   margin: 10px 0;
   color: #333; /* Texto oscuro */
 }
 
-.instrumento-info h2 {
+.producto-info h2 {
   font-size: 1.5em;
   margin: 10px 0;
   color: #333; /* Texto oscuro */
 }
 
-.instrumento-info p {
+.producto-info p {
   font-size: 1em;
   margin: 10px 0;
   color: #333; /* Texto oscuro */
 }
 
-.instrumento-info small {
+.producto-info small {
   font-size: 0.9em;
   color: #666; /* Texto gris */
 }

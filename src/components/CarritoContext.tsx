@@ -1,10 +1,10 @@
 import React, { createContext, useState, ReactNode } from 'react';
 import CarritoItem from '../types/CarritoItem';
-import Instrumento from '../types/Instrumentos';
+import Producto from '../types/Productos';
 
 interface CarritoContextType {
   carrito: CarritoItem[];
-  agregarAlCarrito: (instrumento: Instrumento) => void;
+  agregarAlCarrito: (producto: Producto) => void;
   eliminarDelCarrito: (index: number) => void;
   vaciarCarrito: () => void;
 }
@@ -14,14 +14,14 @@ export const CarritoContext = createContext<CarritoContextType | undefined>(unde
 export const CarritoProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [carrito, setCarrito] = useState<CarritoItem[]>([]);
 
-  const agregarAlCarrito = (instrumento: Instrumento) => {
-    const index = carrito.findIndex(item => item.instrumento.id === instrumento.id);
+  const agregarAlCarrito = (producto: Producto) => {
+    const index = carrito.findIndex(item => item.producto.id === producto.id);
     if (index !== -1) {
       const newCarrito = [...carrito];
       newCarrito[index].cantidad += 1;
       setCarrito(newCarrito);
     } else {
-      setCarrito([...carrito, { instrumento, cantidad: 1 }]);
+      setCarrito([...carrito, { producto, cantidad: 1 }]);
     }
   };
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import InstrumentoList from './components/InstrumentoList';
-import InstrumentoDetail from './components/InstrumentoDetail';
+import ProductoList from './components/ProductoList';
+import ProductoDetail from './components/ProductoDetail';
 import Home from './components/Home'; // Importa el componente Home
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Mapa from './components/Mapa';
-import CrearInstrumentoForm from './components/CrearInstrumentoForm';
-import ModificarInstrumento from './components/ModificarInstrumento';
+import CrearProductoForm from './components/CrearProductoForm';
+import ModificarProducto from './components/ModificarProducto';
 import CheckoutMP from './components/CheckoutMP';
 import Login from './components/Login';
 import { AuthProvider } from './utils/AuthContext';
@@ -31,12 +31,12 @@ const App: React.FC = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/mapa" element={<Mapa />} />
-            <Route path="/instrumentos" element={<InstrumentoList />} /> {/* Accesible sin autenticación */}
-            <Route path="/instrumento/:id" element={<InstrumentoDetail />} /> {/* Accesible sin autenticación */}
+            <Route path="/productos" element={<ProductoList />} /> {/* Accesible sin autenticación */}
+            <Route path="/producto/:id" element={<ProductoDetail />} /> {/* Accesible sin autenticación */}
             <Route path="/perfil" element={<RutaPrivada><Perfil /></RutaPrivada>} /> {/* Protegido */}
             <Route path="/inventario" element={<RutaPrivada><InventarioList /></RutaPrivada>} /> {/* Protegido */}
-            <Route path="/crear-instrumento" element={<RutaPrivada><CrearInstrumentoForm /></RutaPrivada>} /> {/* Protegido */}
-            <Route path="/instrumentos/:id/modificar" element={<RutaPrivada><ModificarInstrumento /></RutaPrivada>} /> {/* Protegido */}
+            <Route path="/crear-producto" element={<RutaPrivada><CrearProductoForm /></RutaPrivada>} /> {/* Protegido */}
+            <Route path="/productos/:id/modificar" element={<RutaPrivada><ModificarProducto /></RutaPrivada>} /> {/* Protegido */}
             <Route path="/mercadopago" element={<RutaPrivada><CheckoutMP /></RutaPrivada>} /> {/* Protegido */}
             <Route path="/google-charts" element={<RutaPrivada><ChartsGoogle /></RutaPrivada>} /> {/* Protegido */}
             <Route path="*" element={<Home />} /> {/* Redirige a Home si la ruta no existe */}

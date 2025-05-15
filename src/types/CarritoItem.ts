@@ -1,7 +1,7 @@
-import Instrumento from './Instrumentos';
+import Producto from './Productos';
 
 interface CarritoItem {
-  instrumento: Instrumento;
+  producto: Producto;
   cantidad: number;
 }
 

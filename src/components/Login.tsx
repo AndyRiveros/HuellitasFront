@@ -49,8 +49,10 @@ function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form form-padding">
-      <img className="logo" src="../../img/CASAB3.png" alt="Logo" />
+  <div className="login-container">
+    <div className="login-box">
+    <form onSubmit={handleSubmit} className="form form-padding login-box">
+      <img className="logo" src="../../img/logo.jpg" alt="Logo" />
       <label className="label">
         User:
         <input
@@ -75,7 +77,7 @@ function Login() {
       <div className="div">
         <p>
           No tienes un usuario?{' '}
-          <Link to="/" style={{ color: 'yellow' }}>
+          <Link to="/SignUp" style={{ color: 'RED' }}>
             Regístrate aquí
           </Link>
         </p>
@@ -86,7 +88,10 @@ function Login() {
         </p>
       )}
     </form>
-  );
+    </div>
+  </div>
+);
+
 }
 
 export default Login;
