@@ -23,40 +23,44 @@ const InstrumentoDetail: React.FC = () => {
 
   const generarPDF = () => {
     window.open("http://localhost:8080/api/pedidos/downloadPdf/" + id, "_blank");
-  }
+  };
 
   if (!instrumento) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="instrumento-detail">
+    <div>
       <Menu />
-      <div className="instrumento-detail-content">
-        <div className="instrumento-image">
-          <img style={{width: '400px', height: '300px'}} src={instrumento.imagen} alt={instrumento.instrumento} />
-        </div>
-        <div className="instrumento-info">
-          <h1>{instrumento.instrumento}</h1>
-          <p>{instrumento.descripcion}</p>
-          <h2>Precio: {instrumento.precio}</h2>
-          <p>Marca: {instrumento.marca}</p>
-          <p>Modelo: {instrumento.modelo}</p>
-          <p>Costo de envío:</p>
-          {instrumento.costoEnvio === 'G' ? 
-            <p className='envio-gratis'>
-            <img src="/img/camion.png" alt="Envío gratis" />
-            Envío gratis
-            </p> 
-            : <p>{instrumento.costoEnvio}</p>}
-          <small>{instrumento.cantidadVendida} vendidos</small>
-          {usuario && usuario.rol === 'ADMIN' && <button onClick={generarPDF}>Generar PDF</button>}
+      <div className="instrumento-detail">
+        <div className="instrumento-card">
+          <div className="instrumento-image">
+            <img src={instrumento.imagen} alt={instrumento.instrumento} />
+          </div>
+          <div className="instrumento-info">
+            <h1>{instrumento.instrumento}</h1>
+            <p>{instrumento.descripcion}</p>
+            <h2>Precio: ${instrumento.precio}</h2>
+            <p>Marca: {instrumento.marca}</p>
+            <p>Modelo: {instrumento.modelo}</p>
+            <p>Costo de envío:</p>
+            {instrumento.costoEnvio === 'G' ? (
+              <p className="envio-gratis">
+                <img src="/img/camion.png" alt="Envío gratis" />
+                Envío gratis
+              </p>
+            ) : (
+              <p className="envio-pago">{instrumento.costoEnvio}</p>
+            )}
+            <small>{instrumento.cantidadVendida} vendidos</small>
+            {usuario && usuario.rol === 'ADMIN' && (
+              <button onClick={generarPDF}>Generar PDF</button>
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-
 export default InstrumentoDetail;
-

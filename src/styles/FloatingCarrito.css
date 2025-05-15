@@ -1,0 +1,20 @@
+.floating-carrito-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: black;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease-in-out, background-color 0.3s;
+}
+
+.floating-carrito-button:hover {
+  background-color: #cc1fa7;
+  transform: scale(1.05);
+}

@@ -49,6 +49,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  // Sincronizar el estado del usuario con localStorage en caso de cambios
+  useEffect(() => {
+    if (usuario) {
+      localStorage.setItem('usuario', JSON.stringify(usuario));
+    }
+  }, [usuario]);
+
   return (
     <AuthContext.Provider value={{ usuario, iniciarSesion, cerrarSesion, actualizarPerfil }}>
       {children}

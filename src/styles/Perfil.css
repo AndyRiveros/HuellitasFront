@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   padding-top: 60px;
+  padding-bottom: 200px; /* Espacio adicional para separar del fondo */
 }
 
 .perfil-title {

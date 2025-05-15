@@ -16,30 +16,35 @@ import Signup from './components/SignUp';
 import InventarioList from './components/InventarioList';
 import Perfil from './components/Perfil';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from './components/Footer';
+import { CarritoProvider } from './components/CarritoContext';
 
 
 const App: React.FC = () => {
   return (
     <AuthProvider>
-    <Router>
-      <div>
-      <Routes>
-            <Route path="/" element={<Signup />} /> {/* Agrega esta línea */}
-            <Route path="/" element={<Login />} />
-            <Route path="/home" element={<RutaPrivada><Home /></RutaPrivada>} />
-            <Route path='/mapa' element={<RutaPrivada><Mapa /></RutaPrivada>} />
-            <Route path="/instrumentos" element={<RutaPrivada><InstrumentoList /></RutaPrivada>} />
-            <Route path="/perfil" element={<RutaPrivada><Perfil /></RutaPrivada>} />
-            <Route path="/inventario" element={<RutaPrivada><InventarioList /></RutaPrivada>} />
-            <Route path="/instrumento/:id" element={<RutaPrivada><InstrumentoDetail /></RutaPrivada>} />
-            <Route path="/crear-instrumento" element={<RutaPrivada><CrearInstrumentoForm /></RutaPrivada>} />
-            <Route path="/instrumentos/:id/modificar" element={<RutaPrivada><ModificarInstrumento /></RutaPrivada>} />
-            <Route path="/mercadopago" element={<RutaPrivada><CheckoutMP /></RutaPrivada>} />
-            <Route path='/google-charts' element={<RutaPrivada><ChartsGoogle /></RutaPrivada>} />
-            <Route path="*" element={<Login />} />
+      <CarritoProvider>
+      <Router>
+        <div>
+          <Routes>
+            <Route path="/" element={<Home />} /> {/* Página principal accesible sin autenticación */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/mapa" element={<Mapa />} />
+            <Route path="/instrumentos" element={<InstrumentoList />} /> {/* Accesible sin autenticación */}
+            <Route path="/instrumento/:id" element={<InstrumentoDetail />} /> {/* Accesible sin autenticación */}
+            <Route path="/perfil" element={<RutaPrivada><Perfil /></RutaPrivada>} /> {/* Protegido */}
+            <Route path="/inventario" element={<RutaPrivada><InventarioList /></RutaPrivada>} /> {/* Protegido */}
+            <Route path="/crear-instrumento" element={<RutaPrivada><CrearInstrumentoForm /></RutaPrivada>} /> {/* Protegido */}
+            <Route path="/instrumentos/:id/modificar" element={<RutaPrivada><ModificarInstrumento /></RutaPrivada>} /> {/* Protegido */}
+            <Route path="/mercadopago" element={<RutaPrivada><CheckoutMP /></RutaPrivada>} /> {/* Protegido */}
+            <Route path="/google-charts" element={<RutaPrivada><ChartsGoogle /></RutaPrivada>} /> {/* Protegido */}
+            <Route path="*" element={<Home />} /> {/* Redirige a Home si la ruta no existe */}
           </Routes>
-      </div>
-    </Router>
+        </div>
+        <Footer />
+      </Router>
+      </CarritoProvider>
     </AuthProvider>
   );
 };
