@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Menu from './Menu';
 import { Carousel } from 'react-bootstrap';
 import '../styles/Home.css';
@@ -9,6 +9,7 @@ import { CarritoContext } from '../components/CarritoContext';
 import Modal from 'react-modal';
 import Carrito from './Carrito';
 import FloatingCarritoButton from './FloatingCarritoButton';
+import Lupita from './Lupita';
 
 const Home = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
@@ -16,8 +17,11 @@ const Home = () => {
   const carritoContext = useContext(CarritoContext);
   const usuario = authContext ? authContext.usuario : undefined;
   const navigate = useNavigate();
+  const [filtro, setFiltro] = useState('');
+
 
   const [showCarrito, setShowCarrito] = useState(false);
+
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -38,6 +42,10 @@ const Home = () => {
     fetchProductos();
   }, []);
 
+  const productosFiltrados = productos.filter(producto =>
+  producto.producto.toLowerCase().includes(filtro)
+);
+
   const agregarAlCarrito = (producto: Producto) => {
     if (!usuario) {
       alert('Debes iniciar sesión para agregar productos al carrito.');
@@ -56,12 +64,19 @@ const Home = () => {
     setShowCarrito(false);
   };
 
+  const manejarBusqueda = (texto: string) => {
+    setFiltro(texto);
+    console.log('Buscando:', texto);
+  };
+
   return (
     <div>
       <Menu />
       <div className="home-container home">
         <div className="title-container divsep">
           <h2 className="title anton-regular">HUELLITAS - Pet Shop</h2>
+          <Lupita onSearch={manejarBusqueda} />
+
         </div>
         <div className="divsep">
           <div className="description">
@@ -96,7 +111,7 @@ const Home = () => {
           <h3 className="section-title">Nuestros Productos</h3>
           <Carousel className="productos-carousel" indicators={false}>
             {productos.length > 0 ? (
-              productos.reduce((result, producto, index) => {
+              productosFiltrados.reduce((result, producto, index) => {
                 const groupIndex = Math.floor(index / 4);
                 if (!result[groupIndex]) {
                   result[groupIndex] = [];
@@ -139,7 +154,7 @@ const Home = () => {
           <h3 className="section-title">Lo más vendido</h3>
           <Carousel className="productos-carousel" indicators={false}>
             {productos.length > 0 ? (
-              productos.reduce((result, producto, index) => {
+              productosFiltrados.reduce((result, producto, index) => {
                 const groupIndex = Math.floor(index / 4);
                 if (!result[groupIndex]) {
                   result[groupIndex] = [];
@@ -182,7 +197,7 @@ const Home = () => {
           <h3 className="section-title">Nuevos Ingresos</h3>
           <Carousel className="productos-carousel" indicators={false}>
             {productos.length > 0 ? (
-              productos.reduce((result, producto, index) => {
+              productosFiltrados.reduce((result, producto, index) => {
                 const groupIndex = Math.floor(index / 4);
                 if (!result[groupIndex]) {
                   result[groupIndex] = [];
