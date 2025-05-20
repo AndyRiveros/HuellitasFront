@@ -5,7 +5,7 @@
   left: 0;
   width: 100vw;
   height: 100px;
-  background-color: #F2E7C3;
+  background-color: #6E2A65;
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -18,10 +18,10 @@
 .menu-list {
   list-style: none;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1200px;
   padding: 0 20px;
   margin: 0;
   box-sizing: border-box;
@@ -54,25 +54,29 @@
 
 .menu-item.main-option a {
   font-family: "Anton", sans-serif;
-  font-size: 1.2em;
-  color: #333;
+  font-size: 1.1em;
+  color: white;
   text-decoration: none;
-  padding: 8px 12px;
+  padding: 10px 18px;
   border-radius: 4px;
   transition: background-color 0.3s ease;
+  min-width: 140px;      /* Fuerza un ancho mínimo igual para todos */
+  text-align: center;    /* Centra el texto */
+  display: inline-block; /* Asegura el tamaño del área clickeable */
+  box-sizing: border-box;
 }
 
 .menu-item.main-option a:hover {
-  background-color: #d6c9a8;
+  color: #ffe082;
 }
 
 /* INPUT BÚSQUEDA */
 .search-input {
-  width: 180px;
-  padding: 6px 12px;
+  width: 260px; /* más largo */
+  padding: 6px 16px;
   border-radius: 20px;
   border: 1px solid #ccc;
-  font-size: 14px;
+  font-size: 15px;
   outline: none;
   transition: border-color 0.3s ease;
 }
@@ -98,4 +102,52 @@
 .logout-button:hover {
   background-color: #333333;
   color: #F0E4CE;
+}
+.logout-button.logout-red {
+  background-color: #d9534f;
+  color: white;
+}
+.logout-button.logout-red:hover {
+  background-color: #333333;
+  color: #F0E4CE;
+}
+
+.logout-button.logout-green {
+  background-color: #4CAF50;
+  color: white;
+}
+.logout-button.logout-green:hover {
+  background-color: #357a38;
+  color: #fff;
+}
+/* SUBMENU */
+.submenu {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 100vw;
+  background: #F2E7C3; /* morado fuerte */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  padding: 12px 0 10px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+  z-index: 999;
+}
+.submenu-btn {
+  background: none;
+  color: black;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  font-size: 1.1em;
+  font-family: "Anton", sans-serif;
+  cursor: pointer;
+  transition: color 0.2s;
+  box-shadow: none;
+}
+.submenu-btn:hover {
+  color: #ffe082;
+  background: none;
 }

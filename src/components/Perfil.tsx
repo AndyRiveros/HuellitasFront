@@ -78,7 +78,7 @@ const Perfil: React.FC = () => {
   return (
     <div>
       <Menu />
-      <div className="perfil-container">
+      <div className="perfil-container" style={{ paddingTop: '140px' }}>
         <h2 className="perfil-title">Perfil del Usuario</h2>
         <div className="perfil-card">
           <div>

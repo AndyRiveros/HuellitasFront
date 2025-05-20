@@ -76,7 +76,7 @@ const InventarioList: React.FC = () => {
  return (
   <div style={{ fontFamily: 'Arial, sans-serif', marginBottom: '150px' }}>
     <Menu /> 
-    <div style={{ margin: '20px' }}>
+    <div style={{ margin: '20px', paddingTop: '140px' }}>
       <Link to="/crear-producto">
         <button style={{ margin: '10px', padding: '10px', backgroundColor: '#4CAF50', color: 'white' }}>Agregar producto</button>
       </Link>
