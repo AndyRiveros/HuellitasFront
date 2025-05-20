@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './Lupita.css';
+import '../styles/Lupita.css';
+
 
 
 type LupitaProps = {
