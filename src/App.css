@@ -1,3 +1,18 @@
+/* Aplica box-sizing global y elimina márgenes y scroll horizontal */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+#root {
+  width: 100%;
+}
 
 #root {
   max-width: 1280px;
@@ -46,4 +61,55 @@
   width: 100%;
   margin-left: 0;
   padding: 20px;
+}
+body {
+  margin: 0;
+  padding-top: 100px; /* Esto "empuja" el contenido hacia abajo para no quedar tapado */
+}
+.main-content {
+  padding-top: 100px;
+}
+/* App.css */
+
+.main-content {
+  padding-top: 100px; /* Para no tapar el contenido */
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.main-content {
+  padding-top: 100px; /* altura del menú */
+}
+/* Asegura que el contenido no quede escondido detrás del menú fijo */
+.main-content {
+  padding-top: 100px; /* debe coincidir con la altura del menú */
+}
+
+/* Elimina márgenes/paddings globales que puedan molestar */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+/* Empuja el contenido debajo del menú */
+.main-content {
+  padding-top: 100px; /* Igual al alto del menú */
+}
+
+/* Elimina márgenes indeseados que pueden cortar los bordes */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Hace que las secciones como lo violeta usen toda la pantalla */
+.full-width-section {
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
