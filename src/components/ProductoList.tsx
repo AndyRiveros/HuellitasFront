@@ -136,7 +136,8 @@ const ProductoList: React.FC = () => {
 
   return (
     <div>
-      <div style={{ flex: 2, paddingBottom: '100px' }}>
+      <Menu /> 
+      <div style={{ flex: 2, paddingBottom: '100px' , paddingTop: '100px'  }}>
         <div style={{ paddingTop: '60px', display: 'flex', justifyContent: 'space-between', color: 'white' }}>
           <h2>Lista de Productos</h2>
           <div>

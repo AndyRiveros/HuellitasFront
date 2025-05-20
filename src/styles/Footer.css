@@ -1,5 +1,5 @@
 .footer {
-  background-color: #6a0dad; /* Fondo violeta */
+  background-color: #6E2A65; /* Fondo violeta */
   color: white; /* Texto blanco */
   text-align: center;
   padding: 10px 0;
@@ -7,4 +7,5 @@
   bottom: 0;
   width: 100%;
   font-size: 14px;
+  z-index: 2000;
 }

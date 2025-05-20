@@ -9,7 +9,6 @@ import { CarritoContext } from '../components/CarritoContext';
 import Modal from 'react-modal';
 import Carrito from './Carrito';
 import FloatingCarritoButton from './FloatingCarritoButton';
-import Lupita from './Lupita';
 
 const Home = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
@@ -17,7 +16,7 @@ const Home = () => {
   const carritoContext = useContext(CarritoContext);
   const usuario = authContext ? authContext.usuario : undefined;
   const navigate = useNavigate();
-  const [filtro, setFiltro] = useState('');
+  
 
 
   const [showCarrito, setShowCarrito] = useState(false);
@@ -42,9 +41,6 @@ const Home = () => {
     fetchProductos();
   }, []);
 
-  const productosFiltrados = productos.filter(producto =>
-  producto.producto.toLowerCase().includes(filtro)
-);
 
   const agregarAlCarrito = (producto: Producto) => {
     if (!usuario) {
@@ -64,23 +60,18 @@ const Home = () => {
     setShowCarrito(false);
   };
 
-  const manejarBusqueda = (texto: string) => {
-    setFiltro(texto);
-    console.log('Buscando:', texto);
-  };
+ 
 
   return (
     <div>
       <Menu />
-      <div className="home-container home">
+      <div className="home-container home"  style={{ paddingTop: '148px' }}>
         <div className="title-container divsep">
           <h2 className="title anton-regular">HUELLITAS - Pet Shop</h2>
-          <Lupita onSearch={manejarBusqueda} />
-
         </div>
-        <div className="divsep">
-          <div className="description">
-            <p className="parrafo">
+        <div className="divsep" style={{ marginBottom: 0, paddingBottom: 0 }}>
+          <div className="description" style={{ marginBottom: 20, paddingBottom: 0 }}>
+            <p className="parrafo" style={{ marginBottom: 0, paddingBottom: 0 }}>
               ¡Bienvenidos a Huellitas Pet! Aquí encontrarás todo lo que necesitas para consentir a tus mascotas: alimentos de alta calidad, juguetes divertidos, ropa adorable, accesorios y mucho más. Nos especializamos en ofrecer productos para todo tipo de mascotas, desde perros y gatos hasta aves, peces y pequeños roedores. ¡Tu mascota merece lo mejor, y en Huellitas Pet lo tenemos todo!
             </p>
           </div>
@@ -111,7 +102,7 @@ const Home = () => {
           <h3 className="section-title">Nuestros Productos</h3>
           <Carousel className="productos-carousel" indicators={false}>
             {productos.length > 0 ? (
-              productosFiltrados.reduce((result, producto, index) => {
+              productos.reduce((result, producto, index) => {
                 const groupIndex = Math.floor(index / 4);
                 if (!result[groupIndex]) {
                   result[groupIndex] = [];
@@ -154,7 +145,7 @@ const Home = () => {
           <h3 className="section-title">Lo más vendido</h3>
           <Carousel className="productos-carousel" indicators={false}>
             {productos.length > 0 ? (
-              productosFiltrados.reduce((result, producto, index) => {
+              productos.reduce((result, producto, index) => {
                 const groupIndex = Math.floor(index / 4);
                 if (!result[groupIndex]) {
                   result[groupIndex] = [];
@@ -197,7 +188,7 @@ const Home = () => {
           <h3 className="section-title">Nuevos Ingresos</h3>
           <Carousel className="productos-carousel" indicators={false}>
             {productos.length > 0 ? (
-              productosFiltrados.reduce((result, producto, index) => {
+              productos.reduce((result, producto, index) => {
                 const groupIndex = Math.floor(index / 4);
                 if (!result[groupIndex]) {
                   result[groupIndex] = [];

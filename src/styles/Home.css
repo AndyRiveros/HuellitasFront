@@ -7,16 +7,18 @@
 }
 
 .home-container.home {
-  display:flexbox;
-  flex-direction:row;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 105%;
-  height: 17vh;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 100vh;
   text-align: center;
   box-sizing: border-box;
-  margin: 0 auto; /* Añade esta línea */
-  padding-bottom: 190px; /* Espacio adicional para separar el contenido del footer */
+  margin: 0 auto;
+  padding-bottom: 40px; /* o el valor que realmente necesites */
+  padding-top: 140px; 
+    /* para que el menú no tape el contenido */
 }
  
 
@@ -45,14 +47,16 @@
 .description{
     color: black;
     font-weight: bold;
+    
 }
 .divsep{
     padding-top: 15px;
-    background: linear-gradient(to right, #8b1367, #a02d87);
+    background: linear-gradient(to right, #8b1367, #22021b);
+    
 }
 .parrafo{
   color: white;
-}
+  align-content: center;}
 .productos-existentes {
   margin-top: 50px;
   text-align: center;
