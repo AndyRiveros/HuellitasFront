@@ -32,9 +32,9 @@ const Menu = () => {
         <li className="menu-item"><Link to="/home">HOME</Link></li>
         <li className="menu-item"><Link to="/mapa">DONDE ESTAMOS</Link></li>
         <li className="menu-item"><Link to="/productos">PRODUCTOS</Link></li>
-        <li className="menu-item">
+          <li className="menu-item">
           <Link to="/perfil" onClick={handlePerfilClick}>MI PERFIL</Link>
-        </li>
+          </li>
         {usuario && usuario.rol === 'ADMIN' && <li className="menu-item"><Link to="/inventario">INVENTARIO</Link></li>}
         {usuario && usuario.rol === 'ADMIN' && <li className="menu-item"><Link to="/google-charts">-en desarrollo-</Link></li>}
         <li><button onClick={handleCerrarSesion}>Cerrar Sesión</button></li>

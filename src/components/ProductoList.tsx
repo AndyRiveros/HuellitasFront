@@ -56,7 +56,6 @@ const ProductoList: React.FC = () => {
       navigate('/login'); // Redirige al login si no está autenticado
       return;
     }
-
     carritoContext?.agregarAlCarrito(producto);
   };
 
@@ -138,7 +137,6 @@ const ProductoList: React.FC = () => {
   return (
     <div>
       <div style={{ flex: 2, paddingBottom: '100px' }}>
-        <Menu />
         <div style={{ paddingTop: '60px', display: 'flex', justifyContent: 'space-between', color: 'white' }}>
           <h2>Lista de Productos</h2>
           <div>
@@ -149,7 +147,6 @@ const ProductoList: React.FC = () => {
             {usuario?.rol !== 'ADMIN' && (
               <FloatingCarritoButton onClick={abrirCarrito} />
             )}
-
           </div>
         </div>
         <Modal isOpen={showCarrito} onRequestClose={cerrarCarrito}>
@@ -206,8 +203,8 @@ const ProductoList: React.FC = () => {
                   </p>
                 )}
                 {usuario?.rol !== 'ADMIN' && (
-  <button onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
-)}
+                  <button onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
+                )}
                 <Link to={`/producto/${producto.id}`}>
                   <button>Ver detalles</button>
                 </Link>
@@ -223,3 +220,4 @@ const ProductoList: React.FC = () => {
 };
 
 export default ProductoList;
+                                                            

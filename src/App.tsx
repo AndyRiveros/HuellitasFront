@@ -24,29 +24,32 @@ const App: React.FC = () => {
   return (
     <AuthProvider>
       <CarritoProvider>
-      <Router>
+          <Router>
         <div>
-          <Routes>
-            <Route path="/" element={<Home />} /> {/* Página principal accesible sin autenticación */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/mapa" element={<Mapa />} />
-            <Route path="/productos" element={<ProductoList />} /> {/* Accesible sin autenticación */}
-            <Route path="/producto/:id" element={<ProductoDetail />} /> {/* Accesible sin autenticación */}
-            <Route path="/perfil" element={<RutaPrivada><Perfil /></RutaPrivada>} /> {/* Protegido */}
-            <Route path="/inventario" element={<RutaPrivada><InventarioList /></RutaPrivada>} /> {/* Protegido */}
-            <Route path="/crear-producto" element={<RutaPrivada><CrearProductoForm /></RutaPrivada>} /> {/* Protegido */}
-            <Route path="/productos/:id/modificar" element={<RutaPrivada><ModificarProducto /></RutaPrivada>} /> {/* Protegido */}
-            <Route path="/mercadopago" element={<RutaPrivada><CheckoutMP /></RutaPrivada>} /> {/* Protegido */}
-            <Route path="/google-charts" element={<RutaPrivada><ChartsGoogle /></RutaPrivada>} /> {/* Protegido */}
-            <Route path="*" element={<Home />} /> {/* Redirige a Home si la ruta no existe */}
-          </Routes>
-        </div>
-        <Footer />
-      </Router>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/mapa" element={<Mapa />} />
+                <Route path="/productos" element={<ProductoList />} />
+                <Route path="/producto/:id" element={<ProductoDetail />} />
+                <Route path="/perfil" element={<RutaPrivada><Perfil /></RutaPrivada>} />
+                <Route path="/inventario" element={<RutaPrivada><InventarioList /></RutaPrivada>} />
+                <Route path="/crear-producto" element={<RutaPrivada><CrearProductoForm /></RutaPrivada>} />
+                <Route path="/productos/:id/modificar" element={<RutaPrivada><ModificarProducto /></RutaPrivada>} />
+                <Route path="/mercadopago" element={<RutaPrivada><CheckoutMP /></RutaPrivada>} />
+                <Route path="/google-charts" element={<RutaPrivada><ChartsGoogle /></RutaPrivada>} />
+                <Route path="*" element={<Home />} />
+              </Routes>
+            </div>
+            <Footer />
+          </Router>
       </CarritoProvider>
     </AuthProvider>
   );
 };
+<div className="full-width-section" style={{ backgroundColor: '#8e2673' }}>
+  {/* contenido */}
+</div>
 
 export default App;
