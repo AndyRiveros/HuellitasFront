@@ -6,14 +6,41 @@ const Lupita: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
-  const buscarProductos = async (query: string) => {
+  // Función para normalizar texto (quita tildes y pasa a minúsculas)
+  const normalize = (str: string) =>
+    str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+  const buscar = async (query: string) => {
     if (!query) return;
     try {
-      const response = await fetch(`http://localhost:8080/api/productos/buscar?query=${encodeURIComponent(query)}`);
-      const data = await response.json();
-      navigate('/resultados', { state: { productos: Array.isArray(data) ? data : [], query } });
+      // Fetch productos y categorías en paralelo
+      const [productosRes, categoriasRes] = await Promise.all([
+        fetch('http://localhost:8080/api/productos'),
+        fetch('http://localhost:8080/api/categorias')
+      ]);
+      const productos = await productosRes.json();
+      const categorias = await categoriasRes.json();
+
+      // Normaliza el query
+      const queryNorm = normalize(query);
+
+      // Filtra productos y categorías por coincidencia en nombre o denominación
+      const productosFiltrados = productos.filter((p: any) =>
+        normalize(p.producto).includes(queryNorm)
+      );
+      const categoriasFiltradas = categorias.filter((c: any) =>
+        normalize(c.denominacion).includes(queryNorm)
+      );
+
+      navigate('/resultados', {
+        state: {
+          productos: productosFiltrados,
+          categorias: categoriasFiltradas,
+          query
+        }
+      });
     } catch (error) {
-      console.error('Error al buscar productos:', error);
+      console.error('Error en la búsqueda:', error);
     }
   };
 
@@ -22,12 +49,12 @@ const Lupita: React.FC = () => {
   };
 
   const handleSearch = () => {
-    buscarProductos(searchTerm);
+    buscar(searchTerm);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      buscarProductos(searchTerm);
+      buscar(searchTerm);
     }
   };
 
@@ -36,7 +63,7 @@ const Lupita: React.FC = () => {
       <input
         type="text"
         className="search-input"
-        placeholder="Buscar..."
+        placeholder="Buscar productos o categorías..."
         value={searchTerm}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}

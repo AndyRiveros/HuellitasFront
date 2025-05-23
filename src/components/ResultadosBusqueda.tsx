@@ -1,26 +1,40 @@
-import { useLocation } from 'react-router-dom';
+import React from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import Producto from '../types/Productos';
+import Categoria from '../types/Categoria';
 
-const ResultadosBusqueda = () => {
+const ResultadosBusqueda: React.FC = () => {
   const location = useLocation();
-  const productos: Producto[] = location.state?.productos || [];
-  const query: string = location.state?.query || '';
+  const { productos = [], categorias = [], query = '' } = location.state || {};
 
   return (
-    <div style={{ padding: 20 }}>
+    <div style={{ paddingTop: '140px' }}>
       <h2>Resultados para: "{query}"</h2>
-      {productos.length > 0 ? (
-        <div className="productos-row">
-          {productos.map((producto) => (
-            <div className="producto-card" key={producto.id}>
-              <img src={producto.imagen} alt={producto.producto} className="producto-imagen" />
-              <h4>{producto.producto}</h4>
-              <p>Precio: ${producto.precio}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
+      <h3>Productos</h3>
+      {productos.length === 0 ? (
         <p>No se encontraron productos.</p>
+      ) : (
+        <ul>
+          {productos.map((producto: Producto) => (
+            <li key={producto.id}>
+              <Link to={`/producto/${producto.id}`}>
+                <strong>{producto.producto}</strong> - ${producto.precio}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+      <h3>Categorías</h3>
+      {categorias.length === 0 ? (
+        <p>No se encontraron categorías.</p>
+      ) : (
+        <ul>
+          {categorias.map((categoria: Categoria) => (
+            <li key={categoria.id}>
+              <strong>{categoria.denominacion}</strong>
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );
