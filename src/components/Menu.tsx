@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Menu.css';
 import { AuthContext } from '../utils/AuthContext';
-
+import Lupita from './Lupita';
 
 const Menu = () => {
   const authContext = useContext(AuthContext);
@@ -26,7 +26,6 @@ const Menu = () => {
       navigate('/login');
     }
   };
-
 
 
   // Botón de sesión dinámico
@@ -71,6 +70,7 @@ const sessionButton = usuario ? (
           {/* DERECHA: Lupita y sesión */}
           <div className="menu-right">
             <li>
+              <Lupita/>
             </li>
             <li>
               {sessionButton}

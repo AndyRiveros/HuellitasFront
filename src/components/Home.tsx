@@ -9,7 +9,6 @@ import { CarritoContext } from '../components/CarritoContext';
 import Modal from 'react-modal';
 import Carrito from './Carrito';
 import FloatingCarritoButton from './FloatingCarritoButton';
-import Lupita from './Lupita';
 
 
 const Home = () => {
@@ -62,16 +61,6 @@ const Home = () => {
     setShowCarrito(false);
   };
 
- const buscarProductos = async (query: string) => {
-  if (!query) return;
-  try {
-    const response = await fetch(`http://localhost:8080/api/productos/buscar?query=${encodeURIComponent(query)}`);
-    const data = await response.json();
-    navigate('/resultados', { state: { productos: Array.isArray(data) ? data : [], query } });
-  } catch (error) {
-    console.error('Error al buscar productos:', error);
-  }
-};
 
   return (
     <div>
@@ -88,7 +77,6 @@ const Home = () => {
           </div>
         </div>
         <div className="divsep" style={{ marginBottom: 20 }}>
-  <Lupita onSearch={buscarProductos} />
 </div>
 
   {/* Mostrar el carrito flotante solo si el usuario no es ADMIN */}
