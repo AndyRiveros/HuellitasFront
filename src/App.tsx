@@ -18,6 +18,7 @@ import Perfil from './components/Perfil';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './components/Footer';
 import { CarritoProvider } from './components/CarritoContext';
+import ResultadosBusqueda from './components/ResultadosBusqueda';
 
 
 const App: React.FC = () => {
@@ -40,6 +41,7 @@ const App: React.FC = () => {
                 <Route path="/mercadopago" element={<RutaPrivada><CheckoutMP /></RutaPrivada>} />
                 <Route path="/google-charts" element={<RutaPrivada><ChartsGoogle /></RutaPrivada>} />
                 <Route path="*" element={<Home />} />
+                <Route path="/resultados" element={<ResultadosBusqueda />} />
               </Routes>
             </div>
             <Footer />
