@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/Lupita.css';
 
-
-
 type LupitaProps = {
   onSearch: (query: string) => void;
 };

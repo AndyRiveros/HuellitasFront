@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Menu.css';
 import { AuthContext } from '../utils/AuthContext';
-import Lupita from './Lupita';
+
 
 const Menu = () => {
   const authContext = useContext(AuthContext);
@@ -27,9 +27,7 @@ const Menu = () => {
     }
   };
 
-  const handleSearch = (query: string) => {
-    alert(`Buscar: ${query}`);
-  };
+
 
   // Botón de sesión dinámico
 const sessionButton = usuario ? (
@@ -73,7 +71,6 @@ const sessionButton = usuario ? (
           {/* DERECHA: Lupita y sesión */}
           <div className="menu-right">
             <li>
-              <Lupita onSearch={handleSearch} />
             </li>
             <li>
               {sessionButton}
