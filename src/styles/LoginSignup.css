@@ -94,6 +94,7 @@
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  text-align: center;
 }
 
 .submit:hover {
@@ -118,11 +119,12 @@
   padding-top: 15px;
   color: black;
   font-size: 14px;
+  text-align: center;
 }
 
 /* Logo */
 .logo {
-  width: 150px;
+  width: 180px;
   margin-bottom: 20px;
   margin-left: 60px
 }

@@ -43,7 +43,7 @@
 
 /* LOGO */
 .logo-img {
-  height: 70px;
+  height: 90px;
   object-fit: contain;
 }
 
@@ -146,6 +146,7 @@
   cursor: pointer;
   transition: color 0.2s;
   box-shadow: none;
+  margin: 0 20px;
 }
 .submenu-btn:hover {
   color: #ffe082;

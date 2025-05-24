@@ -80,12 +80,13 @@ const sessionButton = usuario ? (
       </nav>
       {/* SUBMENU */}
       <div className="submenu">
+        
         <button className="submenu-btn">Accesorios</button>
         <button className="submenu-btn">Perros</button>
         <button className="submenu-btn">Gatos</button>
         <button className="submenu-btn">Aves</button>
         <button className="submenu-btn">Peces</button>
-        <button className="submenu-btn">Preguntas Frecuentes</button>
+        <li className="submenu-btn"><Link to="/preguntasfrec">Preguntas Frecuentes</Link></li>
       </div>
     </>
   );
