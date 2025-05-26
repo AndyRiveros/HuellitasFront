@@ -13,7 +13,7 @@ const Menu = () => {
 
   const { usuario, cerrarSesion } = authContext;
   const navigate = useNavigate();
-
+  
   const handleCerrarSesion = () => {
     cerrarSesion();
     navigate("/");
@@ -27,18 +27,16 @@ const Menu = () => {
     }
   };
 
-
-  // Botón de sesión dinámico
-const sessionButton = usuario ? (
-  <button className="logout-button logout-red" onClick={handleCerrarSesion}>Cerrar Sesión</button>
-) : (
-  <button
-    className="logout-button logout-green"
-    onClick={() => navigate('/login')}
-  >
-    Iniciar Sesión
-  </button>
-);
+  const sessionButton = usuario ? (
+    <button className="logout-button logout-red" onClick={handleCerrarSesion}>Cerrar Sesión</button>
+  ) : (
+    <button
+      className="logout-button logout-green"
+      onClick={() => navigate('/login')}
+    >
+      Iniciar Sesión
+    </button>
+  );
 
   return (
     <>
@@ -52,6 +50,7 @@ const sessionButton = usuario ? (
               </Link>
             </li>
           </div>
+          
           {/* CENTRO: Opciones principales */}
           <div className="menu-center">
             <li className="menu-item main-option"><Link to="/home">HOME</Link></li>
@@ -65,8 +64,9 @@ const sessionButton = usuario ? (
                 <li className="menu-item main-option"><Link to="/inventario">INVENTARIO</Link></li>
                 <li className="menu-item main-option"><Link to="/google-charts">-EN DESARROLLO-</Link></li>
               </>
-    )}
+            )}
           </div>
+          
           {/* DERECHA: Lupita y sesión */}
           <div className="menu-right">
             <li>
@@ -78,15 +78,17 @@ const sessionButton = usuario ? (
           </div>
         </ul>
       </nav>
-      {/* SUBMENU */}
+
+      {/* SUBMENU - versión Lio-Rama */}
       <div className="submenu">
-        
         <button className="submenu-btn">Accesorios</button>
         <button className="submenu-btn">Perros</button>
         <button className="submenu-btn">Gatos</button>
         <button className="submenu-btn">Aves</button>
         <button className="submenu-btn">Peces</button>
-        <li className="submenu-btn"><Link to="/preguntasfrec">Preguntas Frecuentes</Link></li>
+        <li className="submenu-btn">
+          <Link to="/preguntasfrec">Preguntas Frecuentes</Link>
+        </li>
       </div>
     </>
   );

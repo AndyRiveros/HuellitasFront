@@ -2,13 +2,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import Menu from './Menu';
 import { AuthContext } from '../utils/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import '../styles/Perfil.css'; // Asegúrate de crear este archivo CSS
+import '../styles/Perfil.css';
 
 const Perfil: React.FC = () => {
   const authContext = useContext(AuthContext);
-  const usuario = authContext ? authContext.usuario : undefined;
-  const navigate = useNavigate();
+
+  if (!authContext || !authContext.usuario) {
+    console.warn("Usuario no definido en AuthContext. No se puede cargar el perfil.");
+    return <p>Cargando datos del usuario...</p>;
+  }
+
+  const usuario = authContext.usuario;
 
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
@@ -17,14 +21,11 @@ const Perfil: React.FC = () => {
   const [mail, setMail] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [imagen, setImagen] = useState<File | null>(null);
+  const [imagenPerfilUrl, setImagenPerfilUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUsuario = async () => {
-      if (!usuario || !usuario.id) {
-        console.warn('Usuario no definido. Esperando datos del contexto...');
-        return;
-      }
-
       try {
         const response = await axios.get(`http://localhost:8080/usuarios/${usuario.id}`);
         const data = response.data;
@@ -33,122 +34,154 @@ const Perfil: React.FC = () => {
         setDireccion(data.direccion);
         setDni(data.dni);
         setMail(data.mail);
+        if (data.imagenPerfil && typeof data.imagenPerfil === "string" && data.imagenPerfil.trim() !== "") {
+          setImagenPerfilUrl(`http://localhost:8080${data.imagenPerfil}`);
+        } else {
+          setImagenPerfilUrl(null);
+        }
       } catch (error) {
-        console.error('Error al obtener los datos del usuario:', error);
+        console.error("Error al obtener los datos del usuario:", error);
       } finally {
         setLoading(false);
       }
     };
-
     fetchUsuario();
   }, [usuario]);
 
-  const handleSave = async () => {
-    if (!usuario || !usuario.id) {
-      alert('Usuario no definido. No se puede guardar.');
-      return;
-    }
-
-    const updatedUsuario = {
-      ...usuario,
-      nombre,
-      apellido,
-      direccion,
-      dni,
-      mail,
-    };
-
-    try {
-      const response = await axios.put(`http://localhost:8080/usuarios/${usuario.id}`, updatedUsuario);
-      if (response.status === 200) {
-        alert('Perfil actualizado correctamente');
-        authContext?.actualizarPerfil(response.data); // Actualizar el contexto con los nuevos datos
-        setEditMode(false);
-      }
-    } catch (error) {
-      console.error('Error al actualizar el perfil:', error);
-      alert('Hubo un error al actualizar el perfil. Por favor, inténtalo de nuevo.');
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setImagen(event.target.files[0]);
     }
   };
 
-  if (!usuario) {
-    return <p>Cargando datos del usuario...</p>;
+  const handleUpload = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!imagen) {
+      alert("Por favor, selecciona una imagen.");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("imagen", imagen);
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/usuarios/subir-imagen/${usuario.id}`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+      if (response.status === 200) {
+        alert("Imagen subida correctamente.");
+        if (typeof response.data === "string" && response.data.trim() !== "") {
+          setImagenPerfilUrl(`http://localhost:8080${response.data}`);
+        } else {
+          setImagenPerfilUrl(null);
+        }
+        setImagen(null);
+      } else {
+        alert("Error al subir imagen. Intenta nuevamente.");
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error("Error al subir imagen:", error.response?.data || error.message);
+      } else {
+        console.error("Error al subir imagen:", error);
+      }
+      alert("Hubo un error al subir la imagen.");
+    }
+  };
+
+  const handleSave = async () => {
+    const updatedUsuario = { ...usuario, nombre, apellido, direccion, dni, mail };
+    try {
+      const response = await axios.put(`http://localhost:8080/usuarios/${usuario.id}`, updatedUsuario);
+      if (response.status === 200) {
+        alert("Perfil actualizado correctamente");
+        authContext.actualizarPerfil(response.data);
+        setEditMode(false);
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error("Error al actualizar el perfil:", error.response?.data || error.message);
+      } else {
+        console.error("Error al actualizar el perfil:", error);
+      }
+      alert("Hubo un error al actualizar el perfil.");
+    }
+  };
+
+  if (loading) {
+    return <p>Cargando...</p>;
   }
 
   return (
     <div>
       <Menu />
-      <div className="perfil-container" style={{ paddingTop: '140px' }}>
-        <h2 className="perfil-title">Perfil del Usuario</h2>
-        <div className="perfil-card">
-          <div>
-            <label>Nombre:</label>
-            {editMode ? (
-              <input
-                type="text"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-              />
-            ) : (
-              <p>{nombre}</p>
-            )}
-          </div>
-          <div>
-            <label>Apellido:</label>
-            {editMode ? (
-              <input
-                type="text"
-                value={apellido}
-                onChange={(e) => setApellido(e.target.value)}
-              />
-            ) : (
-              <p>{apellido}</p>
-            )}
-          </div>
-          <div>
-            <label>Dirección:</label>
-            {editMode ? (
-              <input
-                type="text"
-                value={direccion}
-                onChange={(e) => setDireccion(e.target.value)}
-              />
-            ) : (
-              <p>{direccion}</p>
-            )}
-          </div>
-          <div>
-            <label>DNI:</label>
-            {editMode ? (
-              <input
-                type="number"
-                value={dni || ''}
-                onChange={(e) => setDni(Number(e.target.value))}
-              />
-            ) : (
-              <p>{dni}</p>
-            )}
-          </div>
-          <div>
-            <label>Email:</label>
-            {editMode ? (
-              <input
-                type="email"
-                value={mail}
-                onChange={(e) => setMail(e.target.value)}
-              />
-            ) : (
-              <p>{mail}</p>
-            )}
-          </div>
-          {editMode ? (
-            <div>
-              <button onClick={handleSave}>Guardar</button>
-              <button onClick={() => setEditMode(false)}>Cancelar</button>
+      <div className="profile-wrapper">
+        <h2 className="profile-title">Perfil del Usuario</h2>
+        <div className="profile-card">
+          {/* Columna izquierda: Datos del usuario */}
+          <div className="profile-left">
+            <div className="profile-field">
+              <label>Nombre:</label>
+              {editMode ? (
+                <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+              ) : (
+                <span>{nombre}</span>
+              )}
             </div>
-          ) : (
-            <button onClick={() => setEditMode(true)}>Editar Perfil</button>
-          )}
+            <div className="profile-field">
+              <label>Apellido:</label>
+              {editMode ? (
+                <input type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} />
+              ) : (
+                <span>{apellido}</span>
+              )}
+            </div>
+            <div className="profile-field">
+              <label>Dirección:</label>
+              {editMode ? (
+                <input type="text" value={direccion} onChange={(e) => setDireccion(e.target.value)} />
+              ) : (
+                <span>{direccion}</span>
+              )}
+            </div>
+            <div className="profile-field">
+              <label>DNI:</label>
+              {editMode ? (
+                <input type="number" value={dni || ""} onChange={(e) => setDni(Number(e.target.value))} />
+              ) : (
+                <span>{dni}</span>
+              )}
+            </div>
+            <div className="profile-field">
+              <label>Email:</label>
+              {editMode ? (
+                <input type="email" value={mail} onChange={(e) => setMail(e.target.value)} />
+              ) : (
+                <span>{mail}</span>
+              )}
+            </div>
+            <div className="profile-actions">
+              {editMode ? (
+                <button className="btn-save" onClick={handleSave}>Guardar</button>
+              ) : (
+                <button className="btn-edit" onClick={() => setEditMode(true)}>Editar Perfil</button>
+              )}
+            </div>
+          </div>
+          {/* Columna derecha: Foto de perfil y subida de imagen */}
+          <div className="profile-right">
+            <div className="profile-photo">
+              {imagenPerfilUrl && imagenPerfilUrl.trim() !== "" ? (
+                <img src={imagenPerfilUrl} alt="Foto de perfil" />
+              ) : (
+                <div className="no-photo">No hay foto cargada</div>
+              )}
+            </div>
+            <div className="upload-area">
+              <input type="file" accept="image/*" onChange={handleFileChange} />
+              <button className="btn-upload" onClick={handleUpload}>Subir Imagen</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
