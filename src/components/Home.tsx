@@ -10,6 +10,7 @@ import Modal from 'react-modal';
 import Carrito from './Carrito';
 import FloatingCarritoButton from './FloatingCarritoButton';
 
+
 const Home = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
   const authContext = useContext(AuthContext);
@@ -60,7 +61,6 @@ const Home = () => {
     setShowCarrito(false);
   };
 
- 
 
   return (
     <div>
@@ -76,6 +76,8 @@ const Home = () => {
             </p>
           </div>
         </div>
+        <div className="divsep" style={{ marginBottom: 20 }}>
+</div>
 
   {/* Mostrar el carrito flotante solo si el usuario no es ADMIN */}
         {usuario?.rol !== 'ADMIN' && (carritoContext?.carrito?.length ?? 0) > 0 && (
@@ -96,7 +98,6 @@ const Home = () => {
             <img className="d-block w-100" src="https://thumbs.dreamstime.com/b/muchos-gatos-de-diferentes-razas-y-tama%C3%B1os-sobre-fondo-blanco-banner-web-para-publicidad-cl%C3%ADnicas-veterinarias-sal%C3%B3n-belleza-278094388.jpg" alt="Imagen 3" />
           </Carousel.Item>
         </Carousel>
-
         {/* Carrusel de productos existentes */}
         <div className="productos-existentes">
           <h3 className="section-title">Nuestros Productos</h3>

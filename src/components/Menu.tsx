@@ -27,9 +27,6 @@ const Menu = () => {
     }
   };
 
-  const handleSearch = (query: string) => {
-    alert(`Buscar: ${query}`);
-  };
 
   // Botón de sesión dinámico
   const sessionButton = usuario ? (
@@ -75,7 +72,7 @@ const Menu = () => {
           {/* DERECHA: Lupita y sesión */}
           <div className="menu-right">
             <li>
-              <Lupita onSearch={handleSearch} />
+              <Lupita/>
             </li>
             <li>
               {sessionButton}

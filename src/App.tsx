@@ -15,18 +15,18 @@ import ChartsGoogle from './components/ChartsGoogle';
 import Signup from './components/SignUp';
 import InventarioList from './components/InventarioList';
 import Perfil from './components/Perfil';
-import Perros from './components/Perros'; // Sección de Perros
-import Menu from './components/Menu'; // Agregamos el menú
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Perros from './components/Perros';
+import Menu from './components/Menu';
 import Footer from './components/Footer';
 import { CarritoProvider } from './components/CarritoContext';
+import ResultadosBusqueda from './components/ResultadosBusqueda';
 
 const App: React.FC = () => {
   return (
     <AuthProvider>
       <CarritoProvider>
         <Router>
-          <Menu /> {/* Colocamos el menú aquí para que siempre esté visible */}
+          <Menu /> {/* Siempre visible */}
           <div>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -41,7 +41,8 @@ const App: React.FC = () => {
               <Route path="/productos/:id/modificar" element={<RutaPrivada><ModificarProducto /></RutaPrivada>} />
               <Route path="/mercadopago" element={<RutaPrivada><CheckoutMP /></RutaPrivada>} />
               <Route path="/google-charts" element={<RutaPrivada><ChartsGoogle /></RutaPrivada>} />
-              <Route path="/perros" element={<Perros />} /> {/* Nueva ruta para la sección Perros */}
+              <Route path="/perros" element={<Perros />} />
+              <Route path="/resultados" element={<ResultadosBusqueda />} />
               <Route path="*" element={<Home />} />
             </Routes>
           </div>
