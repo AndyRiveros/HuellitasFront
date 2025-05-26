@@ -1,0 +1,53 @@
+.perros-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fefefe;
+}
+
+.perros-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.perros-description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.categorias-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.categoria {
+  background-color: #ffebcd; /* Color crema profesional */
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  width: 30%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.categoria h3 {
+  font-size: 22px;
+  color: #333;
+}
+
+.categoria ul {
+  list-style: none;
+  padding: 0;
+}
+
+.categoria li {
+  font-size: 16px;
+  padding: 6px;
+}
+.perros-container {
+  padding-top: 200px; /* Baja la sección de Perros para que no quede detrás del menú */
+  margin-bottom: 40px; /* Separa la sección del footer */
+}
+
