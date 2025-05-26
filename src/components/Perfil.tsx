@@ -34,11 +34,11 @@ const Perfil: React.FC = () => {
         setDireccion(data.direccion);
         setDni(data.dni);
         setMail(data.mail);
-        if (data.imagenPerfil && typeof data.imagenPerfil === "string" && data.imagenPerfil.trim() !== "") {
-          setImagenPerfilUrl(`http://localhost:8080${data.imagenPerfil}`);
-        } else {
-          setImagenPerfilUrl(null);
-        }
+if (data.imagenPerfil && typeof data.imagenPerfil === "string" && data.imagenPerfil.trim() !== "") {
+  setImagenPerfilUrl(`http://localhost:8080${data.imagenPerfil}`);
+} else {
+  setImagenPerfilUrl(null);
+}
       } catch (error) {
         console.error("Error al obtener los datos del usuario:", error);
       } finally {
@@ -55,39 +55,35 @@ const Perfil: React.FC = () => {
   };
 
   const handleUpload = async (event: React.FormEvent) => {
-    event.preventDefault();
-    if (!imagen) {
-      alert("Por favor, selecciona una imagen.");
-      return;
-    }
-    const formData = new FormData();
-    formData.append("imagen", imagen);
-    try {
-      const response = await axios.post(
-        `http://localhost:8080/usuarios/subir-imagen/${usuario.id}`,
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
-      if (response.status === 200) {
-        alert("Imagen subida correctamente.");
-        if (typeof response.data === "string" && response.data.trim() !== "") {
-          setImagenPerfilUrl(`http://localhost:8080${response.data}`);
-        } else {
-          setImagenPerfilUrl(null);
-        }
-        setImagen(null);
-      } else {
-        alert("Error al subir imagen. Intenta nuevamente.");
+  event.preventDefault();
+  if (!imagen) {
+    alert("Selecciona una imagen primero.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("imagen", imagen);
+
+  try {
+    const response = await axios.post(
+      `http://localhost:8080/usuarios/subir-imagen/${usuario.id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       }
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        console.error("Error al subir imagen:", error.response?.data || error.message);
-      } else {
-        console.error("Error al subir imagen:", error);
-      }
-      alert("Hubo un error al subir la imagen.");
-    }
-  };
+    );
+
+    const rutaImagen = response.data;
+    setImagenPerfilUrl(`http://localhost:8080${rutaImagen}`);
+    alert("Imagen subida con éxito.");
+  } catch (error) {
+    console.error("Error al subir la imagen:", error);
+    alert("Hubo un problema al subir la imagen.");
+  }
+};
+
 
   const handleSave = async () => {
     const updatedUsuario = { ...usuario, nombre, apellido, direccion, dni, mail };
@@ -171,11 +167,12 @@ const Perfil: React.FC = () => {
           {/* Columna derecha: Foto de perfil y subida de imagen */}
           <div className="profile-right">
             <div className="profile-photo">
-              {imagenPerfilUrl && imagenPerfilUrl.trim() !== "" ? (
-                <img src={imagenPerfilUrl} alt="Foto de perfil" />
-              ) : (
-                <div className="no-photo">No hay foto cargada</div>
-              )}
+              {imagenPerfilUrl ? (
+  <img src={imagenPerfilUrl} alt="Imagen de perfil" width={200} height={200} />
+) : (
+  <p>No hay imagen de perfil</p>
+)}
+
             </div>
             <div className="upload-area">
               <input type="file" accept="image/*" onChange={handleFileChange} />
