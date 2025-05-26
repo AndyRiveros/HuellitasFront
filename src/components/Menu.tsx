@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Menu.css';
 import { AuthContext } from '../utils/AuthContext';
@@ -27,8 +27,6 @@ const Menu = () => {
     }
   };
 
-
-  // Botón de sesión dinámico
   const sessionButton = usuario ? (
     <button className="logout-button logout-red" onClick={handleCerrarSesion}>Cerrar Sesión</button>
   ) : (
@@ -81,25 +79,16 @@ const Menu = () => {
         </ul>
       </nav>
 
-      {/* SUBMENU (Ahora con menú desplegable en "Perros") */}
+      {/* SUBMENU - versión Lio-Rama */}
       <div className="submenu">
-        <Link to="/accesorios" className="submenu-btn">Accesorios</Link>
-
-        {/* Contenedor de "Perros" con dropdown y flecha */}
-<div className="submenu-container">
-  <button className="submenu-btn">🐶 Perros</button>
-  <div className="submenu-dropdown">
-    <Link to="/perros/alimentos"> Alimentos</Link>
-    <Link to="/perros/snacks"> Snacks</Link>
-    <Link to="/perros/higiene"> Higiene</Link>
-  </div>
-</div>
-
-
-        <Link to="/gatos" className="submenu-btn">Gatos</Link>
-        <Link to="/aves" className="submenu-btn">Aves</Link>
-        <Link to="/peces" className="submenu-btn">Peces</Link>
-        <Link to="/preguntas-frecuentes" className="submenu-btn">Preguntas Frecuentes</Link>
+        <button className="submenu-btn">Accesorios</button>
+        <button className="submenu-btn">Perros</button>
+        <button className="submenu-btn">Gatos</button>
+        <button className="submenu-btn">Aves</button>
+        <button className="submenu-btn">Peces</button>
+        <li className="submenu-btn">
+          <Link to="/preguntasfrec">Preguntas Frecuentes</Link>
+        </li>
       </div>
     </>
   );

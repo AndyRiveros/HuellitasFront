@@ -20,6 +20,7 @@ import Menu from './components/Menu';
 import Footer from './components/Footer';
 import { CarritoProvider } from './components/CarritoContext';
 import ResultadosBusqueda from './components/ResultadosBusqueda';
+import PreguntasFrec from './components/PreguntasFrec'; // de Lio-Rama
 
 const App: React.FC = () => {
   return (
@@ -33,6 +34,7 @@ const App: React.FC = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/mapa" element={<Mapa />} />
+              <Route path="/preguntasfrec" element={<PreguntasFrec />} /> {/* de Lio-Rama */}
               <Route path="/productos" element={<ProductoList />} />
               <Route path="/producto/:id" element={<ProductoDetail />} />
               <Route path="/perfil" element={<RutaPrivada><Perfil /></RutaPrivada>} />
