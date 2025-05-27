@@ -65,7 +65,7 @@ const Home = () => {
   return (
     <div>
       <Menu />
-      <div className="home-container home"  style={{ paddingTop: '148px' }}>
+      <div className="home-container home"  style={{ paddingTop: '170px' }}>
         <div className="title-container divsep">
           <h2 className="title anton-regular">HUELLITAS - Pet Shop</h2>
         </div>
