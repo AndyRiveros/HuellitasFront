@@ -86,9 +86,7 @@ const Menu = () => {
         <button className="submenu-btn">Gatos</button>
         <button className="submenu-btn">Aves</button>
         <button className="submenu-btn">Peces</button>
-        <li className="submenu-btn">
-          <Link to="/preguntasfrec">Preguntas Frecuentes</Link>
-        </li>
+        <button className="submenu-btn"><Link to="/preguntasfrec">Preguntas Frecuentes</Link></button>
       </div>
     </>
   );

@@ -9,20 +9,33 @@ import Pedido from '../types/Pedido';
 import PedidoDetalle from '../types/PedidoDetalles';
 import { AuthContext } from '../utils/AuthContext';
 import { CarritoContext } from '../components/CarritoContext';
-import Modal from 'react-modal';
 import '../styles/FloatingCarrito.css';
 import FloatingCarritoButton from './FloatingCarritoButton';
+import '../styles/ProductoList.css'; // Asegúrate de tener este archivo
 
 const ProductoList: React.FC = () => {
   const [productos, setProductos] = useState<Producto[] | undefined>(undefined);
   const authContext = useContext(AuthContext);
   const carritoContext = useContext(CarritoContext);
   const usuario = authContext ? authContext.usuario : undefined;
-  const [fechaDesde, setFechaDesde] = useState('');
+  const [orden, setOrden] = useState('');
   const navigate = useNavigate();
-  const [fechaHasta, setFechaHasta] = useState('');
-  const [showModal, setShowModal] = useState(false);
+  const [filtroEspecie, setFiltroEspecie] = useState<string[]>([]);
+  const [filtroTipo, setFiltroTipo] = useState<string[]>([]);
+  const [filtroEtapa, setFiltroEtapa] = useState<string[]>([]);;
+
   const [showCarrito, setShowCarrito] = useState(false);
+  const [busqueda, setBusqueda] = useState('');
+
+
+// Función para alternar selección
+  const toggleFiltro = (valor: string, filtro: string[], setFiltro: React.Dispatch<React.SetStateAction<string[]>>) => {
+    if (filtro.includes(valor)) {
+      setFiltro(filtro.filter(f => f !== valor));
+    } else {
+      setFiltro([...filtro, valor]);
+    }
+  };
 
   const abrirCarrito = () => {
     setShowCarrito(true);
@@ -35,20 +48,6 @@ const ProductoList: React.FC = () => {
   const cerrarModal = () => {
     setShowModal(false);
   };
-
-  // const generarExcel = () => {
-  //   if (fechaDesde && fechaHasta) {
-  //     const fechaDesdeConHora = `${fechaDesde}T00:00:00`;
-  //     const fechaHastaConHora = `${fechaHasta}T23:59:59`;
-
-  //     const url = `http://localhost:8080/api/pedidos/downloadExcel?fechaDesde=${fechaDesdeConHora}&fechaHasta=${fechaHastaConHora}`;
-
-  //     window.open(url, '_blank');
-  //     cerrarModal();
-  //   } else {
-  //     alert('Por favor ingresa ambas fechas.');
-  //   }
-  // };
 
   const agregarAlCarrito = (producto: Producto) => {
     if (!usuario) {
@@ -130,64 +129,129 @@ const ProductoList: React.FC = () => {
       .then(data => setCategorias(data));
   }, []);
 
-  const productosFiltrados = productos && categoriaSeleccionada
-    ? productos.filter(producto => producto.idCategoria === Number(categoriaSeleccionada))
-    : productos
+ let productosFiltrados = productos ?? [];
+  if (filtroEspecie.length > 0) {
+    productosFiltrados = productosFiltrados.filter(p => p.especie && filtroEspecie.includes(p.especie));
+  }
+  if (filtroTipo.length > 0) {
+    productosFiltrados = productosFiltrados.filter(p => p.tipo && filtroTipo.includes(p.tipo));
+  }
+  if (filtroEtapa.length > 0) {
+    productosFiltrados = productosFiltrados.filter(p => p.etapa && filtroEtapa.includes(p.etapa));
+  }
+
+if (orden === 'menor') {
+  productosFiltrados = productosFiltrados.sort((a, b) => a.precio - b.precio);
+} else if (orden === 'mayor') {
+  productosFiltrados = productosFiltrados.sort((a, b) => b.precio - a.precio);
+} else if (orden === 'az') {
+  productosFiltrados = productosFiltrados.sort((a, b) => a.producto.localeCompare(b.producto));
+} else if (orden === 'za') {
+  productosFiltrados = productosFiltrados.sort((a, b) => b.producto.localeCompare(a.producto));
+}
 
   return (
-    <div>
-      <Menu /> 
-      <div style={{ flex: 2, paddingBottom: '100px' , paddingTop: '100px'  }}>
-        <div style={{ paddingTop: '60px', display: 'flex', justifyContent: 'space-between', color: 'white' }}>
-          <h2>Lista de Productos</h2>
-          <div>
-            {/* {usuario && usuario.rol === 'ADMIN' && (
-              <button onClick={() => setShowModal(true)}>Generar Excel</button>
-            )} */}
-            {/* Mostrar el carrito flotante solo si el usuario no es ADMIN */}
-            {usuario?.rol !== 'ADMIN' && (
-              <FloatingCarritoButton onClick={abrirCarrito} />
-            )}
+    <>
+      <Menu />
+      <div className="producto-list-container">
+        <aside className="categorias-sidebar">
+          <h3>Filtros</h3>
+          <div className="categorias-botones">
+            <button
+              className={
+                filtroEspecie.length === 0 && filtroTipo.length === 0 && filtroEtapa.length === 0
+                  ? "categoria-btn active"
+                  : "categoria-btn"
+              }
+              onClick={() => {
+                setFiltroEspecie([]);
+                setFiltroTipo([]);
+                setFiltroEtapa([]);
+              }}
+            >
+              Todos los productos
+            </button>
           </div>
-        </div>
-        <Modal isOpen={showCarrito} onRequestClose={cerrarCarrito}>
-          <Carrito carrito={carritoContext?.carrito || []} onEliminarDelCarrito={carritoContext?.eliminarDelCarrito || (() => {})} />
-          <button onClick={guardarCarrito} disabled={carritoContext?.carrito.length === 0}>
-            Guardar Carrito
-          </button>
-          <button onClick={cerrarCarrito}>Cerrar Carrito</button>
-        </Modal>
-        {/* <Modal isOpen={showModal} onRequestClose={cerrarModal}>
-          <h2>Generar Excel</h2>
-          <label>Fecha desde: </label>
-          <input type="date" value={fechaDesde} onChange={e => setFechaDesde(e.target.value)} />
-          <label>Fecha hasta: </label>
-          <input type="date" value={fechaHasta} onChange={e => setFechaHasta(e.target.value)} />
-          <button onClick={generarExcel}>Generar</button>
-          <button onClick={cerrarModal}>Cerrar</button>
-        </Modal> */}
-        <div>
-          <label style={{ color: 'white' }}>Filtrar por categoría: </label>
-          <select value={categoriaSeleccionada} onChange={e => setCategoriaSeleccionada(e.target.value)}>
-            <option value="">Todas las categorías</option>
-            {categorias.map(categoria => (
-              <option key={categoria.id} value={categoria.id}>
-                {categoria.denominacion}
-              </option>
+          <div className="filtro-grupo">
+            <span style={{ fontWeight: 'bold' }}>Especie:</span>
+            {["perro", "gato", "ave", "pez"].map(especie => (
+              <button
+                key={especie}
+                className={filtroEspecie.includes(especie) ? "categoria-btn active" : "categoria-btn"}
+                onClick={() => toggleFiltro(especie, filtroEspecie, setFiltroEspecie)}
+              >
+                {especie.charAt(0).toUpperCase() + especie.slice(1)}
+              </button>
             ))}
+          </div>
+          <div className="filtro-grupo">
+            <span style={{ fontWeight: 'bold' }}>Tipo:</span>
+            {[
+              { key: "alimento", label: "Alimentos" },
+              { key: "accesorios", label: "Accesorios" },
+              { key: "salud", label: "Salud" },
+              { key: "estetica", label: "Estética e Higiene" },
+              { key: "snack", label: "Snacks" },
+              { key: "oferta", label: "Ofertas" }
+            ].map(tipo => (
+              <button
+                key={tipo.key}
+                className={filtroTipo.includes(tipo.key) ? "categoria-btn active" : "categoria-btn"}
+                onClick={() => toggleFiltro(tipo.key, filtroTipo, setFiltroTipo)}
+              >
+                {tipo.label}
+              </button>
+            ))}
+          </div>
+          <div className="filtro-grupo">
+            <span style={{ fontWeight: 'bold' }}>Etapa:</span>
+            {["cachorro", "adulto", "senior"].map(etapa => (
+              <button
+                key={etapa}
+                className={filtroEtapa.includes(etapa) ? "categoria-btn active" : "categoria-btn"}
+                onClick={() => toggleFiltro(etapa, filtroEtapa, setFiltroEtapa)}
+              >
+                {etapa.charAt(0).toUpperCase() + etapa.slice(1)}
+              </button>
+            ))}
+          </div>
+        </aside>
+
+      {/* Columna derecha: Productos en grilla */}
+      <main className="productos-main">
+        <h2>Lista de Productos</h2>
+        <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 20 }}>
+          <input
+            type="text"
+            placeholder="Buscar producto..."
+            value={busqueda}
+            onChange={e => setBusqueda(e.target.value)}
+            className="buscador-productos"
+            style={{ maxWidth: 350, padding: 8, borderRadius: 6, border: '1px solid #ccc' }}
+          />
+          <select
+            value={orden}
+            onChange={e => setOrden(e.target.value)}
+            style={{ padding: 8, borderRadius: 6, border: '1px solid #ccc' }}
+          >
+            <option value="">Ordenar por</option>
+            <option value="menor">Menor precio</option>
+            <option value="mayor">Mayor precio</option>
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
           </select>
         </div>
         {productosFiltrados === undefined ? (
           <p>Cargando productos...</p>
         ) : productosFiltrados.length > 0 ? (
-          productosFiltrados.map((producto: Producto) => (
-            <div className="producto" key={producto.id}>
-              <img
-                style={{ width: '400px', height: '300px' }}
-                src={producto.imagen}
-                alt={producto.producto}
-              />
-              <div>
+          <div className="productos-grid">
+            {productosFiltrados.map((producto: Producto) => (
+              <div className="producto-card" key={producto.id}>
+                <img
+                  src={producto.imagen}
+                  alt={producto.producto}
+                  className="producto-img"
+                />
                 <h3>{producto.producto}</h3>
                 <p>Precio: ${producto.precio}</p>
                 {producto.costoEnvio !== 'G' && (
@@ -210,14 +274,15 @@ const ProductoList: React.FC = () => {
                   <button>Ver detalles</button>
                 </Link>
               </div>
-            </div>
-          ))
+            ))}
+          </div>
         ) : (
           <p>No hay productos disponibles.</p>
         )}
-      </div>
+      </main>
     </div>
-  );
+  </>
+);
 };
 
 export default ProductoList;
