@@ -76,8 +76,7 @@ const Home = () => {
             </p>
           </div>
         </div>
-        <div className="divsep" style={{ marginBottom: 20 }}>
-</div>
+        
 
   {/* Mostrar el carrito flotante solo si el usuario no es ADMIN */}
         {usuario?.rol !== 'ADMIN' && (carritoContext?.carrito?.length ?? 0) > 0 && (

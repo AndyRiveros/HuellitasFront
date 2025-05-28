@@ -82,6 +82,14 @@ function Login() {
           </Link>
         </p>
       </div>
+      <div className="div" style={{ marginTop: '15px' }}>
+        <Link to="/home" style={{ color: 'blue', textDecoration: 'underline' }}>
+          Continuar a la web sin registrarme
+        </Link>
+        <p style={{ fontSize: '0.9em', color: '#555', marginTop: '5px' }}>
+          (Recuerda que sólo podrás realizar compras si cuentas con usuario)
+        </p>
+      </div>
       {mensaje && (
         <p className={mensaje === 'Usuario y/o contraseña inválidos' ? 'error-message' : ''}>
           {mensaje}
