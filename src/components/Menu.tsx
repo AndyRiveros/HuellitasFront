@@ -26,7 +26,7 @@ const Menu = () => {
       navigate('/login');
     }
   };
-
+  
   const handleSearch = (query: string) => {
     alert(`Buscar: ${query}`);
   };
@@ -88,9 +88,9 @@ const Menu = () => {
       <div className="submenu">
         <Link to="/accesorios" className="submenu-btn">Accesorios</Link>
 
-        {/* Contenedor de "Perros" con dropdown y flecha */}
+        {/* Contenedor de "Perros" con dropdown */}
 <div className="submenu-container">
-  <button className="submenu-btn">🐶 Perros</button>
+  <Link to="/perros" className="submenu-btn">🐶 Perros</Link>
   <div className="submenu-dropdown">
     <Link to="/perros/alimentos"> Alimentos</Link>
     <Link to="/perros/snacks"> Snacks</Link>
