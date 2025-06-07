@@ -7,17 +7,19 @@ import Categoria from '../types/Categoria';
 // Importando la interfaz Producto
 
 
-const validationSchema = yup.object({
-  producto: yup.string(),
-  marca: yup.string(),
-  modelo: yup.string(),
-  imagen: yup.string().url(),
-  precio: yup.string(), // Cambiado a string porque se espera un string
-  costoEnvio: yup.string(), // Cambiado a string porque se espera un string
-  cantidadVendida: yup.number(), // Cambiado a string porque se espera un string
+const validationSchema = yup.object().shape({
+  producto: yup.string().required('Requerido'),
+  marca: yup.string().required('Requerido'),
+  modelo: yup.string().required('Requerido'),
+  precio: yup.number().required('Requerido'),
+  costoEnvio: yup.string().required('Requerido'),
+  imagen: yup.string().required('Requerido'),
   descripcion: yup.string(),
+  especie: yup.string().required('Requerido'), // Nuevo
+  tipo: yup.string().required('Requerido'),    // Nuevo
+  etapa: yup.string(),                         // Opcional
   categoria: yup.object().shape({
-    id: yup.string(),
+    id: yup.string().required('Selecciona una categoría'),
   }),
 });
 
@@ -37,6 +39,9 @@ const ModificarProducto: React.FC = () => {
     descripcion: '',
     idCategoria: 0,
     isDeleted: false,
+     especie: '',   // Nuevo
+  tipo: '',      // Nuevo
+  etapa: '', 
   });
     const [categorias, setCategorias] = useState<Categoria[]>([]); // Estado para las categorías
 
@@ -168,6 +173,41 @@ const ModificarProducto: React.FC = () => {
               <ErrorMessage name="categoria.id" component="div" className="error-message" />
             )}
           </div>
+          <div className="form-group">
+  <label htmlFor="especie">Especie:</label>
+  <Field as="select" name="especie">
+    <option value="">Selecciona especie</option>
+    <option value="perro">Perro</option>
+    <option value="gato">Gato</option>
+    <option value="ave">Ave</option>
+    <option value="pez">Pez</option>
+    {/* Agrega más si necesitas */}
+  </Field>
+  <ErrorMessage name="especie" component="div" className="error-message" />
+</div>
+<div className="form-group">
+  <label htmlFor="tipo">Tipo:</label>
+  <Field as="select" name="tipo">
+    <option value="">Selecciona tipo</option>
+    <option value="alimento">Alimento</option>
+    <option value="salud">Salud</option>
+    <option value="estetica">Estética</option>
+    <option value="snack">Snack</option>
+    <option value="oferta">Oferta</option>
+    {/* Agrega más si necesitas */}
+  </Field>
+  <ErrorMessage name="tipo" component="div" className="error-message" />
+</div>
+<div className="form-group">
+  <label htmlFor="etapa">Etapa (opcional):</label>
+  <Field as="select" name="etapa">
+    <option value="">Selecciona etapa</option>
+    <option value="cachorro">Cachorro</option>
+    <option value="adulto">Adulto</option>
+    <option value="senior">Senior</option>
+  </Field>
+  <ErrorMessage name="etapa" component="div" className="error-message" />
+</div>
           <button 
               type="submit" 
               disabled={!isValid || isSubmitting}  // Ahora utilizas las propiedades correctamente

@@ -43,7 +43,7 @@
 
 /* LOGO */
 .logo-img {
-  height: 70px;
+  height: 90px;
   object-fit: contain;
 }
 
@@ -76,7 +76,7 @@
   top: 100px;
   left: 0;
   width: 100vw;
-  background: #F2E7C3; /* Color crema */
+  background: #F2E7C3;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,16 +96,17 @@
   padding: 8px 14px;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin: 0 20px;
 }
 
-/* Corrección: letra blanca y fondo violeta al pasar el mouse */
+/* Hover del botón del submenu */
 .submenu-btn:hover {
-  color: white !important; /* Texto blanco */
-  background-color: #6E2A65 !important; /* Mismo violeta del menú */
+  color: white !important;
+  background-color: #6E2A65 !important;
   border-radius: 6px;
 }
 
-/* Botón activo (cuando se selecciona "Perros") */
+/* Botón activo */
 .submenu-btn.active {
   background-color: #6E2A65;
   color: white;
@@ -115,55 +116,43 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Submenú desplegable para "Perros" */
+/* Contenedor para dropdown */
 .submenu-container {
   position: relative;
 }
 
+/* Menú desplegable */
 .submenu-dropdown {
   display: none;
   position: absolute;
-  top: 40px;
-  left: 0;
-  background: #F2E7C3;
-  padding: 10px;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  min-width: 200px;
-}
-
-.submenu-container:hover .submenu-dropdown {
-  display: block;
-}
-
-.submenu-dropdown a {
-  display: block;
-  padding: 8px 12px;
-  text-decoration: none;
-  color: black;
-  font-family: "Anton", sans-serif;
-  transition: background 0.3s ease;
-}
-
-.submenu-dropdown a:hover {
-  background-color: #6E2A65;
-  color: white;
-  border-radius: 4px;
-}
-/* Menú desplegable de Perros */
-.submenu-dropdown {
-  display: none;
-  position: absolute;
-  top: 40px;
-  left: 0;
-  background: white; /* Fondo limpio */
-  padding: 10px;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 12px;
   border-radius: 6px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   min-width: 220px;
 }
 
-/* Mejorar la apariencia de cada opción */
+/* Flecha superior del dropdown */
+.submenu-container .submenu-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: transparent transparent white transparent;
+}
+
+/* Mostrar dropdown al hacer hover */
+.submenu-container:hover .submenu-dropdown {
+  display: block;
+}
+
+/* Ítems dentro del dropdown */
 .submenu-dropdown a {
   display: flex;
   align-items: center;
@@ -176,61 +165,9 @@
   border-radius: 6px;
 }
 
-/* Ícono y efecto al pasar el mouse */
+/* Hover en ítems del dropdown */
 .submenu-dropdown a:hover {
-  background-color: #6E2A65; /* Mismo violeta del menú */
+  background-color: #6E2A65;
   color: white;
-  transform: scale(1.05); /* Ligero zoom para un efecto más dinámico */
-}
-/* Estilo para el menú desplegable */
-.submenu-dropdown {
-  display: none;
-  position: absolute;
-  top: 50px; /* Ajustar posición debajo del botón */
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  padding: 12px;
-  border-radius: 6px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  min-width: 220px;
-}
-
-/* Flecha que apunta al menú desplegable */
-.submenu-dropdown::before {
-  content: '';
-  position: absolute;
-  top: -10px; /* Ajuste de posición */
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 10px;
-  border-style: solid;
-  border-color: transparent transparent white transparent;
-}
-/* Menú desplegable de Perros */
-.submenu-dropdown {
-  display: none;
-  position: absolute;
-  top: 50px; /* Ajustar posición debajo del botón */
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  padding: 12px;
-  border-radius: 6px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  min-width: 220px;
-}
-
-
-
-
-.submenu-container .submenu-dropdown::before {
-  content: '';
-  position: absolute;
-  top: -12px; /* Ajustar posición para que sobresalga */
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 8px;
-  border-style: solid;
-  border-color: transparent transparent white transparent;
+  transform: scale(1.05);
 }

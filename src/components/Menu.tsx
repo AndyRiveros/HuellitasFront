@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Menu.css';
 import { AuthContext } from '../utils/AuthContext';
@@ -26,7 +26,7 @@ const Menu = () => {
       navigate('/login');
     }
   };
-  
+
   const handleSearch = (query: string) => {
     alert(`Buscar: ${query}`);
   };
@@ -75,7 +75,7 @@ const Menu = () => {
           {/* DERECHA: Lupita y sesión */}
           <div className="menu-right">
             <li>
-              <Lupita onSearch={handleSearch} />
+              <Lupita/>
             </li>
             <li>
               {sessionButton}
@@ -84,13 +84,13 @@ const Menu = () => {
         </ul>
       </nav>
 
-      {/* SUBMENU (Ahora con menú desplegable en "Perros") */}
+      {/* SUBMENU - versión Lio-Rama */}
       <div className="submenu">
         <Link to="/accesorios" className="submenu-btn">Accesorios</Link>
 
-        {/* Contenedor de "Perros" con dropdown */}
+        {/* Contenedor de "Perros" con dropdown y flecha */}
 <div className="submenu-container">
-  <Link to="/perros" className="submenu-btn">🐶 Perros</Link>
+  <button className="submenu-btn">🐶 Perros</button>
   <div className="submenu-dropdown">
     <Link to="/perros/alimentos"> Alimentos</Link>
     <Link to="/perros/snacks"> Snacks</Link>

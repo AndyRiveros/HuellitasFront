@@ -19,18 +19,21 @@ const CrearProductoForm: React.FC = () => {
         .then((data) => setCategorias(data));
     }, []);
   
-    const validationSchema = Yup.object().shape({
-      producto: Yup.string().required('Requerido'),
-      marca: Yup.string().required('Requerido'),
-      modelo: Yup.string().required('Requerido'),
-      precio: Yup.number().required('Requerido'),
-      costoEnvio: Yup.string().required('Requerido'),
-      imagen: Yup.string().required('Requerido'),
-      descripcion: Yup.string(),
-      categoria: Yup.object().shape({
-        id: Yup.string().required('Selecciona una categoría'),
-      }),
-    });
+const validationSchema = Yup.object().shape({
+  producto: Yup.string().required('Requerido'),
+  marca: Yup.string().required('Requerido'),
+  modelo: Yup.string().required('Requerido'),
+  precio: Yup.number().required('Requerido'),
+  costoEnvio: Yup.string().required('Requerido'),
+  imagen: Yup.string().required('Requerido'),
+  descripcion: Yup.string(),
+  especie: Yup.string().required('Requerido'), // Nuevo
+  tipo: Yup.string().required('Requerido'),    // Nuevo
+  etapa: Yup.string(),                         // Opcional
+  categoria: Yup.object().shape({
+    id: Yup.string().required('Selecciona una categoría'),
+  }),
+});
 
    const handleSubmit = (values: any, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
       
@@ -66,7 +69,10 @@ const CrearProductoForm: React.FC = () => {
         imagen: '',
         descripcion: '',
         cantidadVendida: 0,
-        categoria: { id: '' }, // Objeto de tipo Categoria
+        categoria: { id: '' },
+          especie: '',   // Nuevo
+          tipo: '',      // Nuevo
+          etapa: '',  // Objeto de tipo Categoria
       }}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
@@ -120,6 +126,41 @@ const CrearProductoForm: React.FC = () => {
             </Field>
             <ErrorMessage name="categoria.id" component="div" className="error-message" />
           </div>
+          <div className="form-group">
+  <label htmlFor="especie">Especie:</label>
+  <Field as="select" name="especie">
+    <option value="">Selecciona especie</option>
+    <option value="perro">Perro</option>
+    <option value="gato">Gato</option>
+    <option value="ave">Ave</option>
+    <option value="pez">Pez</option>
+    {/* Agrega más si necesitas */}
+  </Field>
+  <ErrorMessage name="especie" component="div" className="error-message" />
+</div>
+<div className="form-group">
+  <label htmlFor="tipo">Tipo:</label>
+  <Field as="select" name="tipo">
+    <option value="">Selecciona tipo</option>
+    <option value="alimento">Alimento</option>
+    <option value="salud">Salud</option>
+    <option value="estetica">Estética</option>
+    <option value="snack">Snack</option>
+    <option value="oferta">Oferta</option>
+    {/* Agrega más si necesitas */}
+  </Field>
+  <ErrorMessage name="tipo" component="div" className="error-message" />
+</div>
+<div className="form-group">
+  <label htmlFor="etapa">Etapa (opcional):</label>
+  <Field as="select" name="etapa">
+    <option value="">Selecciona etapa</option>
+    <option value="cachorro">Cachorro</option>
+    <option value="adulto">Adulto</option>
+    <option value="senior">Senior</option>
+  </Field>
+  <ErrorMessage name="etapa" component="div" className="error-message" />
+</div>
           <button type="submit" disabled={isSubmitting} className="submit-button">
             Crear producto
           </button>

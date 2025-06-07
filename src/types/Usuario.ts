@@ -15,4 +15,5 @@ export default interface Usuario {
     dni: number;
     mail: string;
     telefono: string;
+    imagenPerfil?: string; 
 }
