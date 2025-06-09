@@ -49,57 +49,64 @@ function Login() {
   };
 
   return (
-  <div className="login-container">
-    <div className="login-box">
-    <form onSubmit={handleSubmit} className="form form-padding login-box">
-      <img className="logo" src="../../img/logo.jpg" alt="Logo" />
-      <label className="label">
-        User:
-        <input
-          type="text"
-          value={nombreUsuario}
-          onChange={(e) => setNombreUsuario(e.target.value)}
-          className="input"
-        />
-      </label>
-      <label className="label">
-        Pass:
-        <input
-          type="password"
-          value={clave}
-          onChange={(e) => setClave(e.target.value)}
-          className="input"
-        />
-      </label>
-      <div className="submit" style={{ marginTop: '15px' }}>
-        <input type="submit" value="INICIAR SESIÓN" className="submit div" />
-      </div>
-      <div className="div">
-        <p>
-          No tienes un usuario?{' '}
-          <Link to="/SignUp" style={{ color: 'RED' }}>
-            Regístrate aquí
-          </Link>
-        </p>
-      </div>
-      <div className="div" style={{ marginTop: '15px' }}>
-        <Link to="/home" style={{ color: 'blue', textDecoration: 'underline' }}>
-          Continuar a la web sin registrarme
-        </Link>
-        <p style={{ fontSize: '0.9em', color: '#555', marginTop: '5px' }}>
-          (Recuerda que sólo podrás realizar compras si cuentas con usuario)
-        </p>
-      </div>
-      {mensaje && (
-        <p className={mensaje === 'Usuario y/o contraseña inválidos' ? 'error-message' : ''}>
-          {mensaje}
-        </p>
-      )}
-    </form>
-    </div>
-  </div>
-);
+    <div className="login-container">
+      <div className="login-box">
+        <form onSubmit={handleSubmit} className="form form-padding login-box">
+          <img className="logo" src="../../img/logo.jpg" alt="Logo" />
+          <label className="label">
+            User:
+            <input
+              type="text"
+              value={nombreUsuario}
+              onChange={(e) => setNombreUsuario(e.target.value)}
+              className="input"
+            />
+          </label>
+          <label className="label">
+            Pass:
+            <input
+              type="password"
+              value={clave}
+              onChange={(e) => setClave(e.target.value)}
+              className="input"
+            />
+          </label>
+          <div className="submit" style={{ marginTop: '15px' }}>
+            <input type="submit" value="INICIAR SESIÓN" className="submit div" />
+          </div>
 
+          {/* 🔹 Enlace para recuperar contraseña */}
+          <div className="div" style={{ marginTop: '10px' }}>
+            <Link to="/forgot-password" style={{ color: 'blue', textDecoration: 'underline' }}>
+              ¿Olvidaste tu contraseña?
+            </Link>
+          </div>
+
+          <div className="div">
+            <p>
+              No tienes un usuario?{' '}
+              <Link to="/SignUp" style={{ color: 'RED' }}>
+                Regístrate aquí
+              </Link>
+            </p>
+          </div>
+          <div className="div" style={{ marginTop: '15px' }}>
+            <Link to="/home" style={{ color: 'blue', textDecoration: 'underline' }}>
+              Continuar a la web sin registrarme
+            </Link>
+            <p style={{ fontSize: '0.9em', color: '#555', marginTop: '5px' }}>
+              (Recuerda que sólo podrás realizar compras si cuentas con usuario)
+            </p>
+          </div>
+          {mensaje && (
+            <p className={mensaje === 'Usuario y/o contraseña inválidos' ? 'error-message' : ''}>
+              {mensaje}
+            </p>
+          )}
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default Login;
