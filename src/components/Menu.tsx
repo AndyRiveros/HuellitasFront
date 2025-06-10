@@ -27,6 +27,11 @@ const Menu = () => {
     }
   };
 
+  const handleSearch = (query: string) => {
+    alert(`Buscar: ${query}`);
+  };
+
+  // Botón de sesión dinámico
   const sessionButton = usuario ? (
     <button className="logout-button logout-red" onClick={handleCerrarSesion}>Cerrar Sesión</button>
   ) : (
@@ -81,12 +86,23 @@ const Menu = () => {
 
       {/* SUBMENU - versión Lio-Rama */}
       <div className="submenu">
-        <button className="submenu-btn">Accesorios</button>
-        <button className="submenu-btn">Perros</button>
-        <button className="submenu-btn">Gatos</button>
-        <button className="submenu-btn">Aves</button>
-        <button className="submenu-btn">Peces</button>
-        <button className="submenu-btn"><Link to="/preguntasfrec">Preguntas Frecuentes</Link></button>
+        <Link to="/accesorios" className="submenu-btn">Accesorios</Link>
+
+        {/* Contenedor de "Perros" con dropdown y flecha */}
+<div className="submenu-container">
+  <button className="submenu-btn">🐶 Perros</button>
+  <div className="submenu-dropdown">
+    <Link to="/perros/alimentos"> Alimentos</Link>
+    <Link to="/perros/snacks"> Snacks</Link>
+    <Link to="/perros/higiene"> Higiene</Link>
+  </div>
+</div>
+
+
+        <Link to="/gatos" className="submenu-btn">Gatos</Link>
+        <Link to="/aves" className="submenu-btn">Aves</Link>
+        <Link to="/peces" className="submenu-btn">Peces</Link>
+        <Link to="/preguntas-frecuentes" className="submenu-btn">Preguntas Frecuentes</Link>
       </div>
     </>
   );
