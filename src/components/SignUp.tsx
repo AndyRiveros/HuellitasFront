@@ -14,10 +14,25 @@ function Signup() {
   const [mail, setMail] = useState('');
   const [mensaje, setMensaje] = useState('');
   const [telefono, setTelefono] = useState('');
+  const [claveValida, setClaveValida] = useState(true);
   const navigate = useNavigate();
+
+  const validarClave = (clave: string): boolean => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+    return regex.test(clave);
+  };
+
+  useEffect(() => {
+    setClaveValida(validarClave(clave));
+  }, [clave]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!validarClave(clave)) {
+      setMensaje('⚠️ La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número.');
+      return;
+    }
 
     try {
       const nuevoUsuario: Usuario = {
@@ -31,7 +46,6 @@ function Signup() {
         mail,
         telefono
       };
-      console.log('Datos enviados al backend:', nuevoUsuario);
 
       const response = await fetch('http://localhost:8080/usuarios', {
         method: 'POST',
@@ -43,121 +57,81 @@ function Signup() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log('Registro exitoso:', data);
         setMensaje('Registro exitoso');
-        navigate('/login');
+        setTimeout(() => navigate('/login'), 1500);
       } else if (response.status === 409) {
-        console.error('Error de registro: El nombre de usuario ya está en uso.');
-        setMensaje('Error de registro: El nombre de usuario ya está en uso.');
+        setMensaje('⚠️ El correo o nombre de usuario ya está en uso.');
       } else {
-        console.error('Error de registro:', response.statusText);
-        setMensaje('Error de registro');
+        const error = await response.text();
+        setMensaje(`❌ Error: ${error}`);
       }
     } catch (error) {
-      console.error('Error al registrar:', error);
-      setMensaje('Error al registrar');
+      setMensaje('❌ Error al registrar');
     }
   };
 
-return (
-  <div className="signup-container">
-    <div className="signup-box">
-      <h2 className="signup-title">Formulario de registro</h2>
-      <form onSubmit={handleSubmit} className="form" autoComplete="off">
-       <label className="label">
-          Nombre:
-          <input
-            type="text"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            className="input"
-          />
-        </label>
-        <label className="label">
-          Apellido:
-          <input
-            type="text"
-            value={apellido}
-            onChange={(e) => setApellido(e.target.value)}
-            className="input"
-          />
-        </label>
-        <label className="label">
-          User:
-          <input
-            type="text"
-            value={nombreUsuario}
-            onChange={(e) => setNombreUsuario(e.target.value)}
-            className="input"
-          />
-        </label>
-        <label className="label">
-          Contraseña:
-          <input
-            type="password"
-            value={clave}
-            onChange={(e) => setClave(e.target.value)}
-            className="input"
-          />
-        </label>
-        <label className="label">
-          Dirección:
-          <input
-            type="text"
-            value={direccion}
-            onChange={(e) => setDireccion(e.target.value)}
-            className="input"
-          />
-        </label>
-        <label className="label">
-          DNI:
-          <input
-            type="number"
-            value={dni}
-            onChange={(e) => setDni(e.target.value)}
-            className="input"
-          />
-        </label>
-        <label className="label">
-          Email:
-          <input
-            type="email"
-            value={mail}
-            onChange={(e) => setMail(e.target.value)}
-            className="input"
-          />
-        </label>
-        <label className="label">
-          Teléfono:
-          <input
-            type="text"
-            value={telefono}
-            onChange={(e) => setTelefono(e.target.value)}
-            className="input"
-          />
-        </label>
-        <label className="label">
-          Rol:
-          <select value={rol} onChange={(e) => setRol(e.target.value)} className="input">
-            <option value="ADMIN">ADMIN</option>
-            <option value="OPERADOR">OPERADOR</option>
-          </select>
-        </label>
-        <div className="submit" style={{ marginTop: '15px' }}>
-          <input type="submit" value="REGISTRARSE" className="submit div" autoComplete="off" />
-        </div>
-        <div className="div" style={{ textAlign: "center", marginTop: "10px" }}>
-          <p>
-            ¿Ya tienes usuario? <Link to="/login" style={{ color: 'red' }}>Inicia sesión aquí</Link>
-          </p>
-        </div>
-        {mensaje && <p className={mensaje.startsWith('Error') ? 'error-message' : ''}>{mensaje}</p>}
-      </form>
+  return (
+    <div className="signup-container">
+      <div className="signup-box">
+        <h2 className="signup-title">Formulario de registro</h2>
+        <form onSubmit={handleSubmit} className="form" autoComplete="off">
+          <label className="label">
+            Nombre:
+            <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} className="input" />
+          </label>
+          <label className="label">
+            Apellido:
+            <input type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} className="input" />
+          </label>
+          <label className="label">
+            User:
+            <input type="text" value={nombreUsuario} onChange={(e) => setNombreUsuario(e.target.value)} className="input" />
+          </label>
+          <label className="label">
+            Contraseña:
+            <input type="password" value={clave} onChange={(e) => setClave(e.target.value)} className="input" />
+            {!claveValida && (
+              <span style={{ color: 'red', fontSize: '0.9em' }}>
+                ⚠️ La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número.
+              </span>
+            )}
+          </label>
+          <label className="label">
+            Dirección:
+            <input type="text" value={direccion} onChange={(e) => setDireccion(e.target.value)} className="input" />
+          </label>
+          <label className="label">
+            DNI:
+            <input type="number" value={dni} onChange={(e) => setDni(e.target.value)} className="input" />
+          </label>
+          <label className="label">
+            Email:
+            <input type="email" value={mail} onChange={(e) => setMail(e.target.value)} className="input" />
+          </label>
+          <label className="label">
+            Teléfono:
+            <input type="text" value={telefono} onChange={(e) => setTelefono(e.target.value)} className="input" />
+          </label>
+          <label className="label">
+            Rol:
+            <select value={rol} onChange={(e) => setRol(e.target.value)} className="input">
+              <option value="ADMIN">ADMIN</option>
+              <option value="OPERADOR">OPERADOR</option>
+            </select>
+          </label>
+          <div className="submit" style={{ marginTop: '15px' }}>
+            <input type="submit" value="REGISTRARSE" className="submit div" autoComplete="off" />
+          </div>
+          <div className="div" style={{ textAlign: "center", marginTop: "10px" }}>
+            <p>
+              ¿Ya tienes usuario? <Link to="/login" style={{ color: 'red' }}>Inicia sesión aquí</Link>
+            </p>
+          </div>
+          {mensaje && <p className={mensaje.startsWith('Error') || mensaje.includes('❌') ? 'error-message' : ''}>{mensaje}</p>}
+        </form>
+      </div>
     </div>
-  </div>
-);
-
-
+  );
 }
 
 export default Signup;

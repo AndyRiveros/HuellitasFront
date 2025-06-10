@@ -19,6 +19,8 @@ import Footer from './components/Footer';
 import { CarritoProvider } from './components/CarritoContext';
 import ResultadosBusqueda from './components/ResultadosBusqueda';
 import PreguntasFrec from './components/PreguntasFrec';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword'; // ✅ nuevo import
 
 const App: React.FC = () => {
   return (
@@ -30,9 +32,11 @@ const App: React.FC = () => {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} /> {/* ✅ nueva ruta */}
               <Route path="/mapa" element={<Mapa />} />
               <Route path="/productos" element={<ProductoList />} />
-              <Route path="/preguntasfrec" element={<PreguntasFrec />} /> {/* de Lio-Rama */}
+              <Route path="/preguntasfrec" element={<PreguntasFrec />} />
               <Route path="/producto/:id" element={<ProductoDetail />} />
               <Route path="/perfil" element={<RutaPrivada><Perfil /></RutaPrivada>} />
               <Route path="/inventario" element={<RutaPrivada><InventarioList /></RutaPrivada>} />
