@@ -12,6 +12,7 @@ import { CarritoContext } from '../components/CarritoContext';
 import '../styles/FloatingCarrito.css';
 import FloatingCarritoButton from './FloatingCarritoButton';
 import '../styles/ProductoList.css'; // Asegúrate de tener este archivo
+import Modal from 'react-modal'; // Importa Modal
 
 const ProductoList: React.FC = () => {
   const [productos, setProductos] = useState<Producto[] | undefined>(undefined);
@@ -22,13 +23,11 @@ const ProductoList: React.FC = () => {
   const navigate = useNavigate();
   const [filtroEspecie, setFiltroEspecie] = useState<string[]>([]);
   const [filtroTipo, setFiltroTipo] = useState<string[]>([]);
-  const [filtroEtapa, setFiltroEtapa] = useState<string[]>([]);;
-
+  const [filtroEtapa, setFiltroEtapa] = useState<string[]>([]);
   const [showCarrito, setShowCarrito] = useState(false);
   const [busqueda, setBusqueda] = useState('');
 
-
-// Función para alternar selección
+  // Función para alternar selección
   const toggleFiltro = (valor: string, filtro: string[], setFiltro: React.Dispatch<React.SetStateAction<string[]>>) => {
     if (filtro.includes(valor)) {
       setFiltro(filtro.filter(f => f !== valor));
@@ -43,10 +42,6 @@ const ProductoList: React.FC = () => {
 
   const cerrarCarrito = () => {
     setShowCarrito(false);
-  };
-
-  const cerrarModal = () => {
-    setShowModal(false);
   };
 
   const agregarAlCarrito = (producto: Producto) => {
@@ -129,7 +124,7 @@ const ProductoList: React.FC = () => {
       .then(data => setCategorias(data));
   }, []);
 
- let productosFiltrados = productos ?? [];
+  let productosFiltrados = productos ?? [];
   if (filtroEspecie.length > 0) {
     productosFiltrados = productosFiltrados.filter(p => p.especie && filtroEspecie.includes(p.especie));
   }
@@ -140,19 +135,40 @@ const ProductoList: React.FC = () => {
     productosFiltrados = productosFiltrados.filter(p => p.etapa && filtroEtapa.includes(p.etapa));
   }
 
-if (orden === 'menor') {
-  productosFiltrados = productosFiltrados.sort((a, b) => a.precio - b.precio);
-} else if (orden === 'mayor') {
-  productosFiltrados = productosFiltrados.sort((a, b) => b.precio - a.precio);
-} else if (orden === 'az') {
-  productosFiltrados = productosFiltrados.sort((a, b) => a.producto.localeCompare(b.producto));
-} else if (orden === 'za') {
-  productosFiltrados = productosFiltrados.sort((a, b) => b.producto.localeCompare(a.producto));
-}
+  // Filtro de búsqueda por nombre de producto
+  if (busqueda.trim() !== '') {
+    productosFiltrados = productosFiltrados.filter(p =>
+      p.producto.toLowerCase().includes(busqueda.trim().toLowerCase())
+    );
+  }
+
+  if (orden === 'menor') {
+    productosFiltrados = productosFiltrados.sort((a, b) => a.precio - b.precio);
+  } else if (orden === 'mayor') {
+    productosFiltrados = productosFiltrados.sort((a, b) => b.precio - a.precio);
+  } else if (orden === 'az') {
+    productosFiltrados = productosFiltrados.sort((a, b) => a.producto.localeCompare(b.producto));
+  } else if (orden === 'za') {
+    productosFiltrados = productosFiltrados.sort((a, b) => b.producto.localeCompare(a.producto));
+  }
+
+  // Mostrar el carrito flotante solo si el usuario no es ADMIN y hay productos en el carrito
+  const mostrarCarritoFlotante = !!usuario && usuario.rol !== 'ADMIN' && (carritoContext?.carrito?.length ?? 0) > 0;
 
   return (
     <>
       <Menu />
+      {/* Carrito flotante y modal */}
+      {mostrarCarritoFlotante && (
+        <FloatingCarritoButton onClick={abrirCarrito} />
+      )}
+      <Modal isOpen={showCarrito} onRequestClose={cerrarCarrito}>
+        <Carrito
+          carrito={carritoContext?.carrito || []}
+          onEliminarDelCarrito={carritoContext?.eliminarDelCarrito || (() => {})}
+        />
+        <button onClick={cerrarCarrito}>Cerrar Carrito</button>
+      </Modal>
       <div className="producto-list-container">
         <aside className="categorias-sidebar">
           <h3>Filtros</h3>
@@ -217,73 +233,72 @@ if (orden === 'menor') {
           </div>
         </aside>
 
-      {/* Columna derecha: Productos en grilla */}
-      <main className="productos-main">
-        <h2>Lista de Productos</h2>
-        <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 20 }}>
-          <input
-            type="text"
-            placeholder="Buscar producto..."
-            value={busqueda}
-            onChange={e => setBusqueda(e.target.value)}
-            className="buscador-productos"
-            style={{ maxWidth: 350, padding: 8, borderRadius: 6, border: '1px solid #ccc' }}
-          />
-          <select
-            value={orden}
-            onChange={e => setOrden(e.target.value)}
-            style={{ padding: 8, borderRadius: 6, border: '1px solid #ccc' }}
-          >
-            <option value="">Ordenar por</option>
-            <option value="menor">Menor precio</option>
-            <option value="mayor">Mayor precio</option>
-            <option value="az">A-Z</option>
-            <option value="za">Z-A</option>
-          </select>
-        </div>
-        {productosFiltrados === undefined ? (
-          <p>Cargando productos...</p>
-        ) : productosFiltrados.length > 0 ? (
-          <div className="productos-grid">
-            {productosFiltrados.map((producto: Producto) => (
-              <div className="producto-card" key={producto.id}>
-                <img
-                  src={producto.imagen}
-                  alt={producto.producto}
-                  className="producto-img"
-                />
-                <h3>{producto.producto}</h3>
-                <p>Precio: ${producto.precio}</p>
-                {producto.costoEnvio !== 'G' && (
-                  <p style={{ color: 'orange' }}>Costo de Envío: {producto.costoEnvio}</p>
-                )}
-                {producto.costoEnvio === 'G' && (
-                  <p style={{ color: 'green' }}>
-                    <img
-                      src="img/camion.png"
-                      style={{ width: '20px', height: '20px', margin: '2px' }}
-                      alt="Envío gratis"
-                    />
-                    Envios Gratis
-                  </p>
-                )}
-                {usuario?.rol !== 'ADMIN' && (
-                  <button onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
-                )}
-                <Link to={`/producto/${producto.id}`}>
-                  <button>Ver detalles</button>
-                </Link>
-              </div>
-            ))}
+        {/* Columna derecha: Productos en grilla */}
+        <main className="productos-main">
+          <h2>Lista de Productos</h2>
+          <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 20 }}>
+            <input
+              type="text"
+              placeholder="Buscar producto..."
+              value={busqueda}
+              onChange={e => setBusqueda(e.target.value)}
+              className="buscador-productos"
+              style={{ maxWidth: 350, padding: 8, borderRadius: 6, border: '1px solid #ccc' }}
+            />
+            <select
+              value={orden}
+              onChange={e => setOrden(e.target.value)}
+              style={{ padding: 8, borderRadius: 6, border: '1px solid #ccc' }}
+            >
+              <option value="">Ordenar por</option>
+              <option value="menor">Menor precio</option>
+              <option value="mayor">Mayor precio</option>
+              <option value="az">A-Z</option>
+              <option value="za">Z-A</option>
+            </select>
           </div>
-        ) : (
-          <p>No hay productos disponibles.</p>
-        )}
-      </main>
-    </div>
-  </>
-);
+          {productosFiltrados === undefined ? (
+            <p>Cargando productos...</p>
+          ) : productosFiltrados.length > 0 ? (
+            <div className="productos-grid">
+              {productosFiltrados.map((producto: Producto) => (
+                <div className="producto-card" key={producto.id}>
+                  <img
+                    src={producto.imagen}
+                    alt={producto.producto}
+                    className="producto-img"
+                  />
+                  <h3>{producto.producto}</h3>
+                  <p>Precio: ${producto.precio}</p>
+                  {producto.costoEnvio !== 'G' && (
+                    <p style={{ color: 'orange' }}>Costo de Envío: {producto.costoEnvio}</p>
+                  )}
+                  {producto.costoEnvio === 'G' && (
+                    <p style={{ color: 'green' }}>
+                      <img
+                        src="img/camion.png"
+                        style={{ width: '20px', height: '20px', margin: '2px' }}
+                        alt="Envío gratis"
+                      />
+                      Envios Gratis
+                    </p>
+                  )}
+                  {usuario?.rol !== 'ADMIN' && (
+                    <button onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
+                  )}
+                  <Link to={`/producto/${producto.id}`}>
+                    <button>Ver detalles</button>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>No hay productos disponibles.</p>
+          )}
+        </main>
+      </div>
+    </>
+  );
 };
 
 export default ProductoList;
-                                                            
