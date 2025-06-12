@@ -246,3 +246,35 @@
   gap: 10px;
   padding-top: 5px; /* Ajustamos para que se vea más arriba */
 }
+
+.mascotas-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 16px;
+}
+.mascota-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0001;
+  padding: 16px;
+  width: 220px;
+  text-align: center;
+  position: relative;
+}
+.mascota-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 8px;
+}
+.mascota-card button {
+  background: #b71c1c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  margin-top: 8px;
+}

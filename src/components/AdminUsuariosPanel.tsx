@@ -22,6 +22,20 @@ const AdminUsuariosPanel = () => {
   const [telefono, setTelefono] = useState('');
   const [claveValida, setClaveValida] = useState(true);
 
+  // Paginación
+  const [paginaActual, setPaginaActual] = useState(1);
+  const usuariosPorPagina = 15;
+
+  const totalPaginas = Math.ceil(usuarios.length / usuariosPorPagina);
+  const indiceUltimoUsuario = paginaActual * usuariosPorPagina;
+  const indicePrimerUsuario = indiceUltimoUsuario - usuariosPorPagina;
+  const usuariosPaginados = usuarios.slice(indicePrimerUsuario, indiceUltimoUsuario);
+
+  const cambiarPagina = (nuevaPagina: number) => {
+    setPaginaActual(nuevaPagina);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const auth = useContext(AuthContext);
 
   useEffect(() => {
@@ -122,7 +136,8 @@ const AdminUsuariosPanel = () => {
     }
   };
 
-if (!auth?.usuario || auth.usuario.rol !== 'ADMIN') {    return (
+  if (!auth?.usuario || auth.usuario.rol !== 'ADMIN') {
+    return (
       <>
         <Menu />
         <div className="signup-container">
@@ -227,7 +242,7 @@ if (!auth?.usuario || auth.usuario.rol !== 'ADMIN') {    return (
                 </tr>
               </thead>
               <tbody>
-                {usuarios.map(u => (
+                {usuariosPaginados.map(u => (
                   <tr key={u.id} style={{ borderBottom: '1px solid #ddd' }}>
                     <td>{u.id}</td>
                     <td>{u.nombreUsuario}</td>
@@ -257,6 +272,35 @@ if (!auth?.usuario || auth.usuario.rol !== 'ADMIN') {    return (
                 ))}
               </tbody>
             </table>
+            {/* Paginación */}
+            {totalPaginas > 1 && (
+              <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
+                <button
+                  onClick={() => cambiarPagina(paginaActual - 1)}
+                  disabled={paginaActual === 1}
+                >
+                  Anterior
+                </button>
+                {[...Array(totalPaginas)].map((_, idx) => (
+                  <button
+                    key={idx + 1}
+                    onClick={() => cambiarPagina(idx + 1)}
+                    style={{
+                      fontWeight: paginaActual === idx + 1 ? 'bold' : 'normal',
+                      margin: '0 4px'
+                    }}
+                  >
+                    {idx + 1}
+                  </button>
+                ))}
+                <button
+                  onClick={() => cambiarPagina(paginaActual + 1)}
+                  disabled={paginaActual === totalPaginas}
+                >
+                  Siguiente
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
