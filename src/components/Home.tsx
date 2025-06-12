@@ -81,9 +81,9 @@ Nos especializamos en ofrecer productos para todo tipo de mascotas, desde perros
         
 
   {/* Mostrar el carrito flotante solo si el usuario no es ADMIN */}
-        {usuario?.rol !== 'ADMIN' && (carritoContext?.carrito?.length ?? 0) > 0 && (
-          <FloatingCarritoButton onClick={abrirCarrito} />
-        )}
+        {!!usuario && usuario.rol !== 'ADMIN' && (carritoContext?.carrito?.length ?? 0) > 0 && (
+  <FloatingCarritoButton onClick={abrirCarrito} />
+)}
         <Modal isOpen={showCarrito} onRequestClose={cerrarCarrito}>
           <Carrito carrito={carritoContext?.carrito || []} onEliminarDelCarrito={carritoContext?.eliminarDelCarrito || (() => {})} />
           <button onClick={cerrarCarrito}>Cerrar Carrito</button>
