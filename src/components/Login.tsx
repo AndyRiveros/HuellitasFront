@@ -84,7 +84,7 @@ function Login() {
 
           <div className="div">
             <p>
-              No tienes un usuario?{' '}
+              ¿No tienes un usuario?{' '}
               <Link to="/SignUp" style={{ color: 'RED' }}>
                 Regístrate aquí
               </Link>
@@ -95,7 +95,7 @@ function Login() {
               Continuar a la web sin registrarme
             </Link>
             <p style={{ fontSize: '0.9em', color: '#555', marginTop: '5px' }}>
-              (Recuerda que sólo podrás realizar compras si cuentas con usuario)
+              (Recuerda que solo podrás realizar compras si cuentas con usuario)
             </p>
           </div>
           {mensaje && (

@@ -174,7 +174,7 @@ const ModificarProducto: React.FC = () => {
             )}
           </div>
           <div className="form-group">
-  <label htmlFor="especie">Especie:</label>
+  <label htmlFor="especie">Especie:  </label>
   <Field as="select" name="especie">
     <option value="">Selecciona especie</option>
     <option value="perro">Perro</option>
@@ -186,7 +186,7 @@ const ModificarProducto: React.FC = () => {
   <ErrorMessage name="especie" component="div" className="error-message" />
 </div>
 <div className="form-group">
-  <label htmlFor="tipo">Tipo:</label>
+  <label htmlFor="tipo">Tipo:   </label>
   <Field as="select" name="tipo">
     <option value="">Selecciona tipo</option>
     <option value="alimento">Alimento</option>

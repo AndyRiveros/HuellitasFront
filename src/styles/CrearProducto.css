@@ -33,8 +33,9 @@
   }
   
   .submit-button {
+    margin : 5px;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #6e2a65;
     color: white;
     border: none;
     border-radius: 5px;
@@ -44,3 +45,17 @@
   .submit-button:disabled {
     background-color: #ccc;
   }
+
+  .cancel-button {
+    margin: 5px;
+    padding: 10px;
+    background-color:black;
+    color: white
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .tam{
+    padding: 10px;
+  }
+  
