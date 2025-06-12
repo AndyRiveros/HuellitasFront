@@ -139,13 +139,16 @@ const ModificarProducto: React.FC = () => {
               <ErrorMessage name="precio" component="div" className="error-message" />
             )}
           </div>
-          <div className="form-group">
-            <label htmlFor="costoEnvio">Costo de envío:</label>
-            <Field type="text" id="costoEnvio" name="costoEnvio" />
-            {touched.costoEnvio && errors.costoEnvio && (
-              <ErrorMessage name="costoEnvio" component="div" className="error-message" />
-            )}
-          </div>
+         <div className="form-group">
+          <label htmlFor="costoEnvio">Costo de envío:</label>
+         <div style={{ display: 'flex', alignItems: 'center' }}>
+          <span style={{ marginRight: 4 }}>$</span>
+        <Field type="text" id="costoEnvio" name="costoEnvio" style={{ flex: 1 }} />
+           </div>
+  {touched.costoEnvio && errors.costoEnvio && (
+    <ErrorMessage name="costoEnvio" component="div" className="error-message" />
+  )}
+</div>
           {/* <div className="form-group">
             <label htmlFor="cantidadVendida">Cantidad Vendida:</label>
             <Field type="text" id="cantidadVendida" name="cantidadVendida" />

@@ -100,13 +100,13 @@ const ProductoDetail: React.FC = () => {
             <p>Modelo: {producto.modelo}</p>
             <p>Costo de envío:</p>
             {producto.costoEnvio === 'G' ? (
-              <p className="envio-gratis">
-                <img src="/img/camion.png" alt="Envío gratis" />
-                Envío gratis
-              </p>
-            ) : (
-              <p className="envio-pago">{producto.costoEnvio}</p>
-            )}
+            <p className="envio-gratis">
+            <img src="/img/camion.png" alt="Envío gratis" />
+           Envío gratis
+            </p>
+         ) : (
+  <p className="envio-pago">${producto.costoEnvio}</p>
+)}
             {/* <small>{producto.cantidadVendida} vendidos</small> */}
             {usuario?.rol !== 'ADMIN' && usuario?.rol !== 'SUBADMIN' && (
               <button onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>

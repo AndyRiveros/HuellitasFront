@@ -24,23 +24,25 @@ const Home = () => {
 
 
   useEffect(() => {
-    const fetchProductos = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/api/productos');
-        const data = await response.json();
+  const fetchProductos = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/productos');
+      const data = await response.json();
 
-        if (Array.isArray(data)) {
-          setProductos(data);
-        } else {
-          console.error('El formato de los datos no es válido:', data);
-        }
-      } catch (error) {
-        console.error('Error al obtener los productos:', error);
+      if (Array.isArray(data)) {
+        // Filtrar solo los productos que no están eliminados
+        const productosActivos = data.filter((producto: Producto) => !producto.isDeleted);
+        setProductos(productosActivos);
+      } else {
+        console.error('El formato de los datos no es válido:', data);
       }
-    };
+    } catch (error) {
+      console.error('Error al obtener los productos:', error);
+    }
+  };
 
-    fetchProductos();
-  }, []);
+  fetchProductos();
+}, []);
 
 
   const agregarAlCarrito = (producto: Producto) => {

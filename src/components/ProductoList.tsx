@@ -142,16 +142,15 @@ const ProductoList: React.FC = () => {
     );
   }
 
-  if (orden === 'menor') {
-    productosFiltrados = productosFiltrados.sort((a, b) => a.precio - b.precio);
-  } else if (orden === 'mayor') {
-    productosFiltrados = productosFiltrados.sort((a, b) => b.precio - a.precio);
-  } else if (orden === 'az') {
-    productosFiltrados = productosFiltrados.sort((a, b) => a.producto.localeCompare(b.producto));
-  } else if (orden === 'za') {
-    productosFiltrados = productosFiltrados.sort((a, b) => b.producto.localeCompare(a.producto));
-  }
-
+ if (orden === 'menor') {
+  productosFiltrados = productosFiltrados.sort((a, b) => Number(a.precio) - Number(b.precio));
+} else if (orden === 'mayor') {
+  productosFiltrados = productosFiltrados.sort((a, b) => Number(b.precio) - Number(a.precio));
+} else if (orden === 'az') {
+  productosFiltrados = productosFiltrados.sort((a, b) => a.producto.localeCompare(b.producto));
+} else if (orden === 'za') {
+  productosFiltrados = productosFiltrados.sort((a, b) => b.producto.localeCompare(a.producto));
+}
   // Mostrar el carrito flotante solo si el usuario no es ADMIN y hay productos en el carrito
 const mostrarCarritoFlotante = !!usuario && usuario.rol !== 'ADMIN' && usuario.rol !== 'SUBADMIN' && (carritoContext?.carrito?.length ?? 0) > 0;
   return (
