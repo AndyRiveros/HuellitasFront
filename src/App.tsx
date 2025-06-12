@@ -11,7 +11,7 @@ import CheckoutMP from './components/CheckoutMP';
 import Login from './components/Login';
 import { AuthProvider } from './utils/AuthContext';
 import { RutaPrivada } from './utils/RutaPrivada';
-import ChartsGoogle from './components/ChartsGoogle';
+import AdminUsuariosPanel from './components/AdminUsuariosPanel';
 import Signup from './components/SignUp';
 import InventarioList from './components/InventarioList';
 import Perfil from './components/Perfil';
@@ -21,6 +21,7 @@ import ResultadosBusqueda from './components/ResultadosBusqueda';
 import PreguntasFrec from './components/PreguntasFrec';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword'; // ✅ nuevo import
+import AdminLogin from './components/AdminLogin';
 
 const App: React.FC = () => {
   return (
@@ -43,9 +44,9 @@ const App: React.FC = () => {
               <Route path="/crear-producto" element={<RutaPrivada><CrearProductoForm /></RutaPrivada>} />
               <Route path="/productos/:id/modificar" element={<RutaPrivada><ModificarProducto /></RutaPrivada>} />
               <Route path="/mercadopago" element={<RutaPrivada><CheckoutMP /></RutaPrivada>} />
-              <Route path="/google-charts" element={<RutaPrivada><ChartsGoogle /></RutaPrivada>} />
-              <Route path="/resultados" element={<ResultadosBusqueda />} />
+<Route path="/admin-usuarios" element={<AdminUsuariosPanel />} />              <Route path="/resultados" element={<ResultadosBusqueda />} />
               <Route path="*" element={<Home />} />
+              <Route path="/admin-login" element={<AdminLogin />} />
             </Routes>
           </div>
           <Footer />

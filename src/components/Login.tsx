@@ -48,6 +48,11 @@ function Login() {
     }
   };
 
+  // Botón para ir al login especial de administrador
+  const handleAdminLogin = () => {
+    navigate('/admin-login');
+  };
+
   return (
     <div className="login-container">
       <div className="login-box">
@@ -104,6 +109,24 @@ function Login() {
             </p>
           )}
         </form>
+        {/* Botón para login de administrador */}
+        <div style={{ textAlign: "center", marginTop: "20px" }}>
+          <button
+            type="button"
+            className="admin-login-btn"
+            style={{
+              background: '#b71c1c',
+              color: 'white',
+              border: 'none',
+              padding: '10px 20px',
+              borderRadius: '5px',
+              cursor: 'pointer'
+            }}
+            onClick={handleAdminLogin}
+          >
+            SOY ADMINISTRADOR
+          </button>
+        </div>
       </div>
     </div>
   );

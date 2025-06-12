@@ -81,10 +81,13 @@ const ProductoDetail: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  return (
+ return (
     <div>
       <Menu />
-      <div className="producto-detail">
+      <div
+        className="producto-detail"
+        style={{ paddingTop: '150px' }} // Añadido para separar del menú
+      >
         <div className="producto-card">
           <div className="producto-image">
             <img src={producto.imagen} alt={producto.producto} />
@@ -105,15 +108,14 @@ const ProductoDetail: React.FC = () => {
               <p className="envio-pago">{producto.costoEnvio}</p>
             )}
             {/* <small>{producto.cantidadVendida} vendidos</small> */}
-            {usuario?.rol !== 'ADMIN' && (
+            {usuario?.rol !== 'ADMIN' && usuario?.rol !== 'SUBADMIN' && (
               <button onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
             )}
           </div>
         </div>
       </div>
-
       {/* Carrito flotante */}
-      {usuario?.rol !== 'ADMIN' && (
+      {usuario?.rol !== 'ADMIN' && usuario?.rol !== 'SUBADMIN' && (
         <>
           <FloatingCarritoButton onClick={abrirCarrito} />
           <Modal isOpen={showCarrito} onRequestClose={cerrarCarrito}>
