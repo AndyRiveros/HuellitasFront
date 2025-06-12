@@ -9,7 +9,7 @@ const Mapa = () => {
       <div className="main-content" style={{ paddingTop: '140px' }}>
         <div className="acarrecado-container">
           <h2 className="acarrecado-titulo">
-            <span className="huella-animada">🐾</span> ACÁ PODÉS ENCONTRARNOS!
+            <span className="huella-animada"></span> ¡ACÁ PODÉS ENCONTRARNOS!
           </h2>
           <p className="acarrecado-subtitulo">
             Nuestro local está ubicado en Mendoza Shopping, ¡te esperamos con la mejor atención!
@@ -41,10 +41,10 @@ const Mapa = () => {
 
         <div className="col-md-12 mb-5">
           <h2 className="titulo-nosotros">
-            <span className="huella-animada">🐾</span> ¿Cómo trabajamos?
+            <span className="huella-animada">🐾</span> ¿Cómo trabajamos?🐾
           </h2>
           <p className="descripcion-nosotros">
-            En <strong>nuestro pet shop</strong>, nos enfocamos en brindar una experiencia <em>cálida, personalizada y responsable</em>. 
+            En <strong>nuestro pet shop</strong> nos enfocamos en brindar una experiencia <em>cálida, personalizada y responsable</em>. 
             Trabajamos con <span className="resaltado-morado">amor y compromiso</span> para que cada mascota reciba 
             los productos y cuidados que merece. <br />
             <em>¡Te esperamos con la mejor atención y un equipo apasionado por los animales!</em>

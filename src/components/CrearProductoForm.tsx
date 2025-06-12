@@ -116,7 +116,7 @@ const validationSchema = Yup.object().shape({
           </div>
           <div className="form-group">
             <label htmlFor="categoria.id">Categoría:</label>
-            <Field as="select" name="categoria.id">
+            <Field as="select" name="categoria.id" className="tam">
               <option value="">Selecciona una categoría</option>
               {categorias.map((categoria) => (
                 <option key={categoria.id} value={categoria.id}>
@@ -128,7 +128,7 @@ const validationSchema = Yup.object().shape({
           </div>
           <div className="form-group">
   <label htmlFor="especie">Especie:</label>
-  <Field as="select" name="especie">
+  <Field as="select" name="especie" className="tam">
     <option value="">Selecciona especie</option>
     <option value="perro">Perro</option>
     <option value="gato">Gato</option>
@@ -140,7 +140,7 @@ const validationSchema = Yup.object().shape({
 </div>
 <div className="form-group">
   <label htmlFor="tipo">Tipo:</label>
-  <Field as="select" name="tipo">
+  <Field as="select" name="tipo" className="tam">
     <option value="">Selecciona tipo</option>
     <option value="alimento">Alimento</option>
     <option value="salud">Salud</option>
@@ -153,7 +153,7 @@ const validationSchema = Yup.object().shape({
 </div>
 <div className="form-group">
   <label htmlFor="etapa">Etapa (opcional):</label>
-  <Field as="select" name="etapa">
+  <Field as="select" name="etapa" className="tam">
     <option value="">Selecciona etapa</option>
     <option value="cachorro">Cachorro</option>
     <option value="adulto">Adulto</option>
