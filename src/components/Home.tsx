@@ -72,7 +72,9 @@ const Home = () => {
         <div className="divsep" style={{ marginBottom: 0, paddingBottom: 0 }}>
           <div className="description" style={{ marginBottom: 20, paddingBottom: 0 }}>
             <p className="parrafo" style={{ marginBottom: 0, paddingBottom: 0 }}>
-              ¡Bienvenidos a Huellitas Pet! Aquí encontrarás todo lo que necesitas para consentir a tus mascotas: alimentos de alta calidad, juguetes divertidos, ropa adorable, accesorios y mucho más. Nos especializamos en ofrecer productos para todo tipo de mascotas, desde perros y gatos hasta aves, peces y pequeños roedores. ¡Tu mascota merece lo mejor, y en Huellitas Pet lo tenemos todo!
+              "¡Bienvenidos a Huellitas Pet Shop! Aquí encontrarás todo lo que necesitas para consentir a tus mascotas: alimentos de alta calidad, juguetes divertidos, ropa adorable, accesorios y mucho más.
+Nos especializamos en ofrecer productos para todo tipo de mascotas, desde perros y gatos hasta aves, peces y pequeños roedores.
+¡Tu mascota merece lo mejor, y en Huellitas Pet Shop lo tenemos todo!"
             </p>
           </div>
         </div>

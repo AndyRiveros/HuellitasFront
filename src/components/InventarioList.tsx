@@ -98,7 +98,7 @@ const InventarioList: React.FC = () => {
       </Modal>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}> 
         <thead>
-          <tr style={{ color: 'white', backgroundColor: 'black' }}>
+          <tr style={{ color: 'white', backgroundColor: '#6E2A65' }}>
             <th style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}>Producto</th>
             <th style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}>Marca</th>
             <th style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}>Modelo</th>
@@ -114,7 +114,7 @@ const InventarioList: React.FC = () => {
             <tr
               key={producto.id}
               className={producto.isDeleted ? 'eliminado' : ''}
-              style={{ backgroundColor: producto.isDeleted ? '#FFBABA' : '#B0E57C' }}
+              style={{ backgroundColor: producto.isDeleted ? '#ff6961' : '#2ECC71' }}
             >
               <td style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}>{producto.producto}</td>
               <td style={{ border: '1px solid #dddddd', textAlign: 'left', padding: '8px' }}>{producto.marca}</td>

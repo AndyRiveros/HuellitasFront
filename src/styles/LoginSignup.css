@@ -33,7 +33,7 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 450px;
+  max-width: 472px;
   background-color: #ffffff;
   padding: 40px;
   border-radius: 12px;
@@ -126,7 +126,7 @@
 .logo {
   width: 180px;
   margin-bottom: 20px;
-  margin-left: 60px
+  margin-left: 65px
 }
 
 /* Footer */

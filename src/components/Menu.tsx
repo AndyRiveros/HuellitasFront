@@ -80,27 +80,51 @@ const Menu = () => {
         </ul>
       </nav>
 
-      {/* SUBMENU - versión Lio-Rama */}
-      <div className="submenu">
-        <Link to="/accesorios" className="submenu-btn">Accesorios</Link>
+  {/* SUBMENU - versión Lio-Rama */}
+  <div className="submenu">
 
-        {/* Contenedor de "Perros" con dropdown y flecha */}
-<div className="submenu-container">
-  <button className="submenu-btn">🐶 Perros</button>
-  <div className="submenu-dropdown">
-    <Link to="/perros/alimentos"> Alimentos</Link>
-    <Link to="/perros/snacks"> Snacks</Link>
-    <Link to="/perros/higiene"> Higiene</Link>
-  </div>
-</div>
+    <Link to="/accesorios" className="submenu-btn">Accesorios</Link>
 
-
-        <Link to="/gatos" className="submenu-btn">Gatos</Link>
-        <Link to="/aves" className="submenu-btn">Aves</Link>
-        <Link to="/peces" className="submenu-btn">Peces</Link>
-        <Link to="/preguntas-frecuentes" className="submenu-btn">Preguntas Frecuentes</Link>
+    <div className="submenu-container">
+      <button className="submenu-btn">🐶 Perros</button>
+      <div className="submenu-dropdown">
+        <Link to="/perros/alimentos"> Alimentos</Link>
+        <Link to="/perros/snacks"> Snacks</Link>
+        <Link to="/perros/higiene"> Higiene</Link>
       </div>
-    </>
+    </div>
+
+    <div className="submenu-container">
+      <button className="submenu-btn">🐱 Gatos</button>
+      <div className="submenu-dropdown">
+        <Link to="/gatos/alimentos"> Alimentos</Link>
+        <Link to="/gatos/snacks"> Snacks</Link>
+        <Link to="/gatos/higiene"> Higiene</Link>
+      </div>
+    </div>
+
+    <div className="submenu-container">
+      <button className="submenu-btn">🦜 Aves</button>
+      <div className="submenu-dropdown">
+        <Link to="/aves/alimentos"> Alimentos</Link>
+        <Link to="/aves/accesorios"> Jaulas y Accesorios</Link>
+        <Link to="/aves/higiene"> Higiene</Link>
+      </div>
+    </div>
+
+    <div className="submenu-container">
+      <button className="submenu-btn">🐟 Peces</button>
+      <div className="submenu-dropdown">
+        <Link to="/peces/alimentos"> Alimentos</Link>
+        <Link to="/peces/accesorios"> Peceras y Accesorios</Link>
+        <Link to="/peces/higiene"> Higiene</Link>
+      </div>
+    </div>
+
+    <Link to="/preguntasfrec" className="submenu-btn">Preguntas Frecuentes</Link>
+  </div>
+
+  </>
   );
 };
 

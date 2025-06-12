@@ -170,7 +170,7 @@ if (data.imagenPerfil && typeof data.imagenPerfil === "string" && data.imagenPer
               {imagenPerfilUrl ? (
   <img src={imagenPerfilUrl} alt="Imagen de perfil" width={200} height={200} />
 ) : (
-  <p>No hay imagen de perfil</p>
+  <p>Sin imagen de perfil</p>
 )}
 
             </div>
