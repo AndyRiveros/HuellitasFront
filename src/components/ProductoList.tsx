@@ -153,8 +153,7 @@ const ProductoList: React.FC = () => {
   }
 
   // Mostrar el carrito flotante solo si el usuario no es ADMIN y hay productos en el carrito
-  const mostrarCarritoFlotante = !!usuario && usuario.rol !== 'ADMIN' && (carritoContext?.carrito?.length ?? 0) > 0;
-
+const mostrarCarritoFlotante = !!usuario && usuario.rol !== 'ADMIN' && usuario.rol !== 'SUBADMIN' && (carritoContext?.carrito?.length ?? 0) > 0;
   return (
     <>
       <Menu />
@@ -283,7 +282,7 @@ const ProductoList: React.FC = () => {
                       Envios Gratis
                     </p>
                   )}
-                  {usuario?.rol !== 'ADMIN' && (
+                  {usuario?.rol !== 'ADMIN' && usuario?.rol !== 'SUBADMIN' &&(
                     <button onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
                   )}
                   <Link to={`/producto/${producto.id}`}>

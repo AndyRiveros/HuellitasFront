@@ -65,7 +65,7 @@ const Home = () => {
   return (
     <div>
       <Menu />
-      <div className="home-container home"  style={{ paddingTop: '170px' }}>
+      <div className="home-container home"  style={{ paddingTop: '100px' }}>
         <div className="title-container divsep">
           <h2 className="title anton-regular">HUELLITAS - Pet Shop</h2>
         </div>
@@ -81,7 +81,7 @@ Nos especializamos en ofrecer productos para todo tipo de mascotas, desde perros
         
 
   {/* Mostrar el carrito flotante solo si el usuario no es ADMIN */}
-        {!!usuario && usuario.rol !== 'ADMIN' && (carritoContext?.carrito?.length ?? 0) > 0 && (
+ {!!usuario && usuario.rol !== 'ADMIN' && usuario.rol !== 'SUBADMIN' && (carritoContext?.carrito?.length ?? 0) > 0 && (
   <FloatingCarritoButton onClick={abrirCarrito} />
 )}
         <Modal isOpen={showCarrito} onRequestClose={cerrarCarrito}>
@@ -124,11 +124,11 @@ Nos especializamos en ofrecer productos para todo tipo de mascotas, desde perros
                         <h4>{producto.producto}</h4>
                         <p>Precio: ${producto.precio}</p>
                         {/* Mostrar el botón "Agregar al carrito" solo si el usuario no es ADMIN */}
-                        {usuario?.rol !== 'ADMIN' && (
-                          <button onClick={() => agregarAlCarrito(producto)}>
-                            Agregar al carrito
-                          </button>
-                        )}
+                        {usuario?.rol !== 'ADMIN' && usuario?.rol !== 'SUBADMIN' && (
+  <button onClick={() => agregarAlCarrito(producto)}>
+    Agregar al carrito
+  </button>
+)}
                         <Link to={`/producto/${producto.id}`}>
                           <button>Ver detalles</button>
                         </Link>
@@ -167,11 +167,11 @@ Nos especializamos en ofrecer productos para todo tipo de mascotas, desde perros
                         <h4>{producto.producto}</h4>
                         <p>Precio: ${producto.precio}</p>
                        {/* Mostrar el botón "Agregar al carrito" solo si el usuario no es ADMIN */}
-                        {usuario?.rol !== 'ADMIN' && (
-                          <button onClick={() => agregarAlCarrito(producto)}>
-                            Agregar al carrito
-                          </button>
-                        )}
+                        {usuario?.rol !== 'ADMIN' && usuario?.rol !== 'SUBADMIN' && (
+  <button onClick={() => agregarAlCarrito(producto)}>
+    Agregar al carrito
+  </button>
+)}
                         <Link to={`/producto/${producto.id}`}>
                           <button>Ver detalles</button>
                         </Link>
@@ -210,11 +210,11 @@ Nos especializamos en ofrecer productos para todo tipo de mascotas, desde perros
                         <h4>{producto.producto}</h4>
                         <p>Precio: ${producto.precio}</p>
                        {/* Mostrar el botón "Agregar al carrito" solo si el usuario no es ADMIN */}
-                        {usuario?.rol !== 'ADMIN' && (
-                          <button onClick={() => agregarAlCarrito(producto)}>
-                            Agregar al carrito
-                          </button>
-                        )}
+                        {usuario?.rol !== 'ADMIN' && usuario?.rol !== 'SUBADMIN' && (
+  <button onClick={() => agregarAlCarrito(producto)}>
+    Agregar al carrito
+  </button>
+)}
                         <Link to={`/producto/${producto.id}`}>
                           <button>Ver detalles</button>
                         </Link>

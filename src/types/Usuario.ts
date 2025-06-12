@@ -1,7 +1,7 @@
 export enum Rol {
     ADMIN = 'ADMIN',
     OPERADOR = 'OPERADOR',
-    VISOR = 'VISOR'
+    SUBADMIN = 'SUBADMIN'
 }
 
 export default interface Usuario {

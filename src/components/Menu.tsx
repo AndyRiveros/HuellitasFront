@@ -60,10 +60,10 @@ const Menu = () => {
             <li className="menu-item main-option">
               <Link to="/perfil" onClick={handlePerfilClick}>MI PERFIL</Link>
             </li>
-            {usuario && usuario.rol === 'ADMIN' && (
+            {usuario && (usuario.rol === 'ADMIN' || usuario.rol === 'SUBADMIN') && (
               <>
                 <li className="menu-item main-option"><Link to="/inventario">INVENTARIO</Link></li>
-                <li className="menu-item main-option"><Link to="/google-charts">-EN DESARROLLO-</Link></li>
+                <li className="menu-item main-option"><Link to="/admin-usuarios">USUARIOS</Link></li>
               </>
             )}
           </div>
@@ -81,7 +81,7 @@ const Menu = () => {
       </nav>
 
   {/* SUBMENU - versión Lio-Rama */}
-  <div className="submenu">
+  {/* <div className="submenu">
 
     <Link to="/accesorios" className="submenu-btn">Accesorios</Link>
 
@@ -122,7 +122,7 @@ const Menu = () => {
     </div>
 
     <Link to="/preguntasfrec" className="submenu-btn">Preguntas Frecuentes</Link>
-  </div>
+  </div> */}
 
   </>
   );
