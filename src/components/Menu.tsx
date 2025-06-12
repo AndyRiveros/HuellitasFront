@@ -27,10 +27,6 @@ const Menu = () => {
     }
   };
 
-  const handleSearch = (query: string) => {
-    alert(`Buscar: ${query}`);
-  };
-
   // Botón de sesión dinámico
   const sessionButton = usuario ? (
     <button className="logout-button logout-red" onClick={handleCerrarSesion}>Cerrar Sesión</button>
