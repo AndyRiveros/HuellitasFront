@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Usuario from '../types/Usuario';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/LoginSignup.css';
+import { Rol } from '../types/Usuario';
 
 function Signup() {
   const [nombreUsuario, setNombreUsuario] = useState('');
   const [clave, setClave] = useState('');
-  const [rol, setRol] = useState('OPERADOR');
+  const [rol, setRol] = useState<Rol>(Rol.OPERADOR);
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [direccion, setDireccion] = useState('');
@@ -60,7 +61,7 @@ function Signup() {
         setMensaje('Registro exitoso');
         setTimeout(() => navigate('/login'), 1500);
       } else if (response.status === 409) {
-        setMensaje('⚠️ El correo o nombre de usuario ya está en uso.');
+        setMensaje('⚠️ El correo electronico ya está en uso');
       } else {
         const error = await response.text();
         setMensaje(`❌ Error: ${error}`);
@@ -114,10 +115,10 @@ function Signup() {
           </label>
           <label className="label">
             Rol:
-            <select value={rol} onChange={(e) => setRol(e.target.value)} className="input">
-              <option value="ADMIN">ADMIN</option>
-              <option value="OPERADOR">OPERADOR</option>
-            </select>
+           <select value={rol} onChange={(e) => setRol(e.target.value as Rol)} className="input">
+          <option value={Rol.ADMIN}>ADMIN</option>
+          <option value={Rol.OPERADOR}>OPERADOR</option>
+           </select>
           </label>
           <div className="submit" style={{ marginTop: '15px' }}>
             <input type="submit" value="REGISTRARSE" className="submit div" autoComplete="off" />
