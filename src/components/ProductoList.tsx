@@ -184,69 +184,73 @@ const ProductoList: React.FC = () => {
         />
         <button onClick={cerrarCarrito}>Cerrar Carrito</button>
       </Modal>
+      
       <div className="producto-list-container">
         <aside className="categorias-sidebar">
           <h3>Filtros</h3>
-          <div className="categorias-botones">
-            <button
-              className={
-                filtroEspecie.length === 0 && filtroTipo.length === 0 && filtroEtapa.length === 0
-                  ? "categoria-btn active"
-                  : "categoria-btn"
-              }
-              onClick={() => {
-                setFiltroEspecie([]);
-                setFiltroTipo([]);
-                setFiltroEtapa([]);
-                setPaginaActual(1);
-              }}
-            >
-              Todos los productos
-            </button>
-          </div>
-          <div className="filtro-grupo">
-            <span style={{ fontWeight: 'bold' }}>Especie:</span>
-            {["perro", "gato", "ave", "pez"].map(especie => (
-              <button
-                key={especie}
-                className={filtroEspecie.includes(especie) ? "categoria-btn active" : "categoria-btn"}
-                onClick={() => toggleFiltro(especie, filtroEspecie, setFiltroEspecie)}
-              >
-                {especie.charAt(0).toUpperCase() + especie.slice(1)}
-              </button>
-            ))}
-          </div>
-          <div className="filtro-grupo">
-            <span style={{ fontWeight: 'bold' }}>Tipo:</span>
-            {[
-              { key: "alimento", label: "Alimentos" },
-              { key: "accesorios", label: "Accesorios" },
-              { key: "salud", label: "Salud" },
-              { key: "estetica", label: "Estética e Higiene" },
-              { key: "snack", label: "Snacks" },
-              { key: "oferta", label: "Ofertas" }
-            ].map(tipo => (
-              <button
-                key={tipo.key}
-                className={filtroTipo.includes(tipo.key) ? "categoria-btn active" : "categoria-btn"}
-                onClick={() => toggleFiltro(tipo.key, filtroTipo, setFiltroTipo)}
-              >
-                {tipo.label}
-              </button>
-            ))}
-          </div>
-          <div className="filtro-grupo">
-            <span style={{ fontWeight: 'bold' }}>Etapa:</span>
-            {["cachorro", "adulto", "senior"].map(etapa => (
-              <button
-                key={etapa}
-                className={filtroEtapa.includes(etapa) ? "categoria-btn active" : "categoria-btn"}
-                onClick={() => toggleFiltro(etapa, filtroEtapa, setFiltroEtapa)}
-              >
-                {etapa.charAt(0).toUpperCase() + etapa.slice(1)}
-              </button>
-            ))}
-          </div>
+      <div className="categorias-botones">
+        <button
+          className={
+            filtroEspecie.length === 0 && filtroTipo.length === 0 && filtroEtapa.length === 0
+              ? "categoria-btn active"
+              : "categoria-btn"
+          }
+          onClick={() => {
+            setFiltroEspecie([]);
+            setFiltroTipo([]);
+            setFiltroEtapa([]);
+            setPaginaActual(1);
+          }}
+        >
+          Todos los productos
+        </button>
+      </div>
+      <div className="filtro-grupo">
+        <span style={{ fontWeight: 'bold' }}>Especie:</span>
+        {["perro", "gato", "ave", "pez"].map(especie => (
+          <label key={especie} style={{ display: 'block', marginBottom: 4 }}>
+            <input
+              type="checkbox"
+              checked={filtroEspecie.includes(especie)}
+              onChange={() => toggleFiltro(especie, filtroEspecie, setFiltroEspecie)}
+            />
+            {especie.charAt(0).toUpperCase() + especie.slice(1)}
+          </label>
+        ))}
+      </div>
+<div className="filtro-grupo">
+  <span style={{ fontWeight: 'bold' }}>Tipo:</span>
+  {[
+    { key: "alimento", label: "Alimentos" },
+    { key: "accesorios", label: "Accesorios" },
+    { key: "salud", label: "Salud" },
+    { key: "estetica", label: "Estética e Higiene" },
+    { key: "snack", label: "Snacks" },
+    { key: "oferta", label: "Ofertas" }
+  ].map(tipo => (
+    <label key={tipo.key} style={{ display: 'block', marginBottom: 4 }}>
+      <input
+        type="checkbox"
+        checked={filtroTipo.includes(tipo.key)}
+        onChange={() => toggleFiltro(tipo.key, filtroTipo, setFiltroTipo)}
+      />
+      {tipo.label}
+    </label>
+  ))}
+</div>
+<div className="filtro-grupo">
+  <span style={{ fontWeight: 'bold' }}>Etapa:</span>
+  {["cachorro", "adulto", "senior"].map(etapa => (
+    <label key={etapa} style={{ display: 'block', marginBottom: 4 }}>
+      <input
+        type="checkbox"
+        checked={filtroEtapa.includes(etapa)}
+        onChange={() => toggleFiltro(etapa, filtroEtapa, setFiltroEtapa)}
+      />
+      {etapa.charAt(0).toUpperCase() + etapa.slice(1)}
+    </label>
+  ))}
+</div>
         </aside>
 
         {/* Columna derecha: Productos en grilla */}
