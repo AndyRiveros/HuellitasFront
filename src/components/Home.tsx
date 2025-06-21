@@ -88,17 +88,35 @@ Nos especializamos en ofrecer productos para todo tipo de mascotas, desde perros
           <Carrito carrito={carritoContext?.carrito || []} onEliminarDelCarrito={carritoContext?.eliminarDelCarrito || (() => {})} />
           <button onClick={cerrarCarrito}>Cerrar Carrito</button>
         </Modal>
-        <Carousel className="custom-carousel">
-          <Carousel.Item>
-            <img className="d-block w-100" src="img/banner.jpg" alt="Imagen 1" />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img className="d-block w-100" src="img/banner2.jpg" alt="Imagen 2" />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img className="d-block w-100" src="https://thumbs.dreamstime.com/b/muchos-gatos-de-diferentes-razas-y-tama%C3%B1os-sobre-fondo-blanco-banner-web-para-publicidad-cl%C3%ADnicas-veterinarias-sal%C3%B3n-belleza-278094388.jpg" alt="Imagen 3" />
-          </Carousel.Item>
-        </Carousel>
+    <Carousel className="custom-carousel">
+  <Carousel.Item>
+    <img 
+      className="d-block w-100"
+      src="img/linea de paseo.png"
+      alt="Imagen de animales"
+      style={{ objectFit: 'cover', height: '300px', objectPosition: 'center' }} 
+    />
+  </Carousel.Item>
+
+  <Carousel.Item>
+    <img 
+      className="d-block w-100"
+      src="img/image copy.png"
+      alt="Imagen 2"
+      style={{ objectFit: 'cover', height: '300px', objectPosition: 'center' }} 
+    />
+  </Carousel.Item>
+
+  <Carousel.Item>
+    <img 
+      className="d-block w-100"
+      src="img/image.png"
+      alt="Imagen 3"
+      style={{ objectFit: 'cover', height: '300px', objectPosition: 'center' }} 
+    />
+  </Carousel.Item>
+</Carousel>
+
         {/* Carrusel de productos existentes */}
         <div className="productos-existentes">
           <h3 className="section-title">Nuestros Productos</h3>
