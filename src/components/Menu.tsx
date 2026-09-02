@@ -46,7 +46,7 @@ const Menu = () => {
           {/* IZQUIERDA: Logo */}
           <div className="menu-left">
             <li>
-              <Link to="/home">
+              <Link to="/">
                 <img src="/img/logo.jpg" alt="Logo" className="logo-img" />
               </Link>
             </li>
@@ -54,7 +54,7 @@ const Menu = () => {
           
           {/* CENTRO: Opciones principales */}
           <div className="menu-center">
-            <li className="menu-item main-option"><Link to="/home">HOME</Link></li>
+            <li className="menu-item main-option"><Link to="/">HOME</Link></li>
             <li className="menu-item main-option"><Link to="/mapa">DONDE ESTAMOS</Link></li>
             <li className="menu-item main-option"><Link to="/productos">PRODUCTOS</Link></li>
             <li className="menu-item main-option">

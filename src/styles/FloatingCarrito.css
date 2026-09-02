@@ -18,3 +18,14 @@
   background-color: #cc1fa7;
   transform: scale(1.05);
 }
+
+@media (max-width: 480px) {
+  .floating-carrito-button {
+    bottom: 15px;
+
+    right: 15px;
+    padding: 10px 15px;
+    
+    font-size: 14px;
+  }
+}

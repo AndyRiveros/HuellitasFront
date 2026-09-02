@@ -167,9 +167,136 @@
   border-radius: 6px;
 }
 
-/* Hover en ítems del dropdown */
+/* Hover en items del dropdown */
 .submenu-dropdown a:hover {
   background-color: #6E2A65;
   color: white;
   transform: scale(1.05);
+}
+
+/*table*/
+
+@media (max-width: 992px) {
+
+  .menu {
+    height: 85px;
+
+    overflow-x: auto;
+  }
+
+  .menu-list {
+    width: max-content;
+    min-width: 100%;
+
+    padding: 0 10px;
+  }
+
+  .logo-img {
+    height: 70px;
+  }
+
+  .menu-left,
+  .menu-center,
+  .menu-right {
+    gap: 5px;
+    flex-shrink: 0;
+  }
+
+  .menu-item.main-option a {
+    font-size: 0.95em;
+    min-width: 100px;
+
+    padding: 8px 10px;
+  }
+
+  .logout-button {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+
+/* respon celu */
+
+@media (max-width: 768px) {
+
+  .menu {
+    height: 70px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .menu-list {
+    width: max-content;
+    min-width: max-content;
+    padding: 0 8px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+  }
+
+  .logo-img {
+    height: 55px;
+  }
+
+  .menu-left,
+  .menu-center,
+  .menu-right {
+    gap: 3px;
+    flex-shrink: 0;
+  }
+
+  .menu-center {
+    flex-shrink: 0;
+  }
+
+  .menu-item.main-option a {
+    font-size: 0.8em;
+    min-width: auto;
+    padding: 6px 8px;
+    white-space: nowrap;
+  }
+
+  .menu-right {
+    padding-right: 15px;
+    flex-shrink: 0;
+  }
+
+  .logout-button {
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: max-content;
+  }
+}
+
+
+/* chico */
+
+@media (max-width: 480px) {
+
+  .menu {
+    height: 60px;
+  }
+
+  .menu-list {
+    padding: 0 5px;
+  }
+
+  .logo-img {
+    height: 48px;
+  }
+
+  .menu-item.main-option a {
+    font-size: 0.7em;
+    padding: 5px 6px;
+  }
+
+  .logout-button {
+    font-size: 0.75em;
+    padding: 6px 8px;
+
+    min-width: max-content;
+
+    white-space: nowrap;
+  }
 }
