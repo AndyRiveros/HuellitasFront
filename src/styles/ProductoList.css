@@ -67,6 +67,7 @@
 }
 
 .filtro-grupo input[type="checkbox"] {
+  
   accent-color: #2e6eea;
   width: 16px;
   height: 16px;
@@ -77,7 +78,7 @@
   margin-bottom: 18px;
 }
 
-.categoria-btn {;
+.categoria-btn {
   background: #fff;
   border: 1px solid #2e6eea;
   color: #2e6eea;
@@ -109,4 +110,89 @@
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 28px;
   width: 100%;
+}
+
+/*tablets*/
+@media (max-width: 992px) {
+  .producto-list-container {
+    gap: 20px;
+    padding: 160px 3vw 60px 3vw;
+  }
+
+  .categorias-sidebar {
+    min-width: 200px;
+    max-width: 220px;
+    margin-right: 0;
+    padding: 16px 14px;
+  }
+
+  .categorias-sidebar h3 {
+    font-size: 1.5rem;
+  }
+
+  .filtro-grupo span {
+    font-size: 1.3rem;
+  }
+
+  .filtro-grupo label {
+    font-size: 1.1rem;
+  }
+
+  .productos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+}
+
+/*celulares */
+@media (max-width: 768px) {
+  .producto-list-container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 130px 4vw 50px 4vw;
+  }
+
+  .categorias-sidebar {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-right: 0;
+  }
+
+  .categorias-sidebar h3 {
+    font-size: 1.4rem;
+  }
+
+  .filtro-grupo span {
+    font-size: 1.2rem;
+  }
+
+  .filtro-grupo label {
+    font-size: 1rem;
+  }
+
+  .productos-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+}
+
+/* para telefono pequeños */
+@media (max-width: 480px) {
+  .producto-list-container {
+    padding: 110px 15px 40px 15px;
+  }
+
+  .productos-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .categorias-sidebar {
+    padding: 15px;
+  }
+
+  .categoria-btn {
+    font-size: 0.9rem;
+  }
 }

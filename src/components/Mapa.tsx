@@ -30,7 +30,7 @@ const Mapa = () => {
             className="btn-maps"
             onClick={() =>
               window.open(
-                'https://goo.gl/maps/yourspecificlink', // reemplazá con link real
+                'https://www.google.com/maps/search/?api=1&query=Mendoza+Shopping+Mendoza+Argentina',
                 '_blank'
               )
             }

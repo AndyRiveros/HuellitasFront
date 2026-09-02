@@ -83,3 +83,73 @@ button {
 button:hover {
   background-color: #5a0cae; /* Botón más oscuro al pasar el mouse */
 }
+
+
+@media (max-width: 768px) {
+
+  .producto-detail {
+    padding-top: 110px;
+    padding-bottom: 60px;
+  }
+
+  .producto-card {
+    width: 90%;
+    padding: 25px 20px;
+  }
+
+  .producto-image img {
+    width: 220px;
+    max-width: 100%;
+  }
+
+  .producto-info h1 {
+    font-size: 1.6em;
+  }
+
+  .producto-info h2 {
+    font-size: 1.3em;
+  }
+}
+
+
+/*celu */
+
+@media (max-width: 480px) {
+
+  .producto-detail {
+    padding-top: 90px;
+    padding-bottom: 40px;
+  }
+
+  .producto-card {
+    width: 92%;
+    padding: 20px 15px;
+    border-radius: 12px;
+  }
+
+  .producto-image img {
+    width: 180px;
+    max-width: 100%;
+  }
+
+  .producto-info h1 {
+    font-size: 1.4em;
+  }
+
+  .producto-info h2 {
+    font-size: 1.2em;
+  }
+
+  .producto-info p {
+    font-size: 0.95em;
+  }
+
+  .producto-info small {
+    font-size: 0.8em;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+  }
+}

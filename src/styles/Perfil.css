@@ -278,3 +278,107 @@
   cursor: pointer;
   margin-top: 8px;
 }
+
+/* tabel */
+
+@media (max-width: 768px) {
+
+  .profile-wrapper {
+    width: 90%;
+    margin: 90px auto;
+    padding: 30px 20px;
+    box-sizing: border-box;
+  }
+
+  .profile-card {
+    flex-direction: column;
+  }
+
+  .profile-right {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .upload-area {
+    max-width: 100%;
+  }
+
+  .upload-area input {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .mascotas-list {
+    justify-content: center;
+  }
+}
+
+
+/* R celu */
+
+@media (max-width: 480px) {
+
+  .perfil-container {
+    padding-top: 80px;
+    padding-bottom: 100px;
+  }
+
+  .perfil-card {
+    width: 92%;
+    padding: 15px;
+    box-sizing: border-box;
+  }
+
+  .profile-wrapper {
+    width: 94%;
+    margin: 80px auto;
+    padding: 20px 12px;
+  }
+
+  .profile-title {
+    font-size: 22px;
+  }
+
+  .profile-left {
+    padding: 15px;
+  }
+
+  .profile-right {
+    padding: 15px;
+  }
+
+  .profile-photo {
+    width: 130px;
+    height: 130px;
+  }
+
+  .no-photo {
+    width: 140px;
+    height: 140px;
+  }
+
+  .upload-area input {
+    width: 100%;
+    max-width: 100%;
+    font-size: 13px;
+  }
+
+  .btn-edit,
+  .btn-save,
+  .btn-upload {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .mascotas-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mascota-card {
+    width: 90%;
+    max-width: 280px;
+    box-sizing: border-box;
+  }
+}

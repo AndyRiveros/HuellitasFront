@@ -96,7 +96,7 @@ function Login() {
             </p>
           </div>
           <div className="div" style={{ marginTop: '15px' }}>
-            <Link to="/home" style={{ color: 'blue', textDecoration: 'underline' }}>
+            <Link to="/" style={{ color: 'blue', textDecoration: 'underline' }}>
               Continuar a la web sin registrarme
             </Link>
             <p style={{ fontSize: '0.9em', color: '#555', marginTop: '5px' }}>

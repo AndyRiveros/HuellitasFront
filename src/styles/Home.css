@@ -423,3 +423,204 @@
 .nav-logo img {
   height: 60px; /* Ajustá según el tamaño que quieras */
 }
+
+/* R tablet */
+
+@media (max-width: 992px) {
+
+  .home-container.home {
+    padding-top: 110px;
+  }
+
+  .anton-regular {
+    font-size: 40px;
+  }
+
+  .carousel .carousel-image {
+    height: 400px;
+  }
+
+  .custom-carousel img {
+    height: 250px;
+  }
+
+  .productos-row {
+    gap: 20px;
+    padding: 0 20px 40px;
+  }
+
+  .descripcion-profesional {
+    width: 90%;
+    max-width: 700px;
+  }
+
+  .contenido-bienvenida {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .texto-bienvenida {
+    min-width: 250px;
+  }
+}
+
+
+/* celu */
+
+@media (max-width: 768px) {
+
+  .home-container.home {
+    padding-top: 90px;
+    padding-bottom: 30px;
+  }
+
+  .anton-regular {
+    font-size: 32px;
+  }
+
+  .carousel .carousel-image {
+    height: 250px;
+  }
+
+  .custom-carousel img {
+    height: 220px;
+  }
+
+  .title-container {
+    font-size: 50px;
+  }
+
+  .productos-existentes {
+    margin-top: 30px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .productos-row {
+    gap: 15px;
+    padding: 0 15px 30px;
+  }
+
+  .producto-card {
+    width: 45%;
+    min-width: 160px;
+    max-width: 200px;
+  }
+
+  .producto-imagen {
+    height: 120px;
+  }
+
+  .producto-card h4 {
+    font-size: 16px;
+  }
+
+  .producto-card p {
+    font-size: 14px;
+  }
+
+  .descripcion-profesional {
+    width: 90%;
+    max-width: none;
+    padding: 1.2rem;
+    margin: 2rem auto;
+  }
+
+  .bienvenida {
+    font-size: 1.4rem;
+  }
+
+  .frase-impacto {
+    font-size: 1rem;
+  }
+
+  .lista-beneficios li {
+    font-size: 0.9rem;
+  }
+
+  .contenido-bienvenida {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .texto-bienvenida {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .imagen-bienvenida img {
+    max-width: 280px;
+  }
+
+  .carrito-flotante {
+    bottom: 15px;
+    right: 15px;
+    padding: 8px;
+  }
+
+  .carrito-icono {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+
+/* celu pequeño */
+
+@media (max-width: 480px) {
+
+  .home-container.home {
+    padding-top: 80px;
+  }
+
+  .anton-regular {
+    font-size: 26px;
+  }
+
+  .carousel .carousel-image {
+    height: 200px;
+  }
+
+  .custom-carousel img {
+    height: 180px;
+  }
+
+  .productos-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .producto-card {
+    width: 90%;
+    max-width: 280px;
+  }
+
+  .producto-imagen {
+    height: 150px;
+  }
+
+  .descripcion-profesional {
+    width: 92%;
+    padding: 1rem;
+  }
+
+  .bienvenida {
+    font-size: 1.25rem;
+  }
+
+  .seccion-bienvenida {
+    padding: 25px 10px;
+  }
+
+  .imagen-bienvenida img {
+    max-width: 240px;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 30px;
+    height: 30px;
+  }
+}
