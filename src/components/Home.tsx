@@ -90,13 +90,13 @@ Nos especializamos en ofrecer productos para todo tipo de mascotas, desde perros
         </Modal>
         <Carousel className="custom-carousel">
           <Carousel.Item>
-            <img className="d-block w-100" src="img/banner.jpg" alt="Imagen 1" />
+            <img className="d-block w-100" src="img/bannerNuevo1.avif" alt="Imagen 1" />
           </Carousel.Item>
           <Carousel.Item>
-            <img className="d-block w-100" src="img/banner2.jpg" alt="Imagen 2" />
+            <img className="d-block w-100" src="img/bannerNuevo2.jpg" alt="Imagen 2" />
           </Carousel.Item>
           <Carousel.Item>
-            <img className="d-block w-100" src="https://thumbs.dreamstime.com/b/muchos-gatos-de-diferentes-razas-y-tama%C3%B1os-sobre-fondo-blanco-banner-web-para-publicidad-cl%C3%ADnicas-veterinarias-sal%C3%B3n-belleza-278094388.jpg" alt="Imagen 3" />
+            <img className="d-block w-100" src="img/bannerNuevo3.jpg" alt="Imagen 3" />
           </Carousel.Item>
         </Carousel>
         {/* Carrusel de productos existentes */}

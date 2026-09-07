@@ -13,7 +13,7 @@ const InventarioList: React.FC = () => {
 
   // Paginación
   const [paginaActual, setPaginaActual] = useState(1);
-  const productosPorPagina = 15;
+  const productosPorPagina = 10;
 
   const cerrarModal = () => {
     setShowModal(false);
