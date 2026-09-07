@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import CarritoItem from '../types/CarritoItem';
 import CheckoutMP from './CheckoutMP';
+import { CarritoContext } from './CarritoContext';
 
 interface CarritoProps {
+
   carrito: CarritoItem[];
   onEliminarDelCarrito: (index: number) => void;
 }
 
-const Carrito: React.FC<CarritoProps> = ({ carrito, onEliminarDelCarrito }) => {
+const Carrito: React.FC<CarritoProps> = ({
+  carrito,
+  onEliminarDelCarrito,
+}) => {
+  const carritoContext = useContext(CarritoContext);
+
   const total = carrito.reduce(
-    (sum, item) => sum + Number(item.producto.precio) * item.cantidad,
+    (sum, item) =>
+      sum + Number(item.producto.precio) * item.cantidad,
     0
   );
 
@@ -19,23 +27,27 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, onEliminarDelCarrito }) => {
         maxWidth: '480px',
         margin: '30px auto',
         padding: '20px',
-        background: 'linear-gradient(135deg, #6a0dad 0%, #b19cd9 100%)',
+        background:
+          'linear-gradient(135deg, #6a0dad 0%, #b19cd9 100%)',
         borderRadius: '16px',
-        boxShadow: '0 8px 20px rgba(106, 13, 173, 0.3)',
+        boxShadow:
+          '0 8px 20px rgba(106, 13, 173, 0.3)',
         color: 'white',
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+        fontFamily:
+          "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
       }}
     >
       <h2
         style={{
           marginBottom: '20px',
           fontWeight: '700',
-          textShadow: '0 2px 4px rgba(0,0,0,0.5)',
+          textShadow:
+            '0 2px 4px rgba(0,0,0,0.5)',
           letterSpacing: '1.2px',
           textAlign: 'center',
         }}
       >
-        Tu Carrito
+      Carro de la compra
       </h2>
 
       {carrito.length === 0 ? (
@@ -47,7 +59,7 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, onEliminarDelCarrito }) => {
             color: '#d3c3f5',
           }}
         >
-          El carrito está vacío 😢
+          Todavia no hay artículos en tu carrito. 😢
         </p>
       ) : (
         <>
@@ -65,60 +77,116 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, onEliminarDelCarrito }) => {
           >
             {carrito.map((item, index) => (
               <li
-                key={index}
+                key={item.producto.id}
                 style={{
-                  background: 'rgba(255, 255, 255, 0.15)',
-                  padding: '12px 20px',
+                  background:
+                    'rgba(255, 255, 255, 0.15)',
+                  padding: '12px 16px',
                   borderRadius: '12px',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  boxShadow: 'inset 0 0 8px rgba(255, 255, 255, 0.15)',
+                  gap: '15px',
+                  boxShadow:
+                    'inset 0 0 8px rgba(255, 255, 255, 0.15)',
                   fontWeight: '600',
                 }}
               >
-                <div>
-                  {item.producto.producto} - ${item.producto.precio} x{' '}
-                  {item.cantidad}
-                </div>
-                <button
-                  onClick={() => onEliminarDelCarrito(index)}
+                {/* Producto y precio */}
+                <div
                   style={{
-                    backgroundColor: '#d89fff',
-                    border: 'none',
-                    padding: '6px 12px',
-                    borderRadius: '8px',
-                    color: '#4b0082',
-                    fontWeight: '700',
-                    cursor: 'pointer',
-                    transition: 'background-color 0.25s ease',
+                    flex: 1,
+                    minWidth: 0,
                   }}
-                  onMouseEnter={e =>
-                    (e.currentTarget.style.backgroundColor = '#b479e2')
-                  }
-                  onMouseLeave={e =>
-                    (e.currentTarget.style.backgroundColor = '#d89fff')
-                  }
-                  aria-label={`Eliminar ${item.producto.producto} del carrito`}
                 >
-                  Eliminar
-                </button>
+                  {item.producto.producto} - $
+                  {item.producto.precio}
+                </div>
+
+                {/* Controles */}
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    flexShrink: 0,
+                  }}
+                >
+                  {/* MENOS */}
+                  <button
+                    type="button"
+                    onClick={() =>
+                      onEliminarDelCarrito(index)
+                    }
+                    style={{
+                      backgroundColor: '#d89fff',
+                      border: 'none',
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '8px',
+                      color: '#4b0082',
+                      fontWeight: '700',
+                      fontSize: '18px',
+                      cursor: 'pointer',
+                    }}
+                    aria-label={`Disminuir cantidad de ${item.producto.producto}`}
+                  >
+                    −
+                  </button>
+
+                  {/* CANTIDAD */}
+                  <span
+                    style={{
+                      minWidth: '20px',
+                      textAlign: 'center',
+                    }}
+                  >
+                    {item.cantidad}
+                  </span>
+
+                  {/* MAS */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      carritoContext?.agregarAlCarrito(
+                        item.producto
+                      );
+                    }}
+                    style={{
+                      backgroundColor: '#d89fff',
+                      border: 'none',
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '8px',
+                      color: '#4b0082',
+                      fontWeight: '700',
+                      fontSize: '18px',
+                      cursor: 'pointer',
+                    }}
+                    aria-label={`Aumentar cantidad de ${item.producto.producto}`}
+                  >
+                    +
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
 
+          {/* TOTAL */}
           <p
             style={{
               textAlign: 'right',
               fontSize: '1.3rem',
               fontWeight: '700',
-              textShadow: '0 1px 2px rgba(0,0,0,0.3)',
+              textShadow:
+                '0 1px 2px rgba(0,0,0,0.3)',
               marginBottom: '25px',
             }}
           >
             Total: ${total.toFixed(2)}
           </p>
 
+          {/* MERCADO PAGO */}
           <CheckoutMP montoCarrito={total} />
         </>
       )}

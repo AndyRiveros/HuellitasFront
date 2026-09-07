@@ -30,7 +30,7 @@ const ProductoList: React.FC = () => {
 
   // Paginación
   const [paginaActual, setPaginaActual] = useState(1);
-  const productosPorPagina = 15;
+  const productosPorPagina = 10;
   // Obtener búsqueda enviada desde la lupita superior
   useEffect(() => {
     const busquedaURL = searchParams.get('busqueda') || '';
