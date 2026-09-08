@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Usuario, { Rol } from '../types/Usuario';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/LoginSignup.css';
+import { API_URL } from "../utils/api";
+
 
 function Signup() {
   const [nombreUsuario, setNombreUsuario] = useState('');
@@ -48,7 +50,7 @@ function Signup() {
         telefono
       };
 
-      const response = await fetch('http://localhost:8080/usuarios', {
+      const response = await fetch(`${API_URL}/usuarios`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

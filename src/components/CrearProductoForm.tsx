@@ -4,6 +4,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import {  useNavigate } from 'react-router-dom';
 import Categoria from '../types/Categoria';
+import { API_URL } from "../utils/api";
 // import Resizer from 'react-image-file-resizer'; // Import the Resizer module
 
 import '../styles/CrearProducto.css'; // Importa tu archivo CSS aquí
@@ -14,7 +15,7 @@ const CrearProductoForm: React.FC = () => {
     const [categorias, setCategorias] = useState<Categoria[]>([]);
   
     useEffect(() => {
-      fetch('http://localhost:8080/api/categorias')
+      fetch(`${API_URL}/api/categorias`)
         .then((response) => response.json())
         .then((data) => setCategorias(data));
     }, []);
@@ -37,7 +38,7 @@ const validationSchema = Yup.object().shape({
 
    const handleSubmit = (values: any, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
       
-      fetch(`http://localhost:8080/api/productos?idCategoria=${values.categoria.id}`, {
+      fetch(`${API_URL}/api/productos?idCategoria=${values.categoria.id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

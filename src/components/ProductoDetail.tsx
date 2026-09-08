@@ -1,22 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-
 import { useParams } from 'react-router-dom';
-
 import Producto from '../types/Productos';
-
 import '../styles/ProductoDetail.css';
-
 import Menu from './Menu';
-
 import { AuthContext } from '../utils/AuthContext';
-
 import { CarritoContext } from '../components/CarritoContext';
-
 import Modal from 'react-modal';
-
 import FloatingCarritoButton from './FloatingCarritoButton';
-
 import Carrito from './Carrito';
+import { API_URL } from "../utils/api";
 
 const ProductoDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -38,10 +30,7 @@ const ProductoDetail: React.FC = () => {
 
   useEffect(() => {
     const fetchProducto = async () => {
-      const response = await fetch(
-        `http://localhost:8080/api/productos/${id}`
-      );
-
+      const response = await fetch(`${API_URL}/api/productos/${id}`);
       const data = await response.json();
 
       setProducto(data);
@@ -87,8 +76,7 @@ const ProductoDetail: React.FC = () => {
         totalPedido: total || 0,
       };
 
-      const response = await fetch(
-        'http://localhost:8080/api/pedidos',
+      const response = await fetch(`${API_URL}/api/pedidos`,
         {
           method: 'POST',
           headers: {

@@ -1,26 +1,20 @@
-// Importación de la clase abstracta AbstractBackendClient
-
 import Pedido from "../types/Pedido";
 import PreferenceMP from "../types/PreferenceMP";
 import { AbstractBaseService } from "./abstractBaseService";
+import { API_URL } from "../utils/api";
 
 // Clase abstracta que proporciona métodos genéricos para interactuar con una API
 export default abstract class BaseService<T> extends AbstractBaseService<T> {
   // Método protegido para realizar una solicitud genérica
   protected async request(path: string, options: RequestInit): Promise<T> {
     try {
-      // Realiza una solicitud fetch con la ruta y las opciones proporcionadas
       const response = await fetch(path, options);
-      // Verifica si la respuesta es exitosa
       if (!response.ok) {
         console.log(response.statusText);
-        // Si no es exitosa, lanza un error con el mensaje de estado de la respuesta
         throw new Error(response.statusText);
       }
-      // Retorna los datos de la respuesta en formato JSON
       return response.json();
     } catch (error) {
-      // Si hay algún error, rechaza la promesa con el error
       return Promise.reject(error);
     }
   }
@@ -37,8 +31,6 @@ export default abstract class BaseService<T> extends AbstractBaseService<T> {
       return Promise.reject(error);
     }
   }
-
-  // Implementación de los métodos de la interfaz AbstractCrudService
 
   // Método para obtener un elemento por su ID
   async get(url: string, id: number): Promise<T> {
@@ -104,43 +96,67 @@ export default abstract class BaseService<T> extends AbstractBaseService<T> {
     }
   }
 
-  async saveWithFile(url: string, formData: FormData): Promise<string> {
+  // Método para guardar archivos
+  async saveWithFile(
+    url: string,
+    formData: FormData
+  ): Promise<string> {
     try {
-        const options: RequestInit = {
-            method: 'POST',
-            body: formData
-        };
-        const response = await fetch(url, options);
+      const options: RequestInit = {
+        method: "POST",
+        body: formData,
+      };
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error(
+          `Error al guardar la imagen del producto: ${response.statusText}`
+        );
+      }
+      return response.text();
 
-        if (!response.ok) {
-            throw new Error(`Error al guardar la imagen del producto: ${response.statusText}`);
-        }
-
-        return response.text(); // Devuelve la respuesta del servidor
     } catch (error) {
-        throw new Error(`Error al guardar la imagen del producto`);
+      throw new Error("Error al guardar la imagen del producto");
     }
-  } 
+  }
 
-  async createPreferenceMP(pedido: Pedido): Promise<PreferenceMP> {
-    const urlServer = 'http://localhost:8080/api/mercado_pago/create_preference'; 
+  // Crear preferencia de Mercado Pago
+  async createPreferenceMP(
+    pedido: Pedido
+  ): Promise<PreferenceMP> {
+
+    const urlServer =
+      `${API_URL}/api/mercado_pago/create_preference`;
     try {
       const response = await fetch(urlServer, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(pedido)
+        body: JSON.stringify(pedido),
       });
+
       if (!response.ok) {
-        throw new Error(`Error al crear preferencia de Mercado Pago: ${response.statusText}`);
+        throw new Error(
+          `Error al crear preferencia de Mercado Pago: ${response.statusText}`
+        );
       }
+
       const responseData = await response.json();
-      console.log('Respuesta de la API:', responseData);
+
+      console.log(
+        "Respuesta de la API:",
+        responseData
+      );
+
       return responseData as PreferenceMP;
     } catch (error) {
-      console.error('Error en createPreferenceMP:', error);
+      console.error(
+        "Error en createPreferenceMP:",
+        error
+      );
+
       throw error;
     }
   }
 }
+

@@ -4,6 +4,7 @@ import Usuario from '../types/Usuario';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../utils/AuthContext';
 import '../styles/LoginSignup.css';
+import { API_URL } from "../utils/api";
 
 function AdminLogin() {
   const [nombreUsuario, setNombreUsuario] = useState('');
@@ -22,7 +23,7 @@ function AdminLogin() {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/usuarios');
+      const response = await fetch(`${API_URL}/usuarios`);
       const usuarios: Usuario[] = await response.json();
 
       // Encripta la clave ingresada a SHA-1 y luego a Base64

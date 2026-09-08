@@ -9,6 +9,7 @@ import { CarritoContext } from '../components/CarritoContext';
 import Modal from 'react-modal';
 import Carrito from './Carrito';
 import FloatingCarritoButton from './FloatingCarritoButton';
+import { API_URL } from "../utils/api";
 
 
 const Home = () => {
@@ -26,7 +27,7 @@ const Home = () => {
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/productos');
+        const response = await fetch(`${API_URL}/api/productos`)
         const data = await response.json();
 
         if (Array.isArray(data)) {

@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { useNavigate, useParams } from 'react-router-dom';
 import Producto from '../types/Productos';
 import Categoria from '../types/Categoria';
+import { API_URL } from "../utils/api";
 
 const validationSchema = yup.object().shape({
   producto: yup.string().required('Requerido'),
@@ -45,7 +46,7 @@ const ModificarProducto: React.FC = () => {
 
   useEffect(() => {
     const fetchProductoYCategorias = async () => {
-      const responseProducto = await fetch(`http://localhost:8080/api/productos/${id}`);
+      const responseProducto = await fetch(`${API_URL}/api/productos/${id}`);
       const dataProducto = await responseProducto.json();
 
       // Asegura que categoria.id sea string para el select y validación
@@ -60,7 +61,7 @@ const ModificarProducto: React.FC = () => {
         categoria: { id: String(dataProducto.idCategoria || dataProducto.categoria?.id || '') },
       });
 
-      const responseCategorias = await fetch('http://localhost:8080/api/categorias');
+      const responseCategorias = await fetch(`${API_URL}/api/categorias`);
       const dataCategorias = await responseCategorias.json();
       setCategorias(dataCategorias);
     };
@@ -75,7 +76,7 @@ const ModificarProducto: React.FC = () => {
       idCategoria: Number(values.categoria.id),
     };
     try {
-      const response = await fetch(`http://localhost:8080/api/productos/${id}`, {
+      const response = await fetch(`${API_URL}/api/productos/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

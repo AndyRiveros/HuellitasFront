@@ -4,6 +4,8 @@ import Menu from './Menu';
 import { AuthContext } from '../utils/AuthContext';
 import Mascota from '../types/Mascota';
 import '../styles/Perfil.css';
+import { API_URL } from "../utils/api";
+
 
 const Perfil: React.FC = () => {
   const authContext = useContext(AuthContext);
@@ -33,7 +35,7 @@ const Perfil: React.FC = () => {
   useEffect(() => {
     const fetchUsuario = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/usuarios/${usuario.id}`);
+        const response = await axios.get(`${API_URL}/usuarios/${usuario.id}`)
         const data = response.data;
         setNombre(data.nombre);
         setApellido(data.apellido);
@@ -41,7 +43,7 @@ const Perfil: React.FC = () => {
         setDni(data.dni);
         setMail(data.mail);
         if (data.imagenPerfil && typeof data.imagenPerfil === "string" && data.imagenPerfil.trim() !== "") {
-          setImagenPerfilUrl(`http://localhost:8080${data.imagenPerfil}`);
+          setImagenPerfilUrl(`${API_URL}${data.imagenPerfil}`);
         } else {
           setImagenPerfilUrl(null);
         }
@@ -57,7 +59,7 @@ const Perfil: React.FC = () => {
   // Cargar mascotas si es OPERADOR
   useEffect(() => {
     if (usuario.rol === 'OPERADOR') {
-      axios.get(`http://localhost:8080/api/mascotas/usuario/${usuario.id}`)
+      axios.get(`${API_URL}/api/mascotas/usuario/${usuario.id}`)
         .then(res => setMascotas(res.data))
         .catch(() => setMascotas([]));
     }
@@ -80,8 +82,7 @@ const Perfil: React.FC = () => {
     formData.append("imagen", imagen);
 
     try {
-      const response = await axios.post(
-        `http://localhost:8080/usuarios/subir-imagen/${usuario.id}`,
+      const response = await axios.post(`${API_URL}/usuarios/subir-imagen/${usuario.id}`,
         formData,
         {
           headers: {
@@ -91,7 +92,7 @@ const Perfil: React.FC = () => {
       );
 
       const rutaImagen = response.data;
-      setImagenPerfilUrl(`http://localhost:8080${rutaImagen}`);
+      setImagenPerfilUrl(`${API_URL}${rutaImagen}`);
       alert("Imagen subida con éxito.");
     } catch (error) {
       console.error("Error al subir la imagen:", error);
@@ -102,7 +103,7 @@ const Perfil: React.FC = () => {
   const handleSave = async () => {
     const updatedUsuario = { ...usuario, nombre, apellido, direccion, dni, mail };
     try {
-      const response = await axios.put(`http://localhost:8080/usuarios/${usuario.id}`, updatedUsuario);
+      const response = await axios.put(`${API_URL}/usuarios/${usuario.id}`, updatedUsuario);
       if (response.status === 200) {
         alert("Perfil actualizado correctamente");
         authContext.actualizarPerfil(response.data);
@@ -124,7 +125,7 @@ const Perfil: React.FC = () => {
 
   try {
     // 1. Crear mascota sin imagen para obtener el ID
-    const mascotaRes = await axios.post(`http://localhost:8080/api/mascotas/usuario/${usuario.id}`, {
+    const mascotaRes = await axios.post(`${API_URL}/api/mascotas/usuario/${usuario.id}`, {
   ...nuevaMascota,
   imagen: undefined
 });
@@ -136,16 +137,16 @@ const mascotaId = mascotaRes.data.id;
       const formData = new FormData();
       formData.append('imagen', nuevaMascota.imagen);
       const imgRes = await axios.post(
-        `http://localhost:8080/api/mascotas/subir-imagen/${mascotaId}`,
+        `${API_URL}/api/mascotas/subir-imagen/${mascotaId}`,
         formData,
         { headers: { 'Content-Type': 'multipart/form-data' } }
       );
       // 3. Actualizar la mascota con la ruta de la imagen
-      await axios.put(`http://localhost:8080/api/mascotas/${mascotaId}`, { imagen: imgRes.data });
+      await axios.put(`${API_URL}/api/mascotas/${mascotaId}`, { imagen: imgRes.data });
     }
 
     // Refresca la lista
-    const res = await axios.get(`http://localhost:8080/api/mascotas/usuario/${usuario.id}`);
+    const res = await axios.get(`${API_URL}/api/mascotas/usuario/${usuario.id}`);
     setMascotas(res.data);
     setShowMascotaForm(false);
     setNuevaMascota({ nombre: '', especie: '', raza: '', edad: undefined });
@@ -157,7 +158,7 @@ const mascotaId = mascotaRes.data.id;
 
   // Mascotas: Eliminar
   const handleDeleteMascota = async (id: number) => {
-    await axios.delete(`http://localhost:8080/api/mascotas/${id}`);
+    await axios.delete(`${API_URL}/api/mascotas/${id}`);
     setMascotas(mascotas.filter(m => m.id !== id));
   };
 
@@ -350,7 +351,7 @@ const mascotaId = mascotaRes.data.id;
               {mascotas.map(mascota => (
                 <div key={mascota.id} className="mascota-card">
                   {mascota.imagen && (
-                    <img src={`http://localhost:8080${mascota.imagen}`} alt={mascota.nombre} />
+                    <img src={`${API_URL}${mascota.imagen}`} alt={mascota.nombre} />
                   )}
                   <strong>{mascota.nombre}</strong> ({mascota.especie})<br />
                   {mascota.etapa && <>Etapa: {mascota.etapa}<br /></>}

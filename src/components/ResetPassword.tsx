@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import '../styles/LoginSignup.css';
+import { API_URL } from "../utils/api";
 
 function ResetPassword() {
   const [params] = useSearchParams();
@@ -39,7 +40,7 @@ function ResetPassword() {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/usuarios/resetear-contrasena', {
+      const response = await fetch(`${API_URL}/usuarios/resetear-contrasena`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -4,6 +4,7 @@ import axios from 'axios';
 import Producto from '../types/Productos';
 import Menu from './Menu';
 import { Modal } from 'react-bootstrap';
+import { API_URL } from "../utils/api";
 
 const InventarioList: React.FC = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
@@ -22,7 +23,7 @@ const InventarioList: React.FC = () => {
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/productos');
+        const response = await fetch(`${API_URL}/api/productos`);
         const data = await response.json();
         return data;
       } catch (error) {
@@ -43,12 +44,12 @@ const InventarioList: React.FC = () => {
   const cambiarEstadoProducto = (id: number, isDeleted: boolean) => {
     const nuevoEstado = !isDeleted;
 
-    axios.get(`http://localhost:8080/api/productos/${id}`)
+    axios.get(`${API_URL}/api/productos/${id}`)
       .then(response => {
         const producto = response.data;
         producto.isDeleted = nuevoEstado;
 
-        axios.put(`http://localhost:8080/api/productos/${id}`, producto)
+        axios.put(`${API_URL}/api/productos/${id}`, producto)
           .then(() => {
             setProductos(prevProductos => prevProductos.map(producto =>
               producto.id === id ? { ...producto, isDeleted: nuevoEstado } : producto
