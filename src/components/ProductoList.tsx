@@ -13,6 +13,8 @@ import '../styles/FloatingCarrito.css';
 import FloatingCarritoButton from './FloatingCarritoButton';
 import '../styles/ProductoList.css';
 import Modal from 'react-modal';
+import { API_URL } from "../utils/api";
+
 
 const ProductoList: React.FC = () => {
   const [productos, setProductos] = useState<Producto[] | undefined>(undefined);
@@ -89,7 +91,7 @@ const ProductoList: React.FC = () => {
       };
 
       const response = await axios.post<Pedido>(
-        'http://localhost:8080/api/pedidos',
+        `${API_URL}/api/pedidos`,
         pedido
       );
 
@@ -108,17 +110,13 @@ const ProductoList: React.FC = () => {
             },
           })) || [];
 
-        await axios.post(
-          'http://localhost:8080/api/pedidoDetalles',
-          pedidoDetalles
-        );
+        await axios.post(`${API_URL}/api/pedidoDetalles`, pedidoDetalles);
 
         for (const item of carritoContext?.carrito || []) {
 
           const producto = item.producto;
 
-          await axios.put(
-            `http://localhost:8080/api/productos/${producto.id}/venta`,
+          await axios.put(`${API_URL}/api/productos/${producto.id}/venta`,
             { cantidad: item.cantidad },
             {
               headers: {
@@ -139,7 +137,7 @@ const ProductoList: React.FC = () => {
   };
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/productos')
+    fetch(`${API_URL}/api/productos`)
       .then(response => response.json())
       .then(data => {
         const productosActivos = data.filter(
@@ -153,7 +151,7 @@ const ProductoList: React.FC = () => {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/categorias')
+    fetch(`${API_URL}/api/categorias`)
       .then(response => response.json())
       .then(data => setCategorias(data));
   }, []);

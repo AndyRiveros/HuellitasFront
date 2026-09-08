@@ -4,6 +4,7 @@ import { AuthContext } from '../utils/AuthContext';
 import Menu from './Menu';
 import Footer from './Footer';
 import '../styles/LoginSignup.css';
+import { API_URL } from "../utils/api";
 
 const AdminUsuariosPanel = () => {
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
@@ -44,7 +45,7 @@ const AdminUsuariosPanel = () => {
 
   const fetchUsuarios = async () => {
     try {
-      const response = await fetch('http://localhost:8080/usuarios');
+      const response = await fetch(`${API_URL}/usuarios`);
       const data = await response.json();
       setUsuarios(data);
     } catch {
@@ -65,7 +66,7 @@ const AdminUsuariosPanel = () => {
     if (!id) return;
     if (!window.confirm('¿Seguro que deseas eliminar este usuario?')) return;
     try {
-      await fetch(`http://localhost:8080/usuarios/${id}`, { method: 'DELETE' });
+      await fetch(`${API_URL}/usuarios/${id}`, { method: 'DELETE' });
       setUsuarios(usuarios.filter(u => u.id !== id));
     } catch {
       setMensaje('Error al eliminar usuario');
@@ -93,7 +94,7 @@ const AdminUsuariosPanel = () => {
         telefono
       };
 
-      const response = await fetch('http://localhost:8080/usuarios', {
+      const response = await fetch(`${API_URL}/usuarios`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

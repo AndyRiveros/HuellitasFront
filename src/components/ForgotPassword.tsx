@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/LoginSignup.css';
+import { API_URL } from "../utils/api";
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -10,7 +11,7 @@ function ForgotPassword() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/usuarios/recuperar-contrasena', {
+      const response = await fetch(`${API_URL}/usuarios/recuperar-contrasena`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
